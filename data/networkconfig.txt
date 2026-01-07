@@ -1,0 +1,307 @@
+# NODE 1: SPINE ROUTER 01 (High Performance L3 Core)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Đường xuống Compute Leaf 1
+    eth_to_leaf3:
+      mtu: 9000
+      addresses: ["10.0.1.1/30"]
+    # Đường xuống Compute Leaf 2
+    eth_to_leaf4:
+      mtu: 9000
+      addresses: ["10.0.2.1/30"]
+    # Đường xuống Storage Leaf 1
+    eth_to_leaf5:
+      mtu: 9000
+      addresses: ["10.0.3.1/30"]
+    # Đường lên Edge Router 1
+    eth_to_edge9:
+      addresses: ["10.200.1.2/30"]
+      gateway4: 10.200.1.1 # Default Route ra Internet qua Edge
+
+  # Định tuyến tĩnh đến các mạng con bên dưới Leaf (Trong thực tế sẽ dùng BGP/OSPF)
+  routes:
+    - to: 172.16.20.0/24 # Mạng Compute VM
+      via: 10.0.1.2 # Qua Leaf 3
+      metric: 100
+    - to: 172.16.20.0/24 # Mạng Compute VM (Dự phòng ECMP)
+      via: 10.0.2.2 # Qua Leaf 4
+      metric: 100
+    - to: 172.16.30.0/24 # Mạng Storage SAN
+      via: 10.0.3.2 # Qua Leaf 5
+      metric: 100
+
+---
+# NODE 2: SPINE ROUTER 02 (Redundant L3 Core)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Đường xuống Compute Leaf 1 (Dự phòng cho Spine 1)
+    eth_to_leaf3:
+      mtu: 9000
+      addresses: ["10.0.11.1/30"]
+    # Đường xuống Storage Leaf 2
+    eth_to_leaf6:
+      mtu: 9000
+      addresses: ["10.0.13.1/30"]
+    # Đường lên Edge Router 2
+    eth_to_edge10:
+      addresses: ["10.200.2.2/30"]
+      gateway4: 10.200.2.1
+
+---
+# --- LAYER 2: LEAFS (TOP-OF-RACK SWITCHES / GATEWAYS) ---
+# Nhiệm vụ: Kết nối server qua L2 (Bonding), kết nối lên Spine qua L3. Làm Gateway cho các VLAN.
+
+# NODE 3: COMPUTE LEAF 01 (ToR cho tủ Server Tính toán)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Uplink lên Spine 1
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.1.2/30"]
+    # Uplink lên Spine 2
+    eth_uplink_spine2:
+      mtu: 9000
+      addresses: ["10.0.11.2/30"]
+    # Downlink xuống Server (thành viên của Bond LACP)
+    eth_downlink_srv8:
+      dhcp4: no
+
+  # Tạo Bond LACP nối xuống Server để dự phòng
+  bonds:
+    bond_tor_compute:
+      interfaces: [eth_downlink_srv8]
+      parameters:
+        mode: 802.3ad # LACP
+        lacp-rate: fast
+        mii-monitor-interval: 100
+
+  # Các VLAN Interface trên Bond (Làm Gateway cho Server)
+  vlans:
+    # VLAN Management
+    vlan10_mgmt:
+      id: 10
+      link: bond_tor_compute
+      addresses: ["192.168.1.253/24"] # Gateway Mgmt (VRRP VIP in reality)
+    # VLAN Compute VM Traffic
+    vlan20_vm:
+      id: 20
+      link: bond_tor_compute
+      addresses: ["172.16.20.253/24"] # Gateway cho VM
+
+  # Route mặc định đẩy hết lên Spine (ECMP)
+  routes:
+    - to: 0.0.0.0/0
+      via: 10.0.1.1
+      metric: 100
+    - to: 0.0.0.0/0
+      via: 10.0.11.1
+      metric: 100
+
+---
+# NODE 4: COMPUTE LEAF 02 (ToR Dự phòng cho tủ Compute)
+# ------------------------------------------------------------------------------
+# Cấu hình tương tự Node 3 nhưng khác IP Uplink, đóng vai trò dự phòng LACP
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.2.2/30"]
+    eth_downlink_srv8:
+      dhcp4: no
+  bonds:
+    bond_tor_compute:
+      interfaces: [eth_downlink_srv8]
+      parameters:
+        mode: 802.3ad
+  vlans:
+    vlan20_vm:
+      id: 20
+      link: bond_tor_compute
+      addresses: ["172.16.20.254/24"] # Gateway dự phòng
+
+---
+# NODE 5: STORAGE LEAF 01 (ToR cho tủ Storage - Tối ưu Jumbo Frame)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.3.2/30"]
+    eth_downlink_srv7:
+      mtu: 9000 # Quan trọng cho Storage
+      dhcp4: no
+  bonds:
+    bond_tor_storage:
+      interfaces: [eth_downlink_srv7]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad
+  vlans:
+    # VLAN Storage Traffic (iSCSI/NFS)
+    vlan30_san:
+      id: 30
+      link: bond_tor_storage
+      mtu: 9000
+      addresses: ["172.16.30.253/24"] # Gateway Storage
+
+---
+# NODE 6: STORAGE LEAF 02 (ToR Dự phòng cho tủ Storage)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine2:
+      mtu: 9000
+      addresses: ["10.0.13.2/30"]
+    eth_downlink_srv7:
+      mtu: 9000
+      dhcp4: no
+  bonds:
+    bond_tor_storage:
+      interfaces: [eth_downlink_srv7]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad
+  vlans:
+    vlan30_san:
+      id: 30
+      link: bond_tor_storage
+      mtu: 9000
+      addresses: ["172.16.30.254/24"] # Gateway Storage dự phòng
+
+---
+# --- LAYER 3: SERVERS (WORKLOADS) ---
+# Nhiệm vụ: Chạy ứng dụng hoặc lưu trữ. Kết nối lên 2 Leaf bằng LACP Bond để dự phòng.
+
+# NODE 7: HIGH-PERFORMANCE STORAGE SERVER (NAS/SAN Target)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Port nối lên Storage Leaf 1
+    eno1:
+      mtu: 9000
+      dhcp4: no
+    # Port nối lên Storage Leaf 2
+    eno2:
+      mtu: 9000
+      dhcp4: no
+
+  # Gộp 2 port thành 1 đường LACP siêu tốc và dự phòng
+  bonds:
+    bond0_storage:
+      interfaces: [eno1, eno2]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad # LACP active-active
+        transmit-hash-policy: layer3+4 # Cân bằng tải dựa trên IP/Port
+
+  # IP nhận dữ liệu lưu trữ trên VLAN 30
+  vlans:
+    bond0.30:
+      id: 30
+      link: bond0_storage
+      mtu: 9000
+      addresses: ["172.16.30.10/24"]
+      # Chỉ định rõ gateway cho traffic lưu trữ
+      routes:
+        - to: 172.16.30.0/24
+          via: 172.16.30.253 # Trỏ về Leaf 5
+
+---
+# NODE 8: COMPUTE HYPERVISOR (Chạy máy ảo/Container)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Port nối lên Compute Leaf 1
+    eth0: {dhcp4: no}
+    # Port nối lên Compute Leaf 2
+    eth1: {dhcp4: no}
+
+  # Bond LACP cho Compute
+  bonds:
+    bond0_compute:
+      interfaces: [eth0, eth1]
+      parameters:
+        mode: 802.3ad
+
+  # IP quản lý Host và IP cho các VM Bridge
+  vlans:
+    # Management IP của Host
+    bond0.10:
+      id: 10
+      link: bond0_compute
+      addresses: ["192.168.1.100/24"]
+      gateway4: 192.168.1.253 # Trỏ về Leaf 3
+
+    # Interface này sẽ được dùng làm Bridge cho VM (không đặt IP ở đây)
+    bond0.20:
+      id: 20
+      link: bond0_compute
+
+  # Bridge cho VM kết nối vào VLAN 20
+  bridges:
+    br_vm_data:
+      interfaces: [bond0.20]
+      parameters:
+        stp: no
+        forward-delay: 0
+
+---
+# --- LAYER 4: EDGE (WAN GATEWAYS) ---
+# Nhiệm vụ: Kết nối ra Internet/WAN, bảo vệ hệ thống (Firewall - không thể hiện ở đây).
+
+# NODE 9: EDGE ROUTER 01 (Primary WAN Gateway)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cổng WAN (Internet)
+    wan0_internet:
+      addresses: ["203.0.113.10/24"]
+      gateway4: 203.0.113.1
+    # Cổng LAN nối xuống Spine 1
+    lan0_to_spine1:
+      addresses: ["10.200.1.1/30"]
+
+  # Định tuyến mạng nội bộ về Spine
+  routes:
+    - to: 172.16.0.0/16 # Toàn bộ mạng DC
+      via: 10.200.1.2
+
+---
+# NODE 10: EDGE ROUTER 02 (Secondary WAN Gateway)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cổng WAN (Internet) - IP Public khác
+    wan0_internet:
+      addresses: ["203.0.113.11/24"]
+      gateway4: 203.0.113.1
+    # Cổng LAN nối xuống Spine 2
+    lan0_to_spine2:
+      addresses: ["10.200.2.1/30"]
+
+  routes:
+    - to: 172.16.0.0/16
+      via: 10.200.2.2
