@@ -31,7 +31,6 @@ For each pair of related entities, extract the following information:
 -Examples-
 ######################
 Example 1: (Physical Links & IP Assignment)
-Entity_types: DEVICE, INTERFACE, IP_ADDRESS
 Text:
 # NODE 1: SPINE ROUTER 01
 network:
@@ -53,14 +52,13 @@ Output:
 {completion_delimiter}
 
 Example 2: (Bonding & VLANs)
-Entity_types: DEVICE, INTERFACE, IP_ADDRESS
 Text:
 # NODE 3: COMPUTE LEAF 01
 network:
   bonds:
     bond_tor_compute:
       interfaces: [eth_downlink_srv8]
-      parameters: {mode: 802.3ad}
+      parameters: {{mode: 802.3ad}}
   vlans:
     vlan10_mgmt:
       id: 10
@@ -84,7 +82,6 @@ Output:
 {completion_delimiter}
 
 Example 3: (Routing & Next Hop)
-Entity_types: DEVICE, IP_ADDRESS
 Text:
 # NODE 9: EDGE ROUTER 01
 network:
@@ -107,7 +104,7 @@ Output:
 ######################
 -Real Data-
 ######################
-Entity_types: DEVICE,INTERFACE,IP_ADDRESS,PROTOCOL
+Entity_types: {entity_types}
 Text: {input_text}
 ######################
 Output:"""

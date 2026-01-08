@@ -1,0 +1,876 @@
+```python
+import yaml
+
+def parse_config(config_text):
+    entities = {} # {name: (type, description)}
+    relationships = []
+    
+    # Helper to add entity if not already present
+    def add_entity(name, entity_type, description):
+        if name not in entities:
+            entities[name] = (entity_type, description)
+        # For IP_ADDRESS, if it already exists, we keep the first description
+        # as it's a global entity and its description should be general.
+
+    # Helper to add relationship
+    def add_relationship(source, target, description, strength):
+        relationships.append((source, target, description, strength))
+
+    # Split the input into individual YAML documents
+    docs = config_text.strip().split('---')
+
+    for doc_text in docs:
+        doc_text = doc_text.strip()
+        if not doc_text:
+            continue
+
+        # Extract NODE info from comment
+        node_name = None
+        node_description_parts = []
+        node_id_str = ""
+
+        lines = doc_text.split('\n')
+        for line in lines:
+            if line.strip().startswith('# NODE'):
+                # Example: # NODE 1: SPINE ROUTER 01 (High Performance L3 Core)
+                node_line_parts = line.split(':', 2) # Split into '# NODE', '1', 'SPINE ROUTER 01 (High Performance L3 Core)'
+                if len(node_line_parts) >= 3:
+                    node_id_str = node_line_parts[1].strip() # '1'
+                    full_name_and_desc = node_line_parts[2].strip() # 'SPINE ROUTER 01 (High Performance L3 Core)'
+                    
+                    if '(' in full_name_and_desc and ')' in full_name_and_desc:
+                        name_part = full_name_and_desc.split('(')[0].strip()
+                        desc_part = full_name_and_desc.split('(', 1)[1].strip(')')
+                        node_name = name_part.upper()
+                        node_description_parts.append(desc_part)
+                    else:
+                        node_name = full_name_and_desc.upper()
+                break
+        
+        if node_name is None: # Skip if no valid NODE line found
+            continue
+        
+        # Add Node ID to description
+        if node_id_str:
+            node_description_parts.append(f"Node {node_id_str}")
+        
+        final_node_description = ", ".join(node_description_parts)
+
+        # Parse YAML
+        config = yaml.safe_load(doc_text)
+        if not config or 'network' not in config:
+            continue
+        
+        network_config = config['network']
+
+        # Add DEVICE entity
+        add_entity(node_name, "DEVICE", final_node_description)
+
+        # Process Ethernets
+        if 'ethernets' in network_config:
+            for eth_name, eth_props in network_config['ethernets'].items():
+                eth_entity_name = eth_name.upper()
+                eth_desc_parts = [f"Physical Ethernet interface '{eth_name}'"]
+                if 'mtu' in eth_props:
+                    eth_desc_parts.append(f"MTU {eth_props['mtu']}")
+                if 'dhcp4' in eth_props and eth_props['dhcp4'] == 'no':
+                    eth_desc_parts.append("DHCPv4 disabled")
+                
+                add_entity(eth_entity_name, "INTERFACE", ", ".join(eth_desc_parts))
+                add_relationship(node_name, eth_entity_name, "HAS_INTERFACE", 10)
+
+                if 'addresses' in eth_props:
+                    for addr in eth_props['addresses']:
+                        add_entity(addr, "IP_ADDRESS", f"IP Subnet {addr}")
+                        add_relationship(eth_entity_name, addr, "HAS_IP", 10)
+                if 'gateway4' in eth_props:
+                    gw_ip = eth_props['gateway4']
+                    add_entity(gw_ip, "IP_ADDRESS", f"IPv4 Gateway IP {gw_ip}")
+                    add_relationship(eth_entity_name, gw_ip, "HAS_GATEWAY_IP", 7)
+
+        # Process Bonds
+        if 'bonds' in network_config:
+            for bond_name, bond_props in network_config['bonds'].items():
+                bond_entity_name = bond_name.upper()
+                bond_desc_parts = [f"Bond interface '{bond_name}'"]
+                if 'mtu' in bond_props:
+                    bond_desc_parts.append(f"MTU {bond_props['mtu']}")
+                if 'parameters' in bond_props:
+                    params = bond_props['parameters']
+                    if 'mode' in params:
+                        bond_desc_parts.append(f"Mode: {params['mode']}")
+                    if 'lacp-rate' in params:
+                        bond_desc_parts.append(f"LACP Rate: {params['lacp-rate']}")
+                    if 'mii-monitor-interval' in params:
+                        bond_desc_parts.append(f"MII Monitor Interval: {params['mii-monitor-interval']}ms")
+                    if 'transmit-hash-policy' in params:
+                        bond_desc_parts.append(f"Transmit Hash Policy: {params['transmit-hash-policy']}")
+                if 'interfaces' in bond_props:
+                    bond_desc_parts.append(f"Members: {', '.join(bond_props['interfaces'])}")
+                
+                add_entity(bond_entity_name, "INTERFACE", ", ".join(bond_desc_parts))
+                add_relationship(node_name, bond_entity_name, "HAS_INTERFACE", 10)
+
+                if 'interfaces' in bond_props:
+                    for member_iface in bond_props['interfaces']:
+                        member_entity_name = member_iface.upper()
+                        # Ensure member interface is also an entity (it should be from ethernets, but good to be safe)
+                        if member_entity_name not in entities:
+                            add_entity(member_entity_name, "INTERFACE", f"Physical interface '{member_iface}' (member of bond '{bond_name}')")
+                        add_relationship(bond_entity_name, member_entity_name, "AGGREGATES member port", 9)
+
+        # Process VLANs
+        if 'vlans' in network_config:
+            for vlan_name, vlan_props in network_config['vlans'].items():
+                vlan_entity_name = vlan_name.upper()
+                vlan_desc_parts = [f"VLAN interface '{vlan_name}'"]
+                if 'id' in vlan_props:
+                    vlan_desc_parts.append(f"ID: {vlan_props['id']}")
+                if 'link' in vlan_props:
+                    vlan_desc_parts.append(f"Parent link: {vlan_props['link']}")
+                if 'mtu' in vlan_props:
+                    vlan_desc_parts.append(f"MTU: {vlan_props['mtu']}")
+                if 'addresses' in vlan_props:
+                    vlan_desc_parts.append(f"IPs: {', '.join(vlan_props['addresses'])}")
+                
+                add_entity(vlan_entity_name, "INTERFACE", ", ".join(vlan_desc_parts))
+                add_relationship(node_name, vlan_entity_name, "HAS_INTERFACE", 10)
+
+                if 'link' in vlan_props:
+                    parent_link_name = vlan_props['link'].upper()
+                    # Ensure parent link is an entity
+                    if parent_link_name not in entities:
+                        add_entity(parent_link_name, "INTERFACE", f"Parent link '{vlan_props['link']}' for VLAN '{vlan_name}'")
+                    add_relationship(vlan_entity_name, parent_link_name, "TAGGED_ON parent link", 8)
+
+                if 'addresses' in vlan_props:
+                    for addr in vlan_props['addresses']:
+                        add_entity(addr, "IP_ADDRESS", f"IP Subnet {addr}")
+                        add_relationship(vlan_entity_name, addr, "HAS_IP", 10)
+                if 'gateway4' in vlan_props:
+                    gw_ip = vlan_props['gateway4']
+                    add_entity(gw_ip, "IP_ADDRESS", f"IPv4 Gateway IP {gw_ip}")
+                    add_relationship(vlan_entity_name, gw_ip, "HAS_GATEWAY_IP", 7)
+                
+                # Routes within VLAN (specific to NODE 7)
+                if 'routes' in vlan_props:
+                    for route in vlan_props['routes']:
+                        to_ip = route['to']
+                        via_ip = route['via']
+                        metric = route.get('metric')
+                        
+                        add_entity(to_ip, "IP_ADDRESS", f"Destination Network Subnet {to_ip}")
+                        add_entity(via_ip, "IP_ADDRESS", f"Next-hop Gateway IP {via_ip}")
+                        
+                        route_desc = f"ROUTES_TO {to_ip} via {via_ip}"
+                        if metric:
+                            route_desc += f", metric {metric}"
+                        add_relationship(vlan_entity_name, to_ip, route_desc, 6)
+                        add_relationship(vlan_entity_name, via_ip, "CONNECTED_TO via routing logic", 5)
+
+
+        # Process Bridges
+        if 'bridges' in network_config:
+            for bridge_name, bridge_props in network_config['bridges'].items():
+                bridge_entity_name = bridge_name.upper()
+                bridge_desc_parts = [f"Bridge interface '{bridge_name}'"]
+                if 'parameters' in bridge_props:
+                    params = bridge_props['parameters']
+                    if 'stp' in params:
+                        bridge_desc_parts.append(f"STP: {params['stp']}")
+                    if 'forward-delay' in params:
+                        bridge_desc_parts.append(f"Forward Delay: {params['forward-delay']}s")
+                if 'interfaces' in bridge_props:
+                    bridge_desc_parts.append(f"Members: {', '.join(bridge_props['interfaces'])}")
+                
+                add_entity(bridge_entity_name, "INTERFACE", ", ".join(bridge_desc_parts))
+                add_relationship(node_name, bridge_entity_name, "HAS_INTERFACE", 10)
+
+                if 'interfaces' in bridge_props:
+                    for member_iface in bridge_props['interfaces']:
+                        member_entity_name = member_iface.upper()
+                        # Ensure member interface is also an entity
+                        if member_entity_name not in entities:
+                            add_entity(member_entity_name, "INTERFACE", f"Interface '{member_iface}' (member of bridge '{bridge_name}')")
+                        add_relationship(bridge_entity_name, member_entity_name, "AGGREGATES member port", 9)
+
+        # Process Routes (global for the node)
+        if 'routes' in network_config:
+            for route in network_config['routes']:
+                to_ip = route['to']
+                via_ip = route['via']
+                metric = route.get('metric')
+                
+                add_entity(to_ip, "IP_ADDRESS", f"Destination Network Subnet {to_ip}")
+                add_entity(via_ip, "IP_ADDRESS", f"Next-hop Gateway IP {via_ip}")
+                
+                route_desc = f"ROUTES_TO {to_ip} via {via_ip}"
+                if metric:
+                    route_desc += f", metric {metric}"
+                add_relationship(node_name, to_ip, route_desc, 6)
+                add_relationship(node_name, via_ip, "CONNECTED_TO via routing logic", 5)
+
+    # Format output
+    output = []
+    # Sort entities by name for consistent output
+    sorted_entities = sorted(entities.items(), key=lambda item: item[0])
+    for name, (entity_type, description) in sorted_entities:
+        output.append(f'("entity"|{name}|{entity_type}|{description})')
+    
+    # Sort relationships for consistent output (source, target, description, strength)
+    sorted_relationships = sorted(relationships, key=lambda item: (item[0], item[1], item[2]))
+    for source, target, description, strength in sorted_relationships:
+        output.append(f'("relationship"|{source}|{target}|{description}|{strength})')
+    
+    return "\n\n".join(output) + "\n<DONE>"
+
+# Read the input text
+input_text = """
+# NODE 1: SPINE ROUTER 01 (High Performance L3 Core)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Đường xuống Compute Leaf 1
+    eth_to_leaf3:
+      mtu: 9000
+      addresses: ["10.0.1.1/30"]
+    # Đường xuống Compute Leaf 2
+    eth_to_leaf4:
+      mtu: 9000
+      addresses: ["10.0.2.1/30"]
+    # Đường xuống Storage Leaf 1
+    eth_to_leaf5:
+      mtu: 9000
+      addresses: ["10.0.3.1/30"]
+    # Đường lên Edge Router 1
+    eth_to_edge9:
+      addresses: ["10.200.1.2/30"]
+      gateway4: 10.200.1.1 # Default Route ra Internet qua Edge
+
+  # Định tuyến tĩnh đến các mạng con bên dưới Leaf (Trong thực tế sẽ dùng BGP/OSPF)
+  routes:
+    - to: 172.16.20.0/24 # Mạng Compute VM
+      via: 10.0.1.2 # Qua Leaf 3
+      metric: 100
+    - to: 172.16.20.0/24 # Mạng Compute VM (Dự phòng ECMP)
+      via: 10.0.2.2 # Qua Leaf 4
+      metric: 100
+    - to: 172.16.30.0/24 # Mạng Storage SAN
+      via: 10.0.3.2 # Qua Leaf 5
+      metric: 100
+
+---
+# NODE 2: SPINE ROUTER 02 (Redundant L3 Core)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Đường xuống Compute Leaf 1 (Dự phòng cho Spine 1)
+    eth_to_leaf3:
+      mtu: 9000
+      addresses: ["10.0.11.1/30"]
+    # Đường xuống Storage Leaf 2
+    eth_to_leaf6:
+      mtu: 9000
+      addresses: ["10.0.13.1/30"]
+    # Đường lên Edge Router 2
+    eth_to_edge10:
+      addresses: ["10.200.2.2/30"]
+      gateway4: 10.200.2.1
+
+---
+# --- LAYER 2: LEAFS (TOP-OF-RACK SWITCHES / GATEWAYS) ---
+# Nhiệm vụ: Kết nối server qua L2 (Bonding), kết nối lên Spine qua L3. Làm Gateway cho các VLAN.
+
+# NODE 3: COMPUTE LEAF 01 (ToR cho tủ Server Tính toán)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Uplink lên Spine 1
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.1.2/30"]
+    # Uplink lên Spine 2
+    eth_uplink_spine2:
+      mtu: 9000
+      addresses: ["10.0.11.2/30"]
+    # Downlink xuống Server (thành viên của Bond LACP)
+    eth_downlink_srv8:
+      dhcp4: no
+
+  # Tạo Bond LACP nối xuống Server để dự phòng
+  bonds:
+    bond_tor_compute:
+      interfaces: [eth_downlink_srv8]
+      parameters:
+        mode: 802.3ad # LACP
+        lacp-rate: fast
+        mii-monitor-interval: 100
+
+  # Các VLAN Interface trên Bond (Làm Gateway cho Server)
+  vlans:
+    # VLAN Management
+    vlan10_mgmt:
+      id: 10
+      link: bond_tor_compute
+      addresses: ["192.168.1.253/24"] # Gateway Mgmt (VRRP VIP in reality)
+    # VLAN Compute VM Traffic
+    vlan20_vm:
+      id: 20
+      link: bond_tor_compute
+      addresses: ["172.16.20.253/24"] # Gateway cho VM
+
+  # Route mặc định đẩy hết lên Spine (ECMP)
+  routes:
+    - to: 0.0.0.0/0
+      via: 10.0.1.1
+      metric: 100
+    - to: 0.0.0.0/0
+      via: 10.0.11.1
+      metric: 100
+
+---
+# NODE 4: COMPUTE LEAF 02 (ToR Dự phòng cho tủ Compute)
+# ------------------------------------------------------------------------------
+# Cấu hình tương tự Node 3 nhưng khác IP Uplink, đóng vai trò dự phòng LACP
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.2.2/30"]
+    eth_downlink_srv8:
+      dhcp4: no
+  bonds:
+    bond_tor_compute:
+      interfaces: [eth_downlink_srv8]
+      parameters:
+        mode: 802.3ad
+  vlans:
+    vlan20_vm:
+      id: 20
+      link: bond_tor_compute
+      addresses: ["172.16.20.254/24"] # Gateway dự phòng
+
+---
+# NODE 5: STORAGE LEAF 01 (ToR cho tủ Storage - Tối ưu Jumbo Frame)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine1:
+      mtu: 9000
+      addresses: ["10.0.3.2/30"]
+    eth_downlink_srv7:
+      mtu: 9000 # Quan trọng cho Storage
+      dhcp4: no
+  bonds:
+    bond_tor_storage:
+      interfaces: [eth_downlink_srv7]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad
+  vlans:
+    # VLAN Storage Traffic (iSCSI/NFS)
+    vlan30_san:
+      id: 30
+      link: bond_tor_storage
+      mtu: 9000
+      addresses: ["172.16.30.253/24"] # Gateway Storage
+
+---
+# NODE 6: STORAGE LEAF 02 (ToR Dự phòng cho tủ Storage)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth_uplink_spine2:
+      mtu: 9000
+      addresses: ["10.0.13.2/30"]
+    eth_downlink_srv7:
+      mtu: 9000
+      dhcp4: no
+  bonds:
+    bond_tor_storage:
+      interfaces: [eth_downlink_srv7]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad
+  vlans:
+    vlan30_san:
+      id: 30
+      link: bond_tor_storage
+      mtu: 9000
+      addresses: ["172.16.30.254/24"] # Gateway Storage dự phòng
+
+---
+# --- LAYER 3: SERVERS (WORKLOADS) ---
+# Nhiệm vụ: Chạy ứng dụng hoặc lưu trữ. Kết nối lên 2 Leaf bằng LACP Bond để dự phòng.
+
+# NODE 7: HIGH-PERFORMANCE STORAGE SERVER (NAS/SAN Target)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Port nối lên Storage Leaf 1
+    eno1:
+      mtu: 9000
+      dhcp4: no
+    # Port nối lên Storage Leaf 2
+    eno2:
+      mtu: 9000
+      dhcp4: no
+
+  # Gộp 2 port thành 1 đường LACP siêu tốc và dự phòng
+  bonds:
+    bond0_storage:
+      interfaces: [eno1, eno2]
+      mtu: 9000
+      parameters:
+        mode: 802.3ad # LACP active-active
+        transmit-hash-policy: layer3+4 # Cân bằng tải dựa trên IP/Port
+
+  # IP nhận dữ liệu lưu trữ trên VLAN 30
+  vlans:
+    bond0.30:
+      id: 30
+      link: bond0_storage
+      mtu: 9000
+      addresses: ["172.16.30.10/24"]
+      # Chỉ định rõ gateway cho traffic lưu trữ
+      routes:
+        - to: 172.16.30.0/24
+          via: 172.16.30.253 # Trỏ về Leaf 5
+
+---
+# NODE 8: COMPUTE HYPERVISOR (Chạy máy ảo/Container)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Port nối lên Compute Leaf 1
+    eth0: {dhcp4: no}
+    # Port nối lên Compute Leaf 2
+    eth1: {dhcp4: no}
+
+  # Bond LACP cho Compute
+  bonds:
+    bond0_compute:
+      interfaces: [eth0, eth1]
+      parameters:
+        mode: 802.3ad
+
+  # IP quản lý Host và IP cho các VM Bridge
+  vlans:
+    # Management IP của Host
+    bond0.10:
+      id: 10
+      link: bond0_compute
+      addresses: ["192.168.1.100/24"]
+      gateway4: 192.168.1.253 # Trỏ về Leaf 3
+
+    # Interface này sẽ được dùng làm Bridge cho VM (không đặt IP ở đây)
+    bond0.20:
+      id: 20
+      link: bond0_compute
+
+  # Bridge cho VM kết nối vào VLAN 20
+  bridges:
+    br_vm_data:
+      interfaces: [bond0.20]
+      parameters:
+        stp: no
+        forward-delay: 0
+
+---
+# --- LAYER 4: EDGE (WAN GATEWAYS) ---
+# Nhiệm vụ: Kết nối ra Internet/WAN, bảo vệ hệ thống (Firewall - không thể hiện ở đây).
+
+# NODE 9: EDGE ROUTER 01 (Primary WAN Gateway)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cổng WAN (Internet)
+    wan0_internet:
+      addresses: ["203.0.113.10/24"]
+      gateway4: 203.0.113.1
+    # Cổng LAN nối xuống Spine 1
+    lan0_to_spine1:
+      addresses: ["10.200.1.1/30"]
+
+  # Định tuyến mạng nội bộ về Spine
+  routes:
+    - to: 172.16.0.0/16 # Toàn bộ mạng DC
+      via: 10.200.1.2
+
+---
+# NODE 10: EDGE ROUTER 02 (Secondary WAN Gateway)
+# ------------------------------------------------------------------------------
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    # Cổng WAN (Internet) - IP Public khác
+    wan0_internet:
+      addresses: ["203.0.113.11/24"]
+      gateway4: 203.0.113.1
+    # Cổng LAN nối xuống Spine 2
+    lan0_to_spine2:
+      addresses: ["10.200.2.1/30"]
+
+  routes:
+    - to: 172.16.0.0/16
+      via: 10.200.2.2
+"""
+
+parsed_output = parse_config(input_text)
+print(parsed_output)
+```
+("entity"|0.0.0.0/0|IP_ADDRESS|Destination Network Subnet 0.0.0.0/0)
+
+("entity"|10.0.1.1/30|IP_ADDRESS|IP Subnet 10.0.1.1/30)
+
+("entity"|10.0.1.2|IP_ADDRESS|Next-hop Gateway IP 10.0.1.2)
+
+("entity"|10.0.11.1/30|IP_ADDRESS|IP Subnet 10.0.11.1/30)
+
+("entity"|10.0.11.2/30|IP_ADDRESS|IP Subnet 10.0.11.2/30)
+
+("entity"|10.0.13.1/30|IP_ADDRESS|IP Subnet 10.0.13.1/30)
+
+("entity"|10.0.13.2/30|IP_ADDRESS|IP Subnet 10.0.13.2/30)
+
+("entity"|10.0.2.1/30|IP_ADDRESS|IP Subnet 10.0.2.1/30)
+
+("entity"|10.0.2.2|IP_ADDRESS|Next-hop Gateway IP 10.0.2.2)
+
+("entity"|10.0.2.2/30|IP_ADDRESS|IP Subnet 10.0.2.2/30)
+
+("entity"|10.0.3.1/30|IP_ADDRESS|IP Subnet 10.0.3.1/30)
+
+("entity"|10.0.3.2|IP_ADDRESS|Next-hop Gateway IP 10.0.3.2)
+
+("entity"|10.0.3.2/30|IP_ADDRESS|IP Subnet 10.0.3.2/30)
+
+("entity"|10.200.1.1|IP_ADDRESS|IPv4 Gateway IP 10.200.1.1)
+
+("entity"|10.200.1.1/30|IP_ADDRESS|IP Subnet 10.200.1.1/30)
+
+("entity"|10.200.1.2|IP_ADDRESS|Next-hop Gateway IP 10.200.1.2)
+
+("entity"|10.200.1.2/30|IP_ADDRESS|IP Subnet 10.200.1.2/30)
+
+("entity"|10.200.2.1|IP_ADDRESS|IPv4 Gateway IP 10.200.2.1)
+
+("entity"|10.200.2.1/30|IP_ADDRESS|IP Subnet 10.200.2.1/30)
+
+("entity"|10.200.2.2|IP_ADDRESS|Next-hop Gateway IP 10.200.2.2)
+
+("entity"|10.200.2.2/30|IP_ADDRESS|IP Subnet 10.200.2.2/30)
+
+("entity"|172.16.0.0/16|IP_ADDRESS|Destination Network Subnet 172.16.0.0/16)
+
+("entity"|172.16.20.0/24|IP_ADDRESS|Destination Network Subnet 172.16.20.0/24)
+
+("entity"|172.16.20.253/24|IP_ADDRESS|IP Subnet 172.16.20.253/24)
+
+("entity"|172.16.20.254/24|IP_ADDRESS|IP Subnet 172.16.20.254/24)
+
+("entity"|172.16.30.0/24|IP_ADDRESS|Destination Network Subnet 172.16.30.0/24)
+
+("entity"|172.16.30.10/24|IP_ADDRESS|IP Subnet 172.16.30.10/24)
+
+("entity"|172.16.30.253|IP_ADDRESS|Next-hop Gateway IP 172.16.30.253)
+
+("entity"|172.16.30.253/24|IP_ADDRESS|IP Subnet 172.16.30.253/24)
+
+("entity"|172.16.30.254/24|IP_ADDRESS|IP Subnet 172.16.30.254/24)
+
+("entity"|192.168.1.100/24|IP_ADDRESS|IP Subnet 192.168.1.100/24)
+
+("entity"|192.168.1.253|IP_ADDRESS|IPv4 Gateway IP 192.168.1.253)
+
+("entity"|192.168.1.253/24|IP_ADDRESS|IP Subnet 192.168.1.253/24)
+
+("entity"|203.0.113.1|IP_ADDRESS|IPv4 Gateway IP 203.0.113.1)
+
+("entity"|203.0.113.10/24|IP_ADDRESS|IP Subnet 203.0.113.10/24)
+
+("entity"|203.0.113.11/24|IP_ADDRESS|IP Subnet 203.0.113.11/24)
+
+("entity"|BOND0.10|INTERFACE|VLAN interface 'bond0.10', ID: 10, Parent link: bond0_compute, IPs: 192.168.1.100/24)
+
+("entity"|BOND0.20|INTERFACE|VLAN interface 'bond0.20', ID: 20, Parent link: bond0_compute)
+
+("entity"|BOND0.30|INTERFACE|VLAN interface 'bond0.30', ID: 30, Parent link: bond0_storage, MTU: 9000, IPs: 172.16.30.10/24)
+
+("entity"|BOND0_COMPUTE|INTERFACE|Bond interface 'bond0_compute', Mode: 802.3ad, Members: eth0, eth1)
+
+("entity"|BOND0_STORAGE|INTERFACE|Bond interface 'bond0_storage', MTU: 9000, Mode: 802.3ad, Transmit Hash Policy: layer3+4, Members: eno1, eno2)
+
+("entity"|BOND_TOR_COMPUTE|INTERFACE|Bond interface 'bond_tor_compute', Mode: 802.3ad, LACP Rate: fast, MII Monitor Interval: 100ms, Members: eth_downlink_srv8)
+
+("entity"|BOND_TOR_STORAGE|INTERFACE|Bond interface 'bond_tor_storage', MTU: 9000, Mode: 802.3ad, Members: eth_downlink_srv7)
+
+("entity"|BR_VM_DATA|INTERFACE|Bridge interface 'br_vm_data', STP: no, Forward Delay: 0s, Members: bond0.20)
+
+("entity"|COMPUTE HYPERVISOR|DEVICE|Hypervisor for VMs/Containers, Node 8)
+
+("entity"|COMPUTE LEAF 01|DEVICE|ToR cho tủ Server Tính toán, Node 3)
+
+("entity"|COMPUTE LEAF 02|DEVICE|ToR Dự phòng cho tủ Compute, Node 4)
+
+("entity"|EDGE ROUTER 01|DEVICE|Primary WAN Gateway, Node 9)
+
+("entity"|EDGE ROUTER 02|DEVICE|Secondary WAN Gateway, Node 10)
+
+("entity"|ENO1|INTERFACE|Physical Ethernet interface 'eno1', MTU 9000, DHCPv4 disabled)
+
+("entity"|ENO2|INTERFACE|Physical Ethernet interface 'eno2', MTU 9000, DHCPv4 disabled)
+
+("entity"|ETH0|INTERFACE|Physical Ethernet interface 'eth0', DHCPv4 disabled)
+
+("entity"|ETH1|INTERFACE|Physical Ethernet interface 'eth1', DHCPv4 disabled)
+
+("entity"|ETH_DOWNLINK_SRV7|INTERFACE|Physical Ethernet interface 'eth_downlink_srv7', MTU 9000, DHCPv4 disabled)
+
+("entity"|ETH_DOWNLINK_SRV8|INTERFACE|Physical Ethernet interface 'eth_downlink_srv8', DHCPv4 disabled)
+
+("entity"|ETH_TO_EDGE10|INTERFACE|Physical Ethernet interface 'eth_to_edge10', IPs: 10.200.2.2/30)
+
+("entity"|ETH_TO_EDGE9|INTERFACE|Physical Ethernet interface 'eth_to_edge9', IPs: 10.200.1.2/30)
+
+("entity"|ETH_TO_LEAF3|INTERFACE|Physical Ethernet interface 'eth_to_leaf3', MTU 9000, IPs: 10.0.1.1/30)
+
+("entity"|ETH_TO_LEAF4|INTERFACE|Physical Ethernet interface 'eth_to_leaf4', MTU 9000, IPs: 10.0.2.1/30)
+
+("entity"|ETH_TO_LEAF5|INTERFACE|Physical Ethernet interface 'eth_to_leaf5', MTU 9000, IPs: 10.0.3.1/30)
+
+("entity"|ETH_TO_LEAF6|INTERFACE|Physical Ethernet interface 'eth_to_leaf6', MTU 9000, IPs: 10.0.13.1/30)
+
+("entity"|ETH_UPLINK_SPINE1|INTERFACE|Physical Ethernet interface 'eth_uplink_spine1', MTU 9000, IPs: 10.0.1.2/30)
+
+("entity"|ETH_UPLINK_SPINE2|INTERFACE|Physical Ethernet interface 'eth_uplink_spine2', MTU 9000, IPs: 10.0.11.2/30)
+
+("entity"|HIGH-PERFORMANCE STORAGE SERVER|DEVICE|NAS/SAN Target, Node 7)
+
+("entity"|LAN0_TO_SPINE1|INTERFACE|Physical Ethernet interface 'lan0_to_spine1', IPs: 10.200.1.1/30)
+
+("entity"|LAN0_TO_SPINE2|INTERFACE|Physical Ethernet interface 'lan0_to_spine2', IPs: 10.200.2.1/30)
+
+("entity"|SPINE ROUTER 01|DEVICE|High Performance L3 Core, Node 1)
+
+("entity"|SPINE ROUTER 02|DEVICE|Redundant L3 Core, Node 2)
+
+("entity"|STORAGE LEAF 01|DEVICE|ToR cho tủ Storage - Tối ưu Jumbo Frame, Node 5)
+
+("entity"|STORAGE LEAF 02|DEVICE|ToR Dự phòng cho tủ Storage, Node 6)
+
+("entity"|VLAN10_MGMT|INTERFACE|VLAN interface 'vlan10_mgmt', ID: 10, Parent link: bond_tor_compute, IPs: 192.168.1.253/24)
+
+("entity"|VLAN20_VM|INTERFACE|VLAN interface 'vlan20_vm', ID: 20, Parent link: bond_tor_compute, IPs: 172.16.20.253/24)
+
+("entity"|VLAN30_SAN|INTERFACE|VLAN interface 'vlan30_san', ID: 30, Parent link: bond_tor_storage, MTU: 9000, IPs: 172.16.30.253/24)
+
+("entity"|WAN0_INTERNET|INTERFACE|Physical Ethernet interface 'wan0_internet', IPs: 203.0.113.10/24)
+
+("relationship"|BOND0.10|192.168.1.100/24|HAS_IP|10)
+
+("relationship"|BOND0.10|192.168.1.253|HAS_GATEWAY_IP|7)
+
+("relationship"|BOND0.10|BOND0_COMPUTE|TAGGED_ON parent link|8)
+
+("relationship"|BOND0.20|BOND0_COMPUTE|TAGGED_ON parent link|8)
+
+("relationship"|BOND0.30|172.16.30.0/24|ROUTES_TO 172.16.30.0/24 via 172.16.30.253|6)
+
+("relationship"|BOND0.30|172.16.30.10/24|HAS_IP|10)
+
+("relationship"|BOND0.30|172.16.30.253|CONNECTED_TO via routing logic|5)
+
+("relationship"|BOND0.30|BOND0_STORAGE|TAGGED_ON parent link|8)
+
+("relationship"|BOND0_COMPUTE|ETH0|AGGREGATES member port|9)
+
+("relationship"|BOND0_COMPUTE|ETH1|AGGREGATES member port|9)
+
+("relationship"|BOND0_STORAGE|ENO1|AGGREGATES member port|9)
+
+("relationship"|BOND0_STORAGE|ENO2|AGGREGATES member port|9)
+
+("relationship"|BOND_TOR_COMPUTE|ETH_DOWNLINK_SRV8|AGGREGATES member port|9)
+
+("relationship"|BOND_TOR_STORAGE|ETH_DOWNLINK_SRV7|AGGREGATES member port|9)
+
+("relationship"|BR_VM_DATA|BOND0.20|AGGREGATES member port|9)
+
+("relationship"|COMPUTE HYPERVISOR|BOND0.10|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE HYPERVISOR|BOND0.20|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE HYPERVISOR|BOND0_COMPUTE|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE HYPERVISOR|BR_VM_DATA|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE HYPERVISOR|ETH0|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE HYPERVISOR|ETH1|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO 0.0.0.0/0 via 10.0.1.1, metric 100|6)
+
+("relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO 0.0.0.0/0 via 10.0.11.1, metric 100|6)
+
+("relationship"|COMPUTE LEAF 01|10.0.1.1|CONNECTED_TO via routing logic|5)
+
+("relationship"|COMPUTE LEAF 01|10.0.11.1|CONNECTED_TO via routing logic|5)
+
+("relationship"|COMPUTE LEAF 01|BOND_TOR_COMPUTE|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|ETH_DOWNLINK_SRV8|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|ETH_UPLINK_SPINE2|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|VLAN10_MGMT|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 01|VLAN20_VM|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 02|BOND_TOR_COMPUTE|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 02|ETH_DOWNLINK_SRV8|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 02|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)
+
+("relationship"|COMPUTE LEAF 02|VLAN20_VM|HAS_INTERFACE|10)
+
+("relationship"|EDGE ROUTER 01|10.200.1.2|CONNECTED_TO via routing logic|5)
+
+("relationship"|EDGE ROUTER 01|172.16.0.0/16|ROUTES_TO 172.16.0.0/16 via 10.200.1.2|6)
+
+("relationship"|EDGE ROUTER 01|LAN0_TO_SPINE1|HAS_INTERFACE|10)
+
+("relationship"|EDGE ROUTER 01|WAN0_INTERNET|HAS_INTERFACE|10)
+
+("relationship"|EDGE ROUTER 02|10.200.2.2|CONNECTED_TO via routing logic|5)
+
+("relationship"|EDGE ROUTER 02|172.16.0.0/16|ROUTES_TO 172.16.0.0/16 via 10.200.2.2|6)
+
+("relationship"|EDGE ROUTER 02|LAN0_TO_SPINE2|HAS_INTERFACE|10)
+
+("relationship"|EDGE ROUTER 02|WAN0_INTERNET|HAS_INTERFACE|10)
+
+("relationship"|ETH_TO_EDGE10|10.200.2.1|HAS_GATEWAY_IP|7)
+
+("relationship"|ETH_TO_EDGE10|10.200.2.2/30|HAS_IP|10)
+
+("relationship"|ETH_TO_EDGE9|10.200.1.1|HAS_GATEWAY_IP|7)
+
+("relationship"|ETH_TO_EDGE9|10.200.1.2/30|HAS_IP|10)
+
+("relationship"|ETH_TO_LEAF3|10.0.1.1/30|HAS_IP|10)
+
+("relationship"|ETH_TO_LEAF4|10.0.2.1/30|HAS_IP|10)
+
+("relationship"|ETH_TO_LEAF5|10.0.3.1/30|HAS_IP|10)
+
+("relationship"|ETH_TO_LEAF6|10.0.13.1/30|HAS_IP|10)
+
+("relationship"|ETH_UPLINK_SPINE1|10.0.1.2/30|HAS_IP|10)
+
+("relationship"|ETH_UPLINK_SPINE1|10.0.2.2/30|HAS_IP|10)
+
+("relationship"|ETH_UPLINK_SPINE1|10.0.3.2/30|HAS_IP|10)
+
+("relationship"|ETH_UPLINK_SPINE2|10.0.11.2/30|HAS_IP|10)
+
+("relationship"|ETH_UPLINK_SPINE2|10.0.13.2/30|HAS_IP|10)
+
+("relationship"|HIGH-PERFORMANCE STORAGE SERVER|BOND0.30|HAS_INTERFACE|10)
+
+("relationship"|HIGH-PERFORMANCE STORAGE SERVER|BOND0_STORAGE|HAS_INTERFACE|10)
+
+("relationship"|HIGH-PERFORMANCE STORAGE SERVER|ENO1|HAS_INTERFACE|10)
+
+("relationship"|HIGH-PERFORMANCE STORAGE SERVER|ENO2|HAS_INTERFACE|10)
+
+("relationship"|LAN0_TO_SPINE1|10.200.1.1/30|HAS_IP|10)
+
+("relationship"|LAN0_TO_SPINE2|10.200.2.1/30|HAS_IP|10)
+
+("relationship"|SPINE ROUTER 01|10.0.1.2|CONNECTED_TO via routing logic|5)
+
+("relationship"|SPINE ROUTER 01|10.0.2.2|CONNECTED_TO via routing logic|5)
+
+("relationship"|SPINE ROUTER 01|10.0.3.2|CONNECTED_TO via routing logic|5)
+
+("relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO 172.16.20.0/24 via 10.0.1.2, metric 100|6)
+
+("relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO 172.16.20.0/24 via 10.0.2.2, metric 100|6)
+
+("relationship"|SPINE ROUTER 01|172.16.30.0/24|ROUTES_TO 172.16.30.0/24 via 10.0.3.2, metric 100|6)
+
+("relationship"|SPINE ROUTER 01|ETH_TO_EDGE9|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 01|ETH_TO_LEAF3|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 01|ETH_TO_LEAF4|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 01|ETH_TO_LEAF5|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 02|ETH_TO_EDGE10|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 02|ETH_TO_LEAF3|HAS_INTERFACE|10)
+
+("relationship"|SPINE ROUTER 02|ETH_TO_LEAF6|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 01|BOND_TOR_STORAGE|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 01|ETH_DOWNLINK_SRV7|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 01|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 01|VLAN30_SAN|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 02|BOND_TOR_STORAGE|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 02|ETH_DOWNLINK_SRV7|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 02|ETH_UPLINK_SPINE2|HAS_INTERFACE|10)
+
+("relationship"|STORAGE LEAF 02|VLAN30_SAN|HAS_INTERFACE|10)
+
+("relationship"|VLAN10_MGMT|192.168.1.253/24|HAS_IP|10)
+
+("relationship"|VLAN10_MGMT|BOND_TOR_COMPUTE|TAGGED_ON parent link|8)
+
+("relationship"|VLAN20_VM|172.16.20.253/24|HAS_IP|10)
+
+("relationship"|VLAN20_VM|172.16.20.254/24|HAS_IP|10)
+
+("relationship"|VLAN20_VM|BOND_TOR_COMPUTE|TAGGED_ON parent link|8)
+
+("relationship"|VLAN30_SAN|172.16.30.253/24|HAS_IP|10)
+
+("relationship"|VLAN30_SAN|172.16.30.254/24|HAS_IP|10)
+
+("relationship"|VLAN30_SAN|BOND_TOR_STORAGE|TAGGED_ON parent link|8)
+
+("relationship"|WAN0_INTERNET|203.0.113.1|HAS_GATEWAY_IP|7)
+
+("relationship"|WAN0_INTERNET|203.0.113.10/24|HAS_IP|10)
+
+("relationship"|WAN0_INTERNET|203.0.113.11/24|HAS_IP|10)
+<DONE>

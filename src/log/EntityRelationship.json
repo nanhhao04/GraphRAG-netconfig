@@ -1,0 +1,948 @@
+[
+  {
+    "name": "{name}",
+    "type": "{entity_type}",
+    "desc": "{description})')"
+  },
+  {
+    "name": "0.0.0.0/0",
+    "type": "IP_ADDRESS",
+    "desc": "Destination Network Subnet 0.0.0.0/0"
+  },
+  {
+    "name": "10.0.1.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.1.1/30"
+  },
+  {
+    "name": "10.0.1.2",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 10.0.1.2"
+  },
+  {
+    "name": "10.0.11.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.11.1/30"
+  },
+  {
+    "name": "10.0.11.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.11.2/30"
+  },
+  {
+    "name": "10.0.13.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.13.1/30"
+  },
+  {
+    "name": "10.0.13.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.13.2/30"
+  },
+  {
+    "name": "10.0.2.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.2.1/30"
+  },
+  {
+    "name": "10.0.2.2",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 10.0.2.2"
+  },
+  {
+    "name": "10.0.2.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.2.2/30"
+  },
+  {
+    "name": "10.0.3.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.3.1/30"
+  },
+  {
+    "name": "10.0.3.2",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 10.0.3.2"
+  },
+  {
+    "name": "10.0.3.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.0.3.2/30"
+  },
+  {
+    "name": "10.200.1.1",
+    "type": "IP_ADDRESS",
+    "desc": "IPv4 Gateway IP 10.200.1.1"
+  },
+  {
+    "name": "10.200.1.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.200.1.1/30"
+  },
+  {
+    "name": "10.200.1.2",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 10.200.1.2"
+  },
+  {
+    "name": "10.200.1.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.200.1.2/30"
+  },
+  {
+    "name": "10.200.2.1",
+    "type": "IP_ADDRESS",
+    "desc": "IPv4 Gateway IP 10.200.2.1"
+  },
+  {
+    "name": "10.200.2.1/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.200.2.1/30"
+  },
+  {
+    "name": "10.200.2.2",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 10.200.2.2"
+  },
+  {
+    "name": "10.200.2.2/30",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 10.200.2.2/30"
+  },
+  {
+    "name": "172.16.0.0/16",
+    "type": "IP_ADDRESS",
+    "desc": "Destination Network Subnet 172.16.0.0/16"
+  },
+  {
+    "name": "172.16.20.0/24",
+    "type": "IP_ADDRESS",
+    "desc": "Destination Network Subnet 172.16.20.0/24"
+  },
+  {
+    "name": "172.16.20.253/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 172.16.20.253/24"
+  },
+  {
+    "name": "172.16.20.254/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 172.16.20.254/24"
+  },
+  {
+    "name": "172.16.30.0/24",
+    "type": "IP_ADDRESS",
+    "desc": "Destination Network Subnet 172.16.30.0/24"
+  },
+  {
+    "name": "172.16.30.10/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 172.16.30.10/24"
+  },
+  {
+    "name": "172.16.30.253",
+    "type": "IP_ADDRESS",
+    "desc": "Next-hop Gateway IP 172.16.30.253"
+  },
+  {
+    "name": "172.16.30.253/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 172.16.30.253/24"
+  },
+  {
+    "name": "172.16.30.254/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 172.16.30.254/24"
+  },
+  {
+    "name": "192.168.1.100/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 192.168.1.100/24"
+  },
+  {
+    "name": "192.168.1.253",
+    "type": "IP_ADDRESS",
+    "desc": "IPv4 Gateway IP 192.168.1.253"
+  },
+  {
+    "name": "192.168.1.253/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 192.168.1.253/24"
+  },
+  {
+    "name": "203.0.113.1",
+    "type": "IP_ADDRESS",
+    "desc": "IPv4 Gateway IP 203.0.113.1"
+  },
+  {
+    "name": "203.0.113.10/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 203.0.113.10/24"
+  },
+  {
+    "name": "203.0.113.11/24",
+    "type": "IP_ADDRESS",
+    "desc": "IP Subnet 203.0.113.11/24"
+  },
+  {
+    "name": "BOND0.10",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'bond0.10', ID: 10, Parent link: bond0_compute, IPs: 192.168.1.100/24"
+  },
+  {
+    "name": "BOND0.20",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'bond0.20', ID: 20, Parent link: bond0_compute"
+  },
+  {
+    "name": "BOND0.30",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'bond0.30', ID: 30, Parent link: bond0_storage, MTU: 9000, IPs: 172.16.30.10/24"
+  },
+  {
+    "name": "BOND0_COMPUTE",
+    "type": "INTERFACE",
+    "desc": "Bond interface 'bond0_compute', Mode: 802.3ad, Members: eth0, eth1"
+  },
+  {
+    "name": "BOND0_STORAGE",
+    "type": "INTERFACE",
+    "desc": "Bond interface 'bond0_storage', MTU: 9000, Mode: 802.3ad, Transmit Hash Policy: layer3+4, Members: eno1, eno2"
+  },
+  {
+    "name": "BOND_TOR_COMPUTE",
+    "type": "INTERFACE",
+    "desc": "Bond interface 'bond_tor_compute', Mode: 802.3ad, LACP Rate: fast, MII Monitor Interval: 100ms, Members: eth_downlink_srv8"
+  },
+  {
+    "name": "BOND_TOR_STORAGE",
+    "type": "INTERFACE",
+    "desc": "Bond interface 'bond_tor_storage', MTU: 9000, Mode: 802.3ad, Members: eth_downlink_srv7"
+  },
+  {
+    "name": "BR_VM_DATA",
+    "type": "INTERFACE",
+    "desc": "Bridge interface 'br_vm_data', STP: no, Forward Delay: 0s, Members: bond0.20"
+  },
+  {
+    "name": "COMPUTE HYPERVISOR",
+    "type": "DEVICE",
+    "desc": "Hypervisor for VMs/Containers, Node 8"
+  },
+  {
+    "name": "COMPUTE LEAF 01",
+    "type": "DEVICE",
+    "desc": "ToR cho tủ Server Tính toán, Node 3"
+  },
+  {
+    "name": "COMPUTE LEAF 02",
+    "type": "DEVICE",
+    "desc": "ToR Dự phòng cho tủ Compute, Node 4"
+  },
+  {
+    "name": "EDGE ROUTER 01",
+    "type": "DEVICE",
+    "desc": "Primary WAN Gateway, Node 9"
+  },
+  {
+    "name": "EDGE ROUTER 02",
+    "type": "DEVICE",
+    "desc": "Secondary WAN Gateway, Node 10"
+  },
+  {
+    "name": "ENO1",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eno1', MTU 9000, DHCPv4 disabled"
+  },
+  {
+    "name": "ENO2",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eno2', MTU 9000, DHCPv4 disabled"
+  },
+  {
+    "name": "ETH0",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth0', DHCPv4 disabled"
+  },
+  {
+    "name": "ETH1",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth1', DHCPv4 disabled"
+  },
+  {
+    "name": "ETH_DOWNLINK_SRV7",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_downlink_srv7', MTU 9000, DHCPv4 disabled"
+  },
+  {
+    "name": "ETH_DOWNLINK_SRV8",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_downlink_srv8', DHCPv4 disabled"
+  },
+  {
+    "name": "ETH_TO_EDGE10",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_edge10', IPs: 10.200.2.2/30"
+  },
+  {
+    "name": "ETH_TO_EDGE9",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_edge9', IPs: 10.200.1.2/30"
+  },
+  {
+    "name": "ETH_TO_LEAF3",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_leaf3', MTU 9000, IPs: 10.0.1.1/30"
+  },
+  {
+    "name": "ETH_TO_LEAF4",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_leaf4', MTU 9000, IPs: 10.0.2.1/30"
+  },
+  {
+    "name": "ETH_TO_LEAF5",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_leaf5', MTU 9000, IPs: 10.0.3.1/30"
+  },
+  {
+    "name": "ETH_TO_LEAF6",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_to_leaf6', MTU 9000, IPs: 10.0.13.1/30"
+  },
+  {
+    "name": "ETH_UPLINK_SPINE1",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_uplink_spine1', MTU 9000, IPs: 10.0.1.2/30"
+  },
+  {
+    "name": "ETH_UPLINK_SPINE2",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'eth_uplink_spine2', MTU 9000, IPs: 10.0.11.2/30"
+  },
+  {
+    "name": "HIGH-PERFORMANCE STORAGE SERVER",
+    "type": "DEVICE",
+    "desc": "NAS/SAN Target, Node 7"
+  },
+  {
+    "name": "LAN0_TO_SPINE1",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'lan0_to_spine1', IPs: 10.200.1.1/30"
+  },
+  {
+    "name": "LAN0_TO_SPINE2",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'lan0_to_spine2', IPs: 10.200.2.1/30"
+  },
+  {
+    "name": "SPINE ROUTER 01",
+    "type": "DEVICE",
+    "desc": "High Performance L3 Core, Node 1"
+  },
+  {
+    "name": "SPINE ROUTER 02",
+    "type": "DEVICE",
+    "desc": "Redundant L3 Core, Node 2"
+  },
+  {
+    "name": "STORAGE LEAF 01",
+    "type": "DEVICE",
+    "desc": "ToR cho tủ Storage - Tối ưu Jumbo Frame, Node 5"
+  },
+  {
+    "name": "STORAGE LEAF 02",
+    "type": "DEVICE",
+    "desc": "ToR Dự phòng cho tủ Storage, Node 6"
+  },
+  {
+    "name": "VLAN10_MGMT",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'vlan10_mgmt', ID: 10, Parent link: bond_tor_compute, IPs: 192.168.1.253/24"
+  },
+  {
+    "name": "VLAN20_VM",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'vlan20_vm', ID: 20, Parent link: bond_tor_compute, IPs: 172.16.20.253/24"
+  },
+  {
+    "name": "VLAN30_SAN",
+    "type": "INTERFACE",
+    "desc": "VLAN interface 'vlan30_san', ID: 30, Parent link: bond_tor_storage, MTU: 9000, IPs: 172.16.30.253/24"
+  },
+  {
+    "name": "WAN0_INTERNET",
+    "type": "INTERFACE",
+    "desc": "Physical Ethernet interface 'wan0_internet', IPs: 203.0.113.10/24"
+  }
+][
+  {
+    "source": "{source}",
+    "target": "{target}",
+    "desc": "{description}",
+    "strength": "{strength})')"
+  },
+  {
+    "source": "BOND0.10",
+    "target": "192.168.1.100/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "BOND0.10",
+    "target": "192.168.1.253",
+    "desc": "HAS_GATEWAY_IP",
+    "strength": "7"
+  },
+  {
+    "source": "BOND0.10",
+    "target": "BOND0_COMPUTE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "BOND0.20",
+    "target": "BOND0_COMPUTE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "BOND0.30",
+    "target": "172.16.30.0/24",
+    "desc": "ROUTES_TO 172.16.30.0/24 via 172.16.30.253",
+    "strength": "6"
+  },
+  {
+    "source": "BOND0.30",
+    "target": "172.16.30.10/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "BOND0.30",
+    "target": "172.16.30.253",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "BOND0.30",
+    "target": "BOND0_STORAGE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "BOND0_COMPUTE",
+    "target": "ETH0",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BOND0_COMPUTE",
+    "target": "ETH1",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BOND0_STORAGE",
+    "target": "ENO1",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BOND0_STORAGE",
+    "target": "ENO2",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BOND_TOR_COMPUTE",
+    "target": "ETH_DOWNLINK_SRV8",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BOND_TOR_STORAGE",
+    "target": "ETH_DOWNLINK_SRV7",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "BR_VM_DATA",
+    "target": "BOND0.20",
+    "desc": "AGGREGATES member port",
+    "strength": "9"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "BOND0.10",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "BOND0.20",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "BOND0_COMPUTE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "BR_VM_DATA",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "ETH0",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE HYPERVISOR",
+    "target": "ETH1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "0.0.0.0/0",
+    "desc": "ROUTES_TO 0.0.0.0/0 via 10.0.1.1, metric 100",
+    "strength": "6"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "0.0.0.0/0",
+    "desc": "ROUTES_TO 0.0.0.0/0 via 10.0.11.1, metric 100",
+    "strength": "6"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "10.0.1.1",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "10.0.11.1",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "BOND_TOR_COMPUTE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "ETH_DOWNLINK_SRV8",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "ETH_UPLINK_SPINE1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "ETH_UPLINK_SPINE2",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "VLAN10_MGMT",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 01",
+    "target": "VLAN20_VM",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 02",
+    "target": "BOND_TOR_COMPUTE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 02",
+    "target": "ETH_DOWNLINK_SRV8",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 02",
+    "target": "ETH_UPLINK_SPINE1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "COMPUTE LEAF 02",
+    "target": "VLAN20_VM",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "EDGE ROUTER 01",
+    "target": "10.200.1.2",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "EDGE ROUTER 01",
+    "target": "172.16.0.0/16",
+    "desc": "ROUTES_TO 172.16.0.0/16 via 10.200.1.2",
+    "strength": "6"
+  },
+  {
+    "source": "EDGE ROUTER 01",
+    "target": "LAN0_TO_SPINE1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "EDGE ROUTER 01",
+    "target": "WAN0_INTERNET",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "EDGE ROUTER 02",
+    "target": "10.200.2.2",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "EDGE ROUTER 02",
+    "target": "172.16.0.0/16",
+    "desc": "ROUTES_TO 172.16.0.0/16 via 10.200.2.2",
+    "strength": "6"
+  },
+  {
+    "source": "EDGE ROUTER 02",
+    "target": "LAN0_TO_SPINE2",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "EDGE ROUTER 02",
+    "target": "WAN0_INTERNET",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_EDGE10",
+    "target": "10.200.2.1",
+    "desc": "HAS_GATEWAY_IP",
+    "strength": "7"
+  },
+  {
+    "source": "ETH_TO_EDGE10",
+    "target": "10.200.2.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_EDGE9",
+    "target": "10.200.1.1",
+    "desc": "HAS_GATEWAY_IP",
+    "strength": "7"
+  },
+  {
+    "source": "ETH_TO_EDGE9",
+    "target": "10.200.1.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_LEAF3",
+    "target": "10.0.1.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_LEAF4",
+    "target": "10.0.2.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_LEAF5",
+    "target": "10.0.3.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_TO_LEAF6",
+    "target": "10.0.13.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_UPLINK_SPINE1",
+    "target": "10.0.1.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_UPLINK_SPINE1",
+    "target": "10.0.2.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_UPLINK_SPINE1",
+    "target": "10.0.3.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_UPLINK_SPINE2",
+    "target": "10.0.11.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "ETH_UPLINK_SPINE2",
+    "target": "10.0.13.2/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "HIGH-PERFORMANCE STORAGE SERVER",
+    "target": "BOND0.30",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "HIGH-PERFORMANCE STORAGE SERVER",
+    "target": "BOND0_STORAGE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "HIGH-PERFORMANCE STORAGE SERVER",
+    "target": "ENO1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "HIGH-PERFORMANCE STORAGE SERVER",
+    "target": "ENO2",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "LAN0_TO_SPINE1",
+    "target": "10.200.1.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "LAN0_TO_SPINE2",
+    "target": "10.200.2.1/30",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "10.0.1.2",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "10.0.2.2",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "10.0.3.2",
+    "desc": "CONNECTED_TO via routing logic",
+    "strength": "5"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "172.16.20.0/24",
+    "desc": "ROUTES_TO 172.16.20.0/24 via 10.0.1.2, metric 100",
+    "strength": "6"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "172.16.20.0/24",
+    "desc": "ROUTES_TO 172.16.20.0/24 via 10.0.2.2, metric 100",
+    "strength": "6"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "172.16.30.0/24",
+    "desc": "ROUTES_TO 172.16.30.0/24 via 10.0.3.2, metric 100",
+    "strength": "6"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "ETH_TO_EDGE9",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "ETH_TO_LEAF3",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "ETH_TO_LEAF4",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 01",
+    "target": "ETH_TO_LEAF5",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 02",
+    "target": "ETH_TO_EDGE10",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 02",
+    "target": "ETH_TO_LEAF3",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "SPINE ROUTER 02",
+    "target": "ETH_TO_LEAF6",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 01",
+    "target": "BOND_TOR_STORAGE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 01",
+    "target": "ETH_DOWNLINK_SRV7",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 01",
+    "target": "ETH_UPLINK_SPINE1",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 01",
+    "target": "VLAN30_SAN",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 02",
+    "target": "BOND_TOR_STORAGE",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 02",
+    "target": "ETH_DOWNLINK_SRV7",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 02",
+    "target": "ETH_UPLINK_SPINE2",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "STORAGE LEAF 02",
+    "target": "VLAN30_SAN",
+    "desc": "HAS_INTERFACE",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN10_MGMT",
+    "target": "192.168.1.253/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN10_MGMT",
+    "target": "BOND_TOR_COMPUTE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "VLAN20_VM",
+    "target": "172.16.20.253/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN20_VM",
+    "target": "172.16.20.254/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN20_VM",
+    "target": "BOND_TOR_COMPUTE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "VLAN30_SAN",
+    "target": "172.16.30.253/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN30_SAN",
+    "target": "172.16.30.254/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "VLAN30_SAN",
+    "target": "BOND_TOR_STORAGE",
+    "desc": "TAGGED_ON parent link",
+    "strength": "8"
+  },
+  {
+    "source": "WAN0_INTERNET",
+    "target": "203.0.113.1",
+    "desc": "HAS_GATEWAY_IP",
+    "strength": "7"
+  },
+  {
+    "source": "WAN0_INTERNET",
+    "target": "203.0.113.10/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  },
+  {
+    "source": "WAN0_INTERNET",
+    "target": "203.0.113.11/24",
+    "desc": "HAS_IP",
+    "strength": "10"
+  }
+]

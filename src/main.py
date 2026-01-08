@@ -1,11 +1,12 @@
 import sys
 import os
 from src.connection import init_connections
-from src.graph import run_ingestion
+from src.graph import run_ingestion, run_clustering_louvain, run_ingestion
 from src.retrieval import global_search, local_search
 
 
-DATA_FILE_PATH = os.path.join("data", "networkconfig.txt")
+#DATA_FILE_PATH = os.path.join("data", "networkconfig.yml")
+DATA_FILE_PATH = os.path.join("../data/networkconfig.yml")
 
 
 def load_yaml_data():
@@ -29,14 +30,16 @@ def load_yaml_data():
 def main():
     print("GRAPH RAG NETWORK SYSTEM ")
     init_connections()
+    print(" Đang kết nối llm và neo4j ")
 
     while True:
         print("\n--------")
         print("1. Xây dựng Graph (Ingest -> Leiden -> Summarize)")
         print("   (Nguồn: data/networkconfig.yml)")
-        print("2.Global Search (Hỏi tổng quan hệ thống)")
-        print("3.Local Search (Hỏi chi tiết thiết bị/Lỗi)")
-        print("4.Thoát")
+        print("2.Xây cộng đồng và summary")
+        print("3.Global Search (Hỏi tổng quan hệ thống)")
+        print("4.Local Search (Hỏi chi tiết thiết bị/Lỗi)")
+        print("5.Thoát")
         print("-------")
 
         choice = input("Chọn chức năng (1-4): ").strip()
@@ -46,28 +49,28 @@ def main():
             yaml_content = load_yaml_data()
 
             if yaml_content:
-                confirm = input("Hành động này sẽ XÓA dữ liệu cũ trong Neo4j và xây lại từ đầu. Tiếp tục? (y/n): ")
-                if confirm.lower() == 'y':
-                    run_ingestion(yaml_content)
-                else:
-                    print("Đã hủy thao tác.")
+                run_ingestion(yaml_content)
+                #run_clustering_louvain()
 
         elif choice == "2":
+            run_clustering_louvain()
+
+        elif choice == "3":
             q = input("\nNhập câu hỏi tổng quan (VD: Hệ thống có bao nhiêu cụm? Tình trạng chung thế nào?): ")
             if q.strip():
                 print("\nBot đang suy nghĩ (Global Strategy)...")
                 response = global_search(q)
                 print(f"\nTRẢ LỜI:\n{response}")
 
-        elif choice == "3":
+        elif choice == "4":
             q = input("\nNhập câu hỏi chi tiết (VD: Router A kết nối với ai? IP của Switch B?): ")
             if q.strip():
                 print("\nBot đang suy nghĩ (Local Strategy)...")
                 response = local_search(q)
                 print(f"\nTRẢ LỜI:\n{response}")
 
-        elif choice == "4":
-            print("Tạm biệt!")
+        elif choice == "5":
+            print("Thoát!")
             sys.exit()
 
         else:
