@@ -4,6 +4,7 @@ from langchain_community.vectorstores import Neo4jVector
 import json
 # Import Connection
 import src.connection as connection
+from src.prompt.index.community_report_new import BATCH_COMMUNITY_REPORT_PROMPT
 # Import Prompts
 from src.prompt.index.extract_graph import GRAPH_EXTRACTION_PROMPT
 from src.prompt.index.community_report import COMMUNITY_REPORT_PROMPT
@@ -14,7 +15,7 @@ import networkx as nx
 
 
 
-# --- 1. INGESTION PHASE ---
+#  1. INGESTION PHASE
 def run_ingestion(yaml_content):
     import time
     t1 = time.time()
@@ -48,14 +49,11 @@ def run_ingestion(yaml_content):
 
     for line in lines:
         line = line.strip()
-        # Bỏ qua dòng trống hoặc dòng kết thúc
         if not line or line == "<DONE>": continue
 
-        # Loại bỏ ngoặc đơn bao quanh: ("...") -> ...
         if line.startswith("(") and line.endswith(")"):
             line = line[1:-1]
 
-        # Tách các trường bằng dấu |
         parts = line.split("|")
 
         # Parse Entity: "entity"|name|type|desc
@@ -86,8 +84,7 @@ def run_ingestion(yaml_content):
 
     # 1. Tạo Nodes
     for ent in entities:
-        # Chuẩn hóa nhãn (VD: IP ADDRESS -> IP_ADDRESS)
-        #label = ent['type'].upper().replace(" ", "_")
+        # Chuẩn hóa nhãn
         raw_type = ent['type'].upper().strip()
         label = raw_type.replace(" ", "_").replace("{", "").replace("}", "")
 
@@ -154,10 +151,13 @@ def run_clustering_louvain():
         # resolution=1.0 là mức độ tiêu chuẩn, tăng lên để cụm nhỏ hơn, giảm đi để cụm to hơn
         communities = nx.community.louvain_communities(G, seed=123)
 
+
+
         print(f"   -> Found {len(communities)} communities.")
+        communities_list = [list(c) for c in communities]
         #communities_list = [list(c) for c in communities]
-        #with open("log/communities.txt", "w", encoding="utf-8") as f:
-        #    f.write(json.dumps(communities_list, ensure_ascii=False, indent=2))
+        with open("log/communities.txt", "w", encoding="utf-8") as f:
+            f.write(json.dumps(communities_list, ensure_ascii=False, indent=2))
 
         # 4. Cập nhật communityId ngược lại vào Neo4j
         print("   -> Updating Neo4j...")
@@ -234,63 +234,92 @@ def run_leiden():
         print("Gợi ý: Hãy đảm bảo bạn đã cài plugin 'Graph Data Science' (GDS) trong Neo4j.")
 
 '''
-# --- 3. SUMMARIZATION PHASE ---
-def run_summarization():
-    print("[3/3] Generating Community Reports...")
 
-    # Lấy danh sách các Community ID (chỉ lấy các node có communityId)
-    cids = connection.graph.query(
+def run_summarization():
+    print("[3/3] Generating Community Reports (Batch Mode)...")
+
+    cids_result = connection.graph.query(
         "MATCH (d:Entity) WHERE d.communityId IS NOT NULL RETURN distinct d.communityId as cid")
 
-    prompt = PromptTemplate.from_template(COMMUNITY_REPORT_PROMPT)
+    # Chuyển kết quả thành list các ID thực tế
+    all_cids = [r['cid'] for r in cids_result if r['cid'] is not None]
+
+    if not all_cids:
+        print(" -> Không tìm thấy Community nào.")
+        return
+
+    BATCH_SIZE = 4
+    chunks = [all_cids[i:i + BATCH_SIZE] for i in range(0, len(all_cids), BATCH_SIZE)]
+    print(f"   -> Tổng {len(all_cids)} cụm. Chia thành {len(chunks)} đợt xử lý.")
+
+    prompt = PromptTemplate.from_template(BATCH_COMMUNITY_REPORT_PROMPT)
     chain = prompt | connection.llm | JsonOutputParser()
+    all_findings = []
 
-    for record in cids:
-        cid = record['cid']
-        if cid is None: continue
+    for i, chunk in enumerate(chunks):
+        print(f"   -> Processing Batch {i + 1}/{len(chunks)} (IDs: {chunk})...")
 
-        # Lấy danh sách thành viên trong cụm
-        # Lấy thêm 'type' để LLM hiểu rõ ngữ cảnh (VD: Router vs Interface)
-        members = connection.graph.query(
-            "MATCH (d:Entity {communityId: $cid}) RETURN d.id, d.type, d.desc",
-            {"cid": cid}
-        )
+        batch_context_text = ""
+        for cid in chunk:
+            members = connection.graph.query(
+                "MATCH (d:Entity {communityId: $cid}) RETURN d.id, d.type, d.desc",
+                {"cid": cid}
+            )
+            batch_context_text += f"\n--- COMMUNITY ID: {cid} ---\n"
+            member_text = "\n".join(
+                [f"- [{m.get('d.type', 'Device')}] {m['d.id']}: {m.get('d.desc', '')}" for m in members]
+            )
+            batch_context_text += member_text + "\n"
 
-        # Tạo text ngữ cảnh
-        context_text = "\n".join(
-            [f"- [{m.get('d.type', 'Device')}] {m['d.id']}: {m.get('d.desc', '')}" for m in members])
-
-        # Gọi LLM tóm tắt
         try:
-            report = chain.invoke({
-                "input_text": context_text,
-                "max_report_length": 2000
+            reports_list = chain.invoke({
+                "input_text": batch_context_text
             })
 
-            connection.graph.query("""
-                MERGE (c:Community {id: $cid})
-                SET c.title = $title, 
-                    c.summary = $summary, 
-                    c.rating = $rating,
-                    c.rating_explanation = $explanation,
-                    c.findings = $findings
-                WITH c
-                MATCH (d:Entity {communityId: $cid})
-                MERGE (d)-[:IN_COMMUNITY]->(c)
-            """, {
-                "cid": cid,
-                "title": report.get('title', f"Cluster {cid}"),
-                "summary": report.get('summary', ''),
-                "rating": report.get('rating', 0),
-                "explanation": report.get('rating_explanation', ''),
-                "findings": json.dumps(report.get('findings', []))  # Serialize list thành string
-            })
-            print(f"   -> Summarized Cluster {cid}: {report.get('title')}")
+            with open("log/reportsummary.json", "w", encoding="utf-8") as f:
+                json.dump(reports_list, f, ensure_ascii=False, indent=2)
+
+            # Kiểm tra xem kết quả có phải là list
+            if isinstance(reports_list, dict):
+                reports_list = [reports_list]
+
+            for report in reports_list:
+                r_id = str(report.get('id'))
+
+                if r_id not in chunk:
+                    print(f"Warning: LLM returned unknown ID {r_id}")
+                    continue
+
+                connection.graph.query("""
+                    MERGE (c:Community {id: $cid})
+                    SET c.title = $title, 
+                        c.summary = $summary, 
+                        c.rating = $rating,
+                        c.rating_explanation = $explanation,
+                        c.findings = $findings
+                    WITH c
+                    MATCH (d:Entity {communityId: $cid})
+                    MERGE (d)-[:IN_COMMUNITY]->(c)
+                """, {
+                    "cid": r_id,
+                    "title": report.get('title', f"Cluster {r_id}"),
+                    "summary": report.get('summary', ''),
+                    "rating": report.get('rating', 0),
+                    "explanation": report.get('rating_explanation', ''),
+                    "findings": json.dumps(report.get('findings', []))
+                })
+
+                print(f"      -> Done Cluster {r_id}: {report.get('title')}")
+
+                if report.get('findings'):
+                    all_findings.extend(report.get('findings'))
 
         except Exception as e:
-            print(f"   -> Error summarizing cluster {cid}: {e}")
+            print(f" Batch Error: {e}")
 
-    # Tạo Index sau khi xong
+
+
+    # 4. Tạo Index
     create_indices()
 
 
@@ -305,9 +334,9 @@ def create_indices():
     try:
         Neo4jVector.from_existing_graph(
             embedding=connection.embeddings,
-            url=connection.graph._url,
-            username=connection.graph._username,
-            password=connection.graph._password,
+            url=connection.cfg["NEO4J_URI"],
+            username=connection.cfg["NEO4J_USERNAME"],
+            password=connection.cfg["NEO4J_PASSWORD"],
             index_name="entity_index",
             node_label="Entity",
             text_node_properties=["id", "desc", "type"],  # Index cả type

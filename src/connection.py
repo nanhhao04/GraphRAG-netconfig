@@ -29,6 +29,7 @@ def load_config():
 
 def init_connections():
     global cfg, graph, llm, embeddings, driver
+    print("Đang kết nối neo4j và gemini ..........")
 
     # Load cấu hình
     cfg = load_config()
@@ -67,7 +68,7 @@ def init_connections():
         try:
             # Gán giá trị vào biến global 'graph'
             graph = Neo4jGraph(url=uri, username=user, password=pwd)
-            # Test kết nối bằng một câu query nhẹ
+            # Test kết nối
             graph.query("RETURN 1")
             print("Neo4j Connected (Graph DB Ready)")
         except Exception as e:

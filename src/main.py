@@ -2,8 +2,7 @@ import sys
 import os
 from src.connection import init_connections
 from src.graph import run_ingestion, run_clustering_louvain, run_ingestion
-from src.retrieval import global_search, local_search
-
+from src.retrieval import global_search, local_search, router_search
 
 #DATA_FILE_PATH = os.path.join("data", "networkconfig.yml")
 DATA_FILE_PATH = os.path.join("../data/networkconfig.yml")
@@ -30,7 +29,6 @@ def load_yaml_data():
 def main():
     print("GRAPH RAG NETWORK SYSTEM ")
     init_connections()
-    print(" Đang kết nối llm và neo4j ")
 
     while True:
         print("\n--------")
@@ -39,7 +37,8 @@ def main():
         print("2.Xây cộng đồng và summary")
         print("3.Global Search (Hỏi tổng quan hệ thống)")
         print("4.Local Search (Hỏi chi tiết thiết bị/Lỗi)")
-        print("5.Thoát")
+        print("5.Router search")
+        print("6.Thoát")
         print("-------")
 
         choice = input("Chọn chức năng (1-4): ").strip()
@@ -70,6 +69,13 @@ def main():
                 print(f"\nTRẢ LỜI:\n{response}")
 
         elif choice == "5":
+            q = input("\nNhập câu hỏi : ")
+            if q.strip():
+                print("\nBot đang suy nghĩ (Local Strategy)...")
+                response = router_search(q)
+                print(f"\nTRẢ LỜI:\n{response}")
+
+        elif choice == "6":
             print("Thoát!")
             sys.exit()
 
