@@ -60,7 +60,7 @@ def process_uploaded_yaml(uploaded_file):
         return None
 
 
-# --- INIT CONNECTION (Chỉ chạy 1 lần) ---
+# INIT CONNECTION
 @st.cache_resource
 def setup_connections():
     try:
@@ -74,9 +74,9 @@ def setup_connections():
 if not setup_connections():
     st.stop()
 
-# ==========================================
-# --- SIDEBAR (QUAN TRỌNG: KHÔNG ĐƯỢC THIẾU) ---
-# ==========================================
+
+# SIDEBAR
+
 with st.sidebar:
     st.title(" Admin Control")
     st.markdown("---")

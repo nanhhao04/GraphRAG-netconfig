@@ -1,4 +1,3 @@
-# SỬA LẠI PROMPT: Thêm dấu ngoặc kép {{ }} vào phần Example Output
 BATCH_COMMUNITY_REPORT_PROMPT = """
 You are an expert Network Analyst. I will provide data for multiple communities (clusters) of network entities.
 The data for each community is separated by a header like "--- COMMUNITY ID: <id> ---".

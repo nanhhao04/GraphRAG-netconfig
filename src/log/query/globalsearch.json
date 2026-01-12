@@ -1,0 +1,30 @@
+[
+  {
+    "points": [
+      {
+        "description": "Hệ thống bao gồm hai switch leaf tính toán dự phòng (COMPUTE LEAF 01 và 02).",
+        "score": 80
+      },
+      {
+        "description": "Hệ thống bao gồm hai switch leaf lưu trữ dự phòng (STORAGE LEAF 01 và 02).",
+        "score": 80
+      },
+      {
+        "description": "Hệ thống có hai router spine dự phòng (SPINE ROUTER 01 và SPINE ROUTER 02) tạo thành hạ tầng lõi dự phòng.",
+        "score": 80
+      },
+      {
+        "description": "Các báo cáo cộng đồng không trực tiếp nêu rõ tổng số 'cụm' (clusters) trong hệ thống.",
+        "score": 95
+      }
+    ]
+  },
+  {
+    "points": [
+      {
+        "description": "Thông tin về số lượng cụm trong hệ thống không được đề cập trực tiếp trong các báo cáo cộng đồng đã cung cấp.",
+        "score": 0
+      }
+    ]
+  }
+]

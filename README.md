@@ -3,6 +3,9 @@
 ```bash
 pip install langchain langchain-community langchain-core langchain-google-genai neo4j networkx
 ```
+```bash
+python main.py
+```
 ## Chạy giao diện streamlit ở local host
 ```bash
 cd src

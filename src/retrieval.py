@@ -7,17 +7,15 @@ from langchain_core.output_parsers import JsonOutputParser, StrOutputParser
 from langchain_community.vectorstores import Neo4jVector
 import src.connection as connection
 
-# Import Prompts
 from src.prompt.query.global_search_map_system_prompt import MAP_SYSTEM_PROMPT
 from src.prompt.query.global_search_reduce_system_prompt import REDUCE_SYSTEM_PROMPT
 from src.prompt.query.local_search_system_prompt import LOCAL_SEARCH_SYSTEM_PROMPT
-from src.prompt.query.multihop_reasoning_local import MULTI_HOP_REASONING_PROMPT
 from src.prompt.query.router_search import ROUTER_SYSTEM_PROMPT
 
 
 def count_tokens(text):
     try:
-        encoding = tiktoken.get_encoding("cl100k_base") # Encoding chuẩn của GPT-4 (tương đối đúng với Gemini)
+        encoding = tiktoken.get_encoding("cl100k_base") # Encoding chuẩn của GPT-4
         return len(encoding.encode(text))
     except:
         # Fallback nếu chưa cài tiktoken: ước lượng 1 token ~ 4 ký tự
@@ -48,7 +46,8 @@ def global_search(question):
     print(f" Đã chia {len(communities)} communities thành {len(chunks)} chunks để xử lý.")
 
     map_chain = PromptTemplate.from_template(MAP_SYSTEM_PROMPT) | connection.llm | JsonOutputParser()
-    all_points = []  # point đểm đánh giá
+    all_points = []
+    global_search_report = []
 
     for i, chunk in enumerate(chunks):
         chunk_context = ""
@@ -62,6 +61,7 @@ def global_search(question):
                                     "response_type": "JSON list of points",
                                     "max_length": "2000"
                                     })
+            global_search_report.append(res)
 
             if res.get('points'):
                 for p in res['points']:
@@ -70,9 +70,7 @@ def global_search(question):
                         "description": p.get('description', ''),
                         "score": p.get('score', 0)
                     })
-            with open("log/globalsearch.json", "w", encoding="utf-8") as f:
-                json.dump(res, f, ensure_ascii=False, indent=2)
-                json.dump(all_points, f, ensure_ascii=False, indent=2)
+
         except Exception as e:
             print(f"Lỗi xử lý Chunk {i}: {e}")
             continue
@@ -80,13 +78,18 @@ def global_search(question):
     if not all_points:
         return "Không tìm thấy thông tin phù hợp trong hệ thống."
 
+    with open("log/query/globalsearch.json", "w", encoding="utf-8") as f:
+        json.dump(global_search_report, f, ensure_ascii=False, indent=2)
 
     all_points.sort(key=lambda x: x['score'], reverse=True)
     top_points = all_points[:50]
-    with open("log/top_points.json", "w", encoding="utf-8") as f:
+    with open("log/query/top_points.json", "w", encoding="utf-8") as f:
         f.write(json.dumps(top_points, ensure_ascii=False, indent=2))
 
     formatted_report = "\n".join([f"- [Score: {p['score']}] {p['description']}" for p in top_points])
+    with open("log/query/formatted_report_map.json", "w", encoding="utf-8") as f:
+        f.write(json.dumps(formatted_report, ensure_ascii=False, indent=2))
+
     print(f"   -> Tổng hợp {len(top_points)}/{len(all_points)} thông tin quan trọng nhất (Top Scores).")
 
 # REDUCE
@@ -157,8 +160,6 @@ def local_search(question):
 
         for p in paths:
             triple_text = f"({p['src']}) -[{p['rel']}]-> ({p['tgt']})"
-
-            # Công thức: Điểm Vector của Node gốc * Hệ số suy giảm theo khoảng cách (Hops)
             # Hop 1 (trực tiếp): giữ nguyên điểm. Hop 2 (gián tiếp): giảm 50%.
             decay = 1.0 if p['hops'] == 1 else 0.5
             final_score = score * decay
@@ -168,7 +169,7 @@ def local_search(question):
                 "score": final_score
             })
 
-    #Loại bỏ trùng lặp (nếu cùng 1 triple xuất hiện nhiều lần, giữ cái có score cao nhất)
+    #Loại bỏ trùng lặp
     unique_candidates = {}
     for c in candidates:
         txt = c['text']
