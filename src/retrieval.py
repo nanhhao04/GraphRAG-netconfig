@@ -106,13 +106,14 @@ def global_search(question):
     return final_answer
 
 
+
 def local_search(question):
     print("LOCAL SEARCH MODE (Token-based Pruning Strategy)...")
     t1 = time.time()
 
     MAX_CONTEXT_TOKENS = 4000
-    SEARCH_K = 5
-    GRAPH_LIMIT = 100
+    SEARCH_K = 3
+    GRAPH_LIMIT = 50
 
     try:
         vector_store = Neo4jVector.from_existing_index(
@@ -124,6 +125,13 @@ def local_search(question):
             text_node_property="id"
         )
         docs_with_score = vector_store.similarity_search_with_score(question, k=SEARCH_K)
+        with open("log/query/docs_with_score_local.txt", "w", encoding="utf-8") as f:
+            for doc, score in docs_with_score:
+                f.write(f"SCORE: {score}\n")
+                f.write(doc.page_content + "\n")
+                f.write(str(doc.metadata) + "\n")
+                f.write("-" * 50 + "\n")
+
     except Exception as e:
         return f"Lỗi Vector Index: {e}"
 
@@ -136,33 +144,47 @@ def local_search(question):
 
     for doc, score in docs_with_score:
         # Parse ID
-        content_lines = doc.page_content.split("\n")
-        dev_id = "UNKNOWN"
-        for line in content_lines:
-            if line.startswith("id:"):
-                dev_id = line.replace("id:", "").strip()
-                break
-
+        #content_lines = doc.page_content.split("\n")
+        dev_id = doc.page_content.strip()
         if dev_id == "UNKNOWN": continue
 
-        traversal_query = f"""
-            MATCH path = (start:Entity {{id: $id}})-[*1..3]-(end:Entity)
-            UNWIND relationships(path) as r
+        traversal_query = """
+            MATCH (src:Entity {id: $id})-[r]-(tgt:Entity)
+            WHERE type(r) <> 'IN_COMMUNITY'
             RETURN 
-                startNode(r).id as src, 
-                type(r) as rel, 
-                endNode(r).id as tgt,
-                length(path) as hops
-            LIMIT {GRAPH_LIMIT}
+                src.type as src_type, src.id as src_id, src.desc as src_desc,
+                type(r) as rel_type, r.desc as rel_desc,
+                tgt.type as tgt_type, tgt.id as tgt_id, tgt.desc as tgt_desc
+            LIMIT $limit
         """
 
-        paths = connection.graph.query(traversal_query, {"id": dev_id})
+        paths = connection.graph.query(traversal_query, {"id": dev_id, "limit": GRAPH_LIMIT})
 
         for p in paths:
+            '''
             triple_text = f"({p['src']}) -[{p['rel']}]-> ({p['tgt']})"
-            # Hop 1 (trực tiếp): giữ nguyên điểm. Hop 2 (gián tiếp): giảm 50%.
+            # Hop 1 giữ nguyên điểm. Hop 2 (gián tiếp): giảm 50%.
             decay = 1.0 if p['hops'] == 1 else 0.5
             final_score = score * decay
+            '''
+
+            src_info = f"[{p['src_type']}] {p['src_id']}"
+            if p.get('src_desc'):
+                src_info += f" ({p['src_desc']})"
+            tgt_info = f"[{p['tgt_type']}] {p['tgt_id']}"
+            if p.get('tgt_desc'):
+                tgt_info += f" ({p['tgt_desc']})"
+            rel_info = f"--[{p['rel_type']}"
+            if p.get('rel_desc'):
+                rel_info += f": {p['rel_desc']}"
+            rel_info += "]-->"
+            triple_text = f"{src_info} {rel_info} {tgt_info}"
+            final_score = score
+
+            candidates.append({
+                "text": triple_text,
+                "score": final_score
+            })
 
             candidates.append({
                 "text": triple_text,
@@ -195,6 +217,19 @@ def local_search(question):
         final_context.append(item['text'])
         current_tokens += item_tokens
 
+    log_data = {
+        "summary_stats": {
+            "total_candidates": len(sorted_candidates),
+            "final_context_count": len(final_context),
+            "total_tokens_used": current_tokens
+        },
+        "final_context_used_for_llm": final_context,
+        "all_candidates_sorted": sorted_candidates
+    }
+
+    with open("log/query/final_context_local.json", "w", encoding="utf-8") as f:
+        json.dump(log_data, f, ensure_ascii=False, indent=2)
+
     print(f"   -> Context cuối cùng: {len(final_context)} triples ({current_tokens} tokens).")
 
     if not final_context:
@@ -211,6 +246,7 @@ def local_search(question):
         "question": question,
         "context_data": context_text
     })
+
 
 
 def router_search(question):

@@ -1,8 +1,10 @@
 import sys
 import os
 from src.connection import init_connections
+from src.extract_test import run_ingestion_test
 from src.graph import run_ingestion, run_clustering_louvain, run_ingestion
 from src.retrieval import global_search, local_search, router_search
+import yaml
 
 #DATA_FILE_PATH = os.path.join("data", "networkconfig.yml")
 DATA_FILE_PATH = os.path.join("../data/networkconfig.yml")
@@ -21,6 +23,25 @@ def load_yaml_data():
                 print("Cảnh báo: File rỗng!")
                 return None
             return content
+    except Exception as e:
+        print(f"Lỗi khi đọc file: {e}")
+        return None
+
+def load_yaml_data_dict():
+    if not os.path.exists(DATA_FILE_PATH):
+        print(f"Lỗi: Không tìm thấy file dữ liệu tại '{DATA_FILE_PATH}'")
+        return None
+
+    try:
+        print(f"Đang đọc file: {DATA_FILE_PATH}...")
+        with open(DATA_FILE_PATH, "r", encoding="utf-8") as f:
+            docs = list(yaml.safe_load_all(f))
+
+            if not docs:
+                print("Cảnh báo: File rỗng!")
+                return None
+
+            return docs
     except Exception as e:
         print(f"Lỗi khi đọc file: {e}")
         return None
@@ -49,7 +70,8 @@ def main():
 
             if yaml_content:
                 run_ingestion(yaml_content)
-                #run_clustering_louvain()
+
+                #run_ingestion_test(yaml_content)
 
         elif choice == "2":
             run_clustering_louvain()

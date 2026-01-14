@@ -1,29 +1,36 @@
 [
   {
-    "points": [
-      {
-        "description": "Hệ thống bao gồm hai switch leaf tính toán dự phòng (COMPUTE LEAF 01 và 02).",
-        "score": 80
-      },
-      {
-        "description": "Hệ thống bao gồm hai switch leaf lưu trữ dự phòng (STORAGE LEAF 01 và 02).",
-        "score": 80
-      },
-      {
-        "description": "Hệ thống có hai router spine dự phòng (SPINE ROUTER 01 và SPINE ROUTER 02) tạo thành hạ tầng lõi dự phòng.",
-        "score": 80
-      },
-      {
-        "description": "Các báo cáo cộng đồng không trực tiếp nêu rõ tổng số 'cụm' (clusters) trong hệ thống.",
-        "score": 95
-      }
-    ]
+    "points": []
   },
   {
     "points": [
       {
-        "description": "Thông tin về số lượng cụm trong hệ thống không được đề cập trực tiếp trong các báo cáo cộng đồng đã cung cấp.",
-        "score": 0
+        "description": "The network system is designed for high-performance storage infrastructure, involving dedicated Top-of-Rack (ToR) leaf switches and a NAS/SAN Target storage server.",
+        "score": 95
+      },
+      {
+        "description": "Jumbo Frames (MTU 9000) are consistently configured across storage leaf switches, storage server interfaces, and uplinks to optimize high-throughput data transfer.",
+        "score": 90
+      },
+      {
+        "description": "LACP (802.3ad) bonding is utilized on both the storage leaf switches (BOND_TOR_STORAGE) and the high-performance storage server ('bond0_storage') for redundancy and load balancing.",
+        "score": 90
+      },
+      {
+        "description": "VLAN 30 (VLAN30_SAN / bond0.30) is dedicated for SAN traffic, operating within the 172.16.30.0/24 IP subnet.",
+        "score": 85
+      },
+      {
+        "description": "The 'HIGH-PERFORMANCE STORAGE SERVER' (NAS/SAN Target) has the IP address 172.16.30.10 and uses 'eno1' and 'eno2' interfaces in its LACP bond.",
+        "score": 80
+      },
+      {
+        "description": "The storage infrastructure uses two redundant Top-of-Rack (ToR) switches, STORAGE LEAF 01 and 02, which act as a next-hop gateway at 172.16.30.253 for the SAN subnet.",
+        "score": 80
+      },
+      {
+        "description": "The storage leaf switches connect to the core network via uplinks (ETH_UPLINK_SPINE2) which are also configured with high MTU.",
+        "score": 70
       }
     ]
   }

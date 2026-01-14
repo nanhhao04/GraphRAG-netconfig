@@ -1,0 +1,41 @@
+{
+  "summary_stats": {
+    "total_candidates": 6,
+    "final_context_count": 6,
+    "total_tokens_used": 950
+  },
+  "final_context_used_for_llm": [
+    "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] WAN0_INTERNET (Physical WAN interface on Edge Router 02. Assigned IP address 203.0.113.11/24 and uses 203.0.113.1 as gateway4.)**)",
+    "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] LAN0_TO_SPINE1 (Physical LAN interface on Edge Router 01. Assigned IP address 10.200.1.1/30.)**)",
+    "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: ROUTES_TO via 10.200.1.2]--> [IP_ADDRESS] 172.16.0.0/16 (Destination network subnet 172.16.0.0/16 for static routes on Edge Router 01 and Edge Router 02.)**)",
+    "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] WAN0_INTERNET (Physical WAN interface on Edge Router 02. Assigned IP address 203.0.113.11/24 and uses 203.0.113.1 as gateway4.)**)",
+    "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: ROUTES_TO via 10.200.2.2]--> [IP_ADDRESS] 172.16.0.0/16 (Destination network subnet 172.16.0.0/16 for static routes on Edge Router 01 and Edge Router 02.)**)",
+    "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] LAN0_TO_SPINE2 (Physical LAN interface on Edge Router 02. Assigned IP address 10.200.2.1/30.)**)"
+  ],
+  "all_candidates_sorted": [
+    {
+      "text": "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] WAN0_INTERNET (Physical WAN interface on Edge Router 02. Assigned IP address 203.0.113.11/24 and uses 203.0.113.1 as gateway4.)**)",
+      "score": 0.8195004463195801
+    },
+    {
+      "text": "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] LAN0_TO_SPINE1 (Physical LAN interface on Edge Router 01. Assigned IP address 10.200.1.1/30.)**)",
+      "score": 0.8195004463195801
+    },
+    {
+      "text": "[DEVICE] EDGE ROUTER 01 (Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**) --[CONNECTED_TO: ROUTES_TO via 10.200.1.2]--> [IP_ADDRESS] 172.16.0.0/16 (Destination network subnet 172.16.0.0/16 for static routes on Edge Router 01 and Edge Router 02.)**)",
+      "score": 0.8195004463195801
+    },
+    {
+      "text": "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] WAN0_INTERNET (Physical WAN interface on Edge Router 02. Assigned IP address 203.0.113.11/24 and uses 203.0.113.1 as gateway4.)**)",
+      "score": 0.8139476776123047
+    },
+    {
+      "text": "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: ROUTES_TO via 10.200.2.2]--> [IP_ADDRESS] 172.16.0.0/16 (Destination network subnet 172.16.0.0/16 for static routes on Edge Router 01 and Edge Router 02.)**)",
+      "score": 0.8139476776123047
+    },
+    {
+      "text": "[DEVICE] EDGE ROUTER 02 (Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**) --[CONNECTED_TO: HAS_INTERFACE]--> [INTERFACE] LAN0_TO_SPINE2 (Physical LAN interface on Edge Router 02. Assigned IP address 10.200.2.1/30.)**)",
+      "score": 0.8139476776123047
+    }
+  ]
+}
