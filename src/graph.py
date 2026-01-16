@@ -280,9 +280,24 @@ def run_summarization():
 
 
 def create_indices():
-    print("Creating Vector Indices...")
+    print("Creating Vector Indices (Anchors: DEVICE & INTERFACE)...")
+
     try:
-        # Xóa index cũ nếu cần thiết (để tránh duplicate)
+        print("   -> Tagging anchor nodes...")
+        connection.graph.query("""
+            MATCH (n:Entity)
+            WHERE n.type IN ['DEVICE', 'INTERFACE'] 
+            SET n:AnchorNode
+        """)
+        connection.graph.query("""
+            MATCH (n:AnchorNode)
+            WHERE NOT n.type IN ['DEVICE', 'INTERFACE']
+            REMOVE n:AnchorNode
+        """)
+    except Exception as e:
+        print(f"Tagging Error: {e}")
+
+    try:
         connection.graph.query("DROP INDEX entity_index IF EXISTS")
     except:
         pass
@@ -294,11 +309,11 @@ def create_indices():
             username=connection.cfg["NEO4J_USERNAME"],
             password=connection.cfg["NEO4J_PASSWORD"],
             index_name="entity_index",
-            node_label="Entity",
-            text_node_properties=["id", "desc", "type"],  # Index cả type
+            node_label="AnchorNode",
+            text_node_properties=["id", "desc", "type"],
             embedding_node_property="embedding"
         )
-        print("   -> Entity Index Created.")
+        print("   -> Entity Index Created (Scoped to Devices & Interfaces).")
     except Exception as e:
         print(f"Index Error: {e}")
 

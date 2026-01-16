@@ -1,106 +1,114 @@
 [
   {
-    "id": "0",
-    "title": "Storage Leaf Switches",
-    "summary": "This community consists of two redundant Top-of-Rack (ToR) switches, Storage Leaf 01 and Storage Leaf 02, dedicated to a storage cluster. Both switches utilize LACP bonds (bond_tor_storage) for high-availability and increased bandwidth on their downlinks to storage devices. They host VLAN 30 (vlan30_san) with IP addresses 172.16.30.253/24 and 172.16.30.254/24, forming a dedicated Storage Area Network (SAN) segment. Uplinks (eth_uplink_spine1/2) connect these leaf switches to a spine layer (implied by naming and IP ranges 10.0.x.x/30). The consistent use of MTU 9000 across all relevant interfaces indicates support for Jumbo Frames, crucial for high-performance storage traffic. DHCP is disabled on physical interfaces, suggesting static or managed IP assignments.",
-    "rating": 90,
-    "rating_explanation": "These switches are critical infrastructure for a storage cluster, likely supporting high-performance storage. Any disruption would severely impact data access and application availability. The use of redundancy (two switches, LACP bonds) mitigates some risks, but their central role in data access makes them highly important.",
+    "id": "8",
+    "title": "Compute Leaf (Backup)",
+    "summary": "This community centers around COMPUTE_LEAF_02, identified as a backup Top-of-Rack (ToR) switch dedicated to compute resources. It features an uplink to a spine network (10.0.2.2/30) with a 9000 MTU, indicating support for jumbo frames. Downlink connectivity for compute servers is provided via a bond (bond_tor_compute) operating in 802.3ad LACP mode, which includes eth_downlink_srv8. A VLAN interface (vlan20_vm, VLAN ID 20) is configured on this bond, serving as the gateway (172.16.20.254/24) for virtual machines.",
+    "rating": 75,
+    "rating_explanation": "As a backup ToR switch for compute, its failure would impact redundancy and potentially lead to service disruption if the primary compute leaf is also down or overloaded. It handles VM traffic, which is often critical for application hosting.",
     "findings": [
-      "Two redundant Top-of-Rack switches (Storage Leaf 01, Storage Leaf 02) for a storage cluster.",
-      "LACP bonds (bond_tor_storage) are used for downlink aggregation and redundancy.",
-      "VLAN 30 (vlan30_san) is configured on both switches for the 172.16.30.0/24 storage network.",
-      "Uplinks connect to a spine layer (10.0.x.x/30 subnets).",
-      "MTU 9000 (Jumbo Frames) is consistently configured, optimizing storage traffic.",
-      "DHCP is disabled on physical interfaces, indicating static IP configuration."
+      "Device COMPUTE_LEAF_02 is a backup ToR switch for compute resources.",
+      "Uplink eth_uplink_spine1 uses IP 10.0.2.2/30 and supports Jumbo Frames (MTU 9000).",
+      "Downlink bond_tor_compute uses 802.3ad LACP for redundancy and load balancing.",
+      "VLAN 20 (vlan20_vm) is configured for VM traffic with gateway 172.16.20.254/24.",
+      "The bond 'bond_tor_compute' is configured with 802.3ad, but only one member interface ('eth_downlink_srv8') is explicitly listed in the provided data, which could indicate a single physical link or incomplete data."
+    ]
+  },
+  {
+    "id": "0",
+    "title": "Primary Storage Leaf",
+    "summary": "This community describes STORAGE_LEAF_01, the primary Top-of-Rack (ToR) switch for storage infrastructure. It connects to a spine network via eth_uplink_spine1 (10.0.3.2/30) and supports Jumbo Frames (MTU 9000). Downlink connectivity to storage servers is managed by bond_tor_storage, an 802.3ad LACP bond that includes eth_downlink_srv7. A dedicated VLAN (vlan30_san, VLAN ID 30) for SAN traffic is configured on this bond, acting as the gateway (172.16.30.253/24) for storage devices. All relevant interfaces and the VLAN also support MTU 9000, optimizing for high-throughput storage traffic.",
+    "rating": 90,
+    "rating_explanation": "This is the primary ToR switch for storage, handling critical SAN traffic. Its availability is paramount for data access and application performance. Any disruption would severely impact storage services across the infrastructure.",
+    "findings": [
+      "Device STORAGE_LEAF_01 is the primary ToR switch for storage.",
+      "Uplink eth_uplink_spine1 uses IP 10.0.3.2/30 and supports Jumbo Frames (MTU 9000).",
+      "Downlink bond_tor_storage uses 802.3ad LACP for redundancy and load balancing.",
+      "VLAN 30 (vlan30_san) is configured for SAN traffic with gateway 172.16.30.253/24.",
+      "End-to-end Jumbo Frame support (MTU 9000) is configured on uplink, downlink, and SAN VLAN, which is optimal for storage traffic.",
+      "The bond 'bond_tor_storage' is configured with 802.3ad, but only one member interface ('eth_downlink_srv7') is explicitly listed in the provided data, which could indicate a single physical link or incomplete data."
     ]
   },
   {
     "id": "1",
-    "title": "High-Performance Storage Server",
-    "summary": "This community describes a single High-Performance Storage Server, Node 7, designed for robust and efficient data handling. It features two physical network interfaces (eno1, eno2) aggregated into an LACP bond (bond0_storage) using 802.3ad mode with a layer3+4 transmit-hash-policy for optimal load balancing and redundancy. A VLAN interface (bond0.30) with ID 30 is configured on this bond, assigned the IP address 172.16.30.10/24. This server is directly connected to the storage network (172.16.30.0/24) via a route pointing to 172.16.30.253 (Storage Leaf 01). The consistent use of MTU 9000 aligns with the Storage Leaf switches, ensuring end-to-end Jumbo Frame support for high-throughput storage operations. DHCP is disabled on physical interfaces.",
+    "title": "Backup Storage Leaf",
+    "summary": "This community details STORAGE_LEAF_02, designated as the backup Top-of-Rack (ToR) switch for storage. It provides an uplink to a spine network (eth_uplink_spine2, 10.0.13.2/30) with Jumbo Frame support (MTU 9000). Similar to its primary counterpart, it uses bond_tor_storage (an 802.3ad LACP bond including eth_downlink_srv7) for downlink connectivity to storage servers. VLAN 30 (vlan30_san) is configured on this bond, serving as the backup gateway (172.16.30.254/24) for SAN traffic. All critical interfaces and the SAN VLAN are configured with MTU 9000.",
     "rating": 85,
-    "rating_explanation": "This server is a critical component of the storage infrastructure, likely hosting vital data or applications. Its direct connection to the SAN and high-performance configuration (LACP, Jumbo Frames) makes it essential. Failure of this server would lead to significant data loss or service interruption.",
+    "rating_explanation": "As a backup ToR switch for storage, it provides crucial redundancy for SAN traffic. While not the primary, its failure would compromise the high availability of storage services, making it highly important for business continuity.",
     "findings": [
-      "A single High-Performance Storage Server with redundant network connectivity.",
-      "LACP bond (bond0_storage) aggregates two physical interfaces (eno1, eno2) for high availability and bandwidth.",
-      "VLAN 30 (bond0.30) is configured with IP 172.16.30.10/24, connecting to the storage network.",
-      "A static route confirms connectivity to the 172.16.30.0/24 network via 172.16.30.253 (Storage Leaf 01).",
-      "MTU 9000 is configured, indicating support for Jumbo Frames.",
-      "Layer3+4 transmit-hash-policy is used on the bond for efficient load balancing."
+      "Device STORAGE_LEAF_02 is a backup ToR switch for storage.",
+      "Uplink eth_uplink_spine2 uses IP 10.0.13.2/30 and supports Jumbo Frames (MTU 9000).",
+      "Downlink bond_tor_storage uses 802.3ad LACP for redundancy and load balancing.",
+      "VLAN 30 (vlan30_san) is configured for SAN traffic with gateway 172.16.30.254/24.",
+      "End-to-end Jumbo Frame support (MTU 9000) is configured on uplink, downlink, and SAN VLAN.",
+      "The bond 'bond_tor_storage' is configured with 802.3ad, but only one member interface ('eth_downlink_srv7') is explicitly listed in the provided data, which could indicate a single physical link or incomplete data."
     ]
   },
   {
     "id": "2",
-    "title": "Compute Hypervisor with VM Bridging",
-    "summary": "This community details a Compute Hypervisor, Node 8, configured to host virtual machines. It employs network redundancy through an LACP bond (bond0_compute) aggregating two physical interfaces (eth0, eth1). Two VLANs are configured on this bond: VLAN 10 (bond0.10) for management or a primary VM network, assigned IP 192.168.1.100/24 with a gateway of 192.168.1.253; and VLAN 20 (bond0.20) which is bridged to 'br_vm_data'. The 'br_vm_data' bridge is configured with STP disabled and a forward-delay of 0, which is typical for a hypervisor bridge directly connecting virtual machines to a specific VLAN segment, optimizing VM network performance. DHCP is disabled on physical interfaces.",
-    "rating": 75,
-    "rating_explanation": "This hypervisor is crucial for hosting virtualized workloads. While not as critical as core storage or WAN, its failure would impact multiple services/applications running on its VMs. The LACP bond provides network resilience, but the single hypervisor represents a single point of failure for its hosted VMs.",
+    "title": "High-Performance Storage Server",
+    "summary": "This community describes a HIGH_PERFORMANCE_STORAGE_SERVER, identified as a NAS/SAN target. It features dual physical interfaces (eno1, eno2) configured with Jumbo Frames (MTU 9000), which are aggregated into bond0_storage. This bond operates in 802.3ad LACP mode with a layer3+4 hash policy, ensuring both redundancy and efficient load balancing for storage traffic. A VLAN interface (bond0.30, VLAN ID 30) is configured on this bond, providing the server's SAN IP address (172.16.30.10/24) and routing traffic for the 172.16.30.0/24 subnet via 172.16.30.253 (which corresponds to STORAGE_LEAF_01). All network components on the server are configured for MTU 9000, optimizing for high-throughput storage operations.",
+    "rating": 95,
+    "rating_explanation": "This is a critical storage server (NAS/SAN target) that likely hosts vital data and applications. Its availability and performance are paramount for the entire infrastructure. Any issues with this server would have a severe impact on data access and business operations.",
     "findings": [
-      "A Compute Hypervisor with redundant network interfaces via LACP bond (bond0_compute).",
-      "VLAN 10 (bond0.10) is configured for management or a primary VM network (192.168.1.100/24).",
-      "VLAN 20 (bond0.20) is dedicated to VM data traffic and is part of a bridge (br_vm_data).",
-      "The bridge 'br_vm_data' has STP disabled and forward-delay 0, optimized for VM connectivity.",
-      "DHCP is disabled on physical interfaces."
+      "Device HIGH_PERFORMANCE_STORAGE_SERVER is a critical NAS/SAN target.",
+      "Dual physical interfaces (eno1, eno2) are bonded using 802.3ad LACP with layer3+4 hash policy for high availability and performance.",
+      "End-to-end Jumbo Frame support (MTU 9000) is configured on physical interfaces, bond, and SAN VLAN.",
+      "The server connects to VLAN 30 (SAN) with IP 172.16.30.10/24.",
+      "The server's route for the 172.16.30.0/24 subnet is via 172.16.30.253, indicating STORAGE_LEAF_01 as its primary gateway for SAN traffic. This configuration should be reviewed for potential active-active or VRRP/HSRP setup with STORAGE_LEAF_02 (172.16.30.254) to ensure full gateway redundancy for the storage server."
     ]
   },
   {
     "id": "3",
-    "title": "Redundant Edge Routers",
-    "summary": "This community comprises two redundant Edge Routers, Edge Router 01 and Edge Router 02, serving as primary and secondary WAN gateways. Both routers have dedicated WAN interfaces (wan0_internet) with public IP addresses (203.0.113.10/24 and 203.0.113.11/24 respectively) and a common internet gateway (203.0.113.1). They also feature LAN interfaces (lan0_to_spine1/2) with private IP addresses (10.200.1.1/30 and 10.200.2.1/30) that connect to a spine layer. Crucially, both routers are configured with static routes for the 172.16.0.0/16 network (which includes the storage network) via their respective spine connections (10.200.1.2 and 10.200.2.2). This setup provides redundant external connectivity and routing for internal networks, including the storage segment.",
-    "rating": 95,
-    "rating_explanation": "These edge routers are the primary gateways for all external network traffic, including internet access and potentially remote site connectivity. They also provide routing for critical internal networks like storage. Their failure would isolate the entire network from the outside world and disrupt inter-network communication. The redundancy helps, but their role is paramount.",
+    "title": "Compute Hypervisor Network Stack",
+    "summary": "This community details the network configuration of a single compute hypervisor. It utilizes a robust network setup featuring a Link Aggregation Group (LAG) `bond0_compute` (802.3ad LACP) composed of `eth0` and `eth1` for redundancy and increased throughput. Two VLANs, `bond0.10` and `bond0.20`, are configured over this bond. VLAN 10 is assigned an IP address (`192.168.1.100/24`) and gateway, likely for management or host services. VLAN 20 is dedicated to virtual machine data traffic, bridged to `br_vm_data` where Spanning Tree Protocol (STP) is disabled and forward-delay is zero, a common optimization for hypervisor internal bridges.",
+    "rating": 80,
+    "rating_explanation": "A compute hypervisor is a foundational component for virtualized services. Its network configuration is critical for the availability, performance, and isolation of all hosted virtual machines. A failure or misconfiguration in this network stack would directly impact multiple services. The use of bonding provides resilience, but it remains a single point of failure at the host level.",
     "findings": [
-      "Two redundant Edge Routers providing primary and secondary WAN gateway services.",
-      "Each router has a WAN interface with a public IP and a common internet gateway.",
-      "LAN interfaces connect to a spine layer (10.200.x.1/30 subnets).",
-      "Static routes are configured for the 172.16.0.0/16 network, indicating routing for internal segments.",
-      "The setup provides redundant external connectivity and routing for internal networks."
+      "Single compute hypervisor with a redundant LACP bond (`bond0_compute`) for physical interface resilience.",
+      "Network segmentation implemented using VLANs (10 and 20) over the bonded interface.",
+      "VLAN 10 is configured with an IP address and gateway, suggesting a management or service network.",
+      "VLAN 20 is dedicated to VM data traffic, connected to a bridge (`br_vm_data`).",
+      "STP is disabled on `br_vm_data` with zero forward-delay, typical for hypervisor internal bridging."
     ]
   },
   {
     "id": "4",
-    "title": "Core Spine Router 01",
-    "summary": "This community centers around SPINE ROUTER 01, a high-performance Layer 3 core router (Node 1). It serves as a central routing point, connecting to multiple leaf switches (via interfaces like 'eth_to_leaf3', 'eth_to_leaf4', 'eth_to_leaf5') and an edge device ('eth_to_edge9'). The router is configured with jumbo frames (MTU 9000) on its leaf-facing interfaces, indicating a high-throughput data center environment. It provides routing for internal networks such as 172.16.20.0/24 and 172.16.30.0/24, utilizing multiple paths for redundancy or load balancing to 172.16.20.0/24. An external gateway (10.200.1.1) is used for its connection to an edge device, which is also noted as a next-hop for a default route on Compute Leaf 01 (from another community).",
+    "title": "Dual Redundant Edge Routers",
+    "summary": "This community describes a pair of edge routers, `EDGE_ROUTER_01` (primary) and `EDGE_ROUTER_02` (secondary), providing redundant WAN connectivity. Both routers connect to the internet via the same gateway (`203.0.113.1`) but use distinct public IP addresses (`203.0.113.10/24` and `203.0.113.11/24`). Internally, they establish separate point-to-point links (`/30` subnets) to different spine routers (`lan0_to_spine1` and `lan0_to_spine2`). Each edge router has a static route to the `172.16.0.0/16` internal network via its respective spine connection, ensuring reachability to the core.",
     "rating": 95,
-    "rating_explanation": "As a core spine router, this device is critical to the entire network's connectivity and performance. Its failure would lead to widespread outages for multiple downstream segments and services. The use of jumbo frames suggests it handles high-bandwidth traffic, further increasing its importance within the data center fabric.",
+    "rating_explanation": "These edge routers are the critical ingress/egress points for all external network traffic, including internet access. Their proper functioning is paramount for business operations. While redundancy is built-in with two devices, a failure in both or a misconfiguration could lead to a complete loss of external connectivity and impact internal routing to core networks.",
     "findings": [
-      "High-performance L3 core router, central to network operations.",
-      "Utilizes jumbo frames (MTU 9000) on leaf-facing interfaces, common for data center traffic (e.g., storage, VM migration).",
-      "Configured with multiple static routes to internal networks (172.16.20.0/24, 172.16.30.0/24).",
-      "Redundant paths (via 10.0.1.2 and 10.0.2.2) are configured for the 172.16.20.0/24 network, suggesting ECMP or failover capabilities.",
-      "Connects to both internal leaf switches and an external edge device.",
-      "References to 172.16.20.0/24 also appear on a 'High-Performance Storage Server' (from another community), indicating inter-community dependencies."
+      "Two distinct edge routers provide redundant WAN connectivity and internal routing.",
+      "Both routers share a common external gateway but have unique public IP addresses.",
+      "Dedicated internal links (`/30` subnets) connect each edge router to a different spine router.",
+      "Static routes are configured on both edge routers to direct traffic for `172.16.0.0/16` towards their respective spine connections."
     ]
   },
   {
     "id": "5",
-    "title": "Redundant Core Spine Router 02",
-    "summary": "This community describes SPINE ROUTER 02, which functions as a redundant Layer 3 core router (Node 2). It mirrors the role of Spine Router 01, providing core routing capabilities and connecting to various leaf switches (via 'eth_to_leaf3', 'eth_to_leaf6') and an edge device ('eth_to_edge10'). Similar to its counterpart, it is configured with jumbo frames (MTU 9000) on its leaf-facing interfaces, supporting high-throughput data center traffic. It establishes connectivity to different leaf segments (10.0.11.0/30, 10.0.13.0/30) and a distinct edge segment (10.200.2.0/30) compared to Spine Router 01, indicating a distributed or segmented core design for redundancy and load distribution.",
+    "title": "Spine Router 1 (Core L3)",
+    "summary": "This community focuses on `SPINE_ROUTER_01`, a high-performance Layer 3 core router. It features multiple interfaces configured with a large MTU of 9000 bytes, indicating support for jumbo frames, essential for high-throughput data center environments. It establishes point-to-point `/30` links to several leaf devices (`eth_to_leaf3`, `eth_to_leaf4`, `eth_to_leaf5`) and connects to an edge router (`eth_to_edge9`) via a `10.200.1.2/30` link. The router is configured with equal-cost static routes to `172.16.20.0/24` and `172.16.30.0/24` via its leaf connections, suggesting an Equal-Cost Multi-Path (ECMP) routing strategy for load balancing and redundancy to downstream networks.",
     "rating": 90,
-    "rating_explanation": "As a redundant core spine router, this device is highly critical. While its primary function is to provide resilience, its failure would compromise the network's high availability and could lead to service degradation or outages if its primary counterpart also fails or is overloaded. The use of jumbo frames underscores its role in high-performance data paths.",
+    "rating_explanation": "As a core Layer 3 router, `SPINE_ROUTER_01` is a central hub for internal network traffic, connecting edge routers to leaf switches and facilitating inter-VLAN routing. Its performance and availability are crucial for the entire network's operation. A failure would significantly disrupt internal communication and potentially isolate large segments of the network.",
     "findings": [
-      "Redundant L3 core router, providing high availability for network services.",
-      "Utilizes jumbo frames (MTU 9000) on leaf-facing interfaces, consistent with data center best practices for high-performance traffic.",
-      "Connects to distinct leaf segments (10.0.11.0/30, 10.0.13.0/30) and an edge segment (10.200.2.0/30), suggesting a segmented core design or dedicated paths.",
-      "The presence of both Spine Router 01 (Community 4) and Spine Router 02 indicates a highly available core architecture.",
-      "An IP address (10.0.1.1/30) assigned to Spine Router 01 is referenced within this community's data, highlighting inter-community dependencies."
+      "`SPINE_ROUTER_01` functions as a core Layer 3 router, central to the network fabric.",
+      "Interfaces are configured with MTU 9000, enabling jumbo frame support for high-performance traffic.",
+      "Establishes point-to-point links to multiple leaf switches and an edge router.",
+      "Implements Equal-Cost Multi-Path (ECMP) routing for `172.16.20.0/24` and `172.16.30.0/24` via different leaf connections, enhancing load balancing and redundancy."
     ]
   },
   {
     "id": "6",
-    "title": "Compute Cluster Top-of-Rack Switches",
-    "summary": "This community encompasses COMPUTE LEAF 01 (Node 3) and COMPUTE LEAF 02 (Node 4), which are redundant Top-of-Rack (ToR) switches serving a compute cluster. These devices provide access layer connectivity for servers, utilizing LACP bonds ('bond_tor_compute') for aggregated downlinks, ensuring high availability and bandwidth. They segment traffic using VLANs, specifically VLAN 10 for management (192.168.1.0/24) and VLAN 20 for virtual machines (172.16.20.0/24). Both leaves uplink to spine routers, with Compute Leaf 01 configured with redundant default routes to two different spine IPs (10.0.1.1 and 10.0.11.1), indicating ECMP or failover to the core. Jumbo frames (MTU 9000) are configured on their uplinks, aligning with data center best practices for high-performance traffic.",
-    "rating": 85,
-    "rating_explanation": "These ToR switches are critical access points for the compute cluster. Their failure would directly impact server connectivity and the availability of virtual machines and applications. The redundancy built into the design (two leaves, LACP bonds, redundant uplinks/routes) mitigates some risk, but their role as the first hop for compute traffic makes them highly important.",
+    "title": "Spine Router 2 (Redundant Core L3)",
+    "summary": "This community describes `SPINE_ROUTER_02`, designated as a \"Redundant L3 Core\" router, complementing `SPINE_ROUTER_01`. It also features interfaces configured with MTU 9000 for jumbo frame support. It connects to leaf devices (`eth_to_leaf3`, `eth_to_leaf6`) via `/30` point-to-point links and to an edge router (`eth_to_edge10`) via a `10.200.2.2/30` link. The explicit \"Redundant L3 Core\" role highlights its importance in providing high availability and load balancing for the core network, working in tandem with other spine routers.",
+    "rating": 90,
+    "rating_explanation": "As a redundant core Layer 3 router, `SPINE_ROUTER_02` is equally vital to the network's resilience and performance as `SPINE_ROUTER_01`. It ensures continued operation and load distribution in case of a failure in other core components. Its failure would compromise the network's redundancy, potentially leading to performance degradation or outages if the primary spine is also affected.",
     "findings": [
-      "Redundant Top-of-Rack (ToR) switches for a compute cluster, providing high availability at the access layer.",
-      "Utilizes LACP (802.3ad) bonding with fast LACP rates for server downlinks, enhancing bandwidth and resilience.",
-      "Implements VLANs for traffic segmentation: VLAN 10 for management (192.168.1.0/24) and VLAN 20 for VM traffic (172.16.20.0/24).",
-      "Compute Leaf 01 has redundant default routes to different spine routers (10.0.1.1 and 10.0.11.1), indicating robust uplink design and potential ECMP.",
-      "Jumbo frames (MTU 9000) are configured on uplink interfaces, supporting high-performance data flows to the core.",
-      "DHCPv4 is disabled on downlink interfaces, suggesting static IP assignment or DHCP services provided by a different network component.",
-      "VLAN 20 (172.16.20.0/24) is present on both Compute Leaf 01 and 02 with distinct IP addresses (172.16.20.253/24 and 172.16.20.254/24), implying a shared L3 segment with potential for HSRP/VRRP or active-active routing.",
-      "An uplink interface (10.0.3.2/30) is referenced as belonging to a 'Storage Leaf 01', indicating inter-community dependencies and a broader network fabric."
+      "`SPINE_ROUTER_02` serves as a redundant core Layer 3 router, enhancing network resilience.",
+      "Interfaces are configured with MTU 9000, supporting jumbo frames.",
+      "Establishes point-to-point links to leaf switches and an edge router.",
+      "The connection to `eth_to_leaf3` on `SPINE_ROUTER_02` uses a different subnet (`10.0.11.1/30`) than `eth_to_leaf3` on `SPINE_ROUTER_01` (`10.0.1.1/30`), suggesting `leaf3` has dual uplinks to both spines.",
+      "Explicitly identified as a \"Redundant L3 Core,\" confirming its role in a highly available network design."
     ]
   }
 ]

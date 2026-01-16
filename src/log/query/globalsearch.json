@@ -1,36 +1,69 @@
 [
   {
-    "points": []
+    "points": [
+      {
+        "description": "EDGE_ROUTER_02 (Secondary Edge Router) functions as a secondary WAN gateway, routing internal traffic towards the core network and providing redundancy to EDGE_ROUTER_01.",
+        "score": 95
+      },
+      {
+        "description": "COMPUTE_LEAF_02 (Redundant Compute Leaf Switch) acts as a redundant Top-of-Rack (ToR) switch for a compute rack, providing downlink connectivity to servers and hosting VLANs for virtual machines, peer to COMPUTE_LEAF_01.",
+        "score": 95
+      },
+      {
+        "description": "COMPUTE_LEAF_01 (Primary Compute Leaf Switch) is a primary Top-of-Rack (ToR) switch for a compute server rack, managing downlink connectivity to servers via LACP bond and hosting VLANs for management and virtual machines, utilizing ECMP for redundancy and load balancing.",
+        "score": 95
+      },
+      {
+        "description": "SPINE_ROUTER_02 (Core Spine Router) is a redundant Layer 3 core router, acting as a central routing point for the network, connecting to leaf switches and an edge device, supporting high-throughput data center environments with Jumbo Frames.",
+        "score": 95
+      },
+      {
+        "description": "STORAGE_LEAF_01 (Primary Storage ToR Switch) is a Top-of-Rack (ToR) switch primarily serving a storage cabinet, configured for high-performance storage traffic, providing an uplink to the spine network and a dedicated SAN VLAN for storage traffic.",
+        "score": 95
+      }
+    ]
   },
   {
     "points": [
       {
-        "description": "The network system is designed for high-performance storage infrastructure, involving dedicated Top-of-Rack (ToR) leaf switches and a NAS/SAN Target storage server.",
+        "description": "EDGE_ROUTER_01 serves as the primary WAN gateway, connecting the internal network to the internet and routing internal traffic towards the core network.",
+        "score": 100
+      },
+      {
+        "description": "SPINE_ROUTER_01 is a High Performance L3 Core device, acting as a central routing point that connects to multiple leaf routers and the edge router. It uses Equal-Cost Multi-Path (ECMP) routing for load balancing and redundancy.",
+        "score": 100
+      },
+      {
+        "description": "HIGH-PERFORMANCE_STORAGE_SERVER functions as a NAS/SAN target, providing high-throughput and resilient storage operations.",
         "score": 95
       },
       {
-        "description": "Jumbo Frames (MTU 9000) are consistently configured across storage leaf switches, storage server interfaces, and uplinks to optimize high-throughput data transfer.",
+        "description": "STORAGE_LEAF_02 is a redundant Top-of-Rack (ToR) switch for the storage cabinet. It provides a dedicated SAN VLAN (VLAN 30) and acts as a redundant gateway or access point for SAN traffic, connecting storage servers to the spine network.",
+        "score": 95
+      },
+      {
+        "description": "COMPUTE_LEAF_01 connects to spine routers via uplinks and to servers via downlinks, indicating its role as a leaf switch/router for compute resources.",
         "score": 90
+      }
+    ]
+  },
+  {
+    "points": [
+      {
+        "description": "Một node mạng chính trong hệ thống là thiết bị COMPUTE_HYPERVISOR, có chức năng chính là chạy các máy ảo (virtual machines) hoặc container.",
+        "score": 100
       },
       {
-        "description": "LACP (802.3ad) bonding is utilized on both the storage leaf switches (BOND_TOR_STORAGE) and the high-performance storage server ('bond0_storage') for redundancy and load balancing.",
-        "score": 90
-      },
-      {
-        "description": "VLAN 30 (VLAN30_SAN / bond0.30) is dedicated for SAN traffic, operating within the 172.16.30.0/24 IP subnet.",
-        "score": 85
-      },
-      {
-        "description": "The 'HIGH-PERFORMANCE STORAGE SERVER' (NAS/SAN Target) has the IP address 172.16.30.10 and uses 'eno1' and 'eno2' interfaces in its LACP bond.",
+        "description": "Thiết bị COMPUTE_HYPERVISOR sử dụng giao diện bond ('bond0_compute') với 'eth0' và 'eth1' ở chế độ LACP (802.3ad) để tăng cường băng thông và dự phòng.",
         "score": 80
       },
       {
-        "description": "The storage infrastructure uses two redundant Top-of-Rack (ToR) switches, STORAGE LEAF 01 and 02, which act as a next-hop gateway at 172.16.30.253 for the SAN subnet.",
-        "score": 80
+        "description": "Trên COMPUTE_HYPERVISOR, VLAN 10 ('bond0.10') được cấu hình với IP 192.168.1.100/24 và một gateway, có thể dùng cho quản lý hoặc các dịch vụ của host.",
+        "score": 75
       },
       {
-        "description": "The storage leaf switches connect to the core network via uplinks (ETH_UPLINK_SPINE2) which are also configured with high MTU.",
-        "score": 70
+        "description": "VLAN 20 ('bond0.20') trên COMPUTE_HYPERVISOR được bắc cầu (bridged) tới 'br_vm_data', một bridge được thiết kế cho lưu lượng truy cập của máy ảo (VM traffic).",
+        "score": 75
       }
     ]
   }

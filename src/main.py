@@ -1,10 +1,12 @@
 import sys
 import os
 from src.connection import init_connections
-from src.extract_test import run_ingestion_test
+from src.run_ingestion_rulebased import run_ingestion_test
 from src.graph import run_ingestion, run_clustering_louvain, run_ingestion
-from src.retrieval import global_search, local_search, router_search
+from src.retrieval import global_search, local_search, router_search,  local_search_semantic
 import yaml
+from src.eval.eval_ragas import run_eval_pipeline
+import json
 
 #DATA_FILE_PATH = os.path.join("data", "networkconfig.yml")
 DATA_FILE_PATH = os.path.join("../data/networkconfig.yml")
@@ -59,19 +61,20 @@ def main():
         print("3.Global Search (Hỏi tổng quan hệ thống)")
         print("4.Local Search (Hỏi chi tiết thiết bị/Lỗi)")
         print("5.Router search")
-        print("6.Thoát")
+        print("6.Ragas")
+        print("7.Thoát")
         print("-------")
 
-        choice = input("Chọn chức năng (1-4): ").strip()
+        choice = input("Chọn chức năng (1-7): ").strip()
 
         if choice == "1":
             # Đọc dữ liệu từ file
             yaml_content = load_yaml_data()
 
             if yaml_content:
-                run_ingestion(yaml_content)
+                #run_ingestion(yaml_content)
 
-                #run_ingestion_test(yaml_content)
+                run_ingestion_test(yaml_content)
 
         elif choice == "2":
             run_clustering_louvain()
@@ -87,7 +90,8 @@ def main():
             q = input("\nNhập câu hỏi chi tiết (VD: Router A kết nối với ai? IP của Switch B?): ")
             if q.strip():
                 print("\nBot đang suy nghĩ (Local Strategy)...")
-                response = local_search(q)
+                response = local_search_semantic(q)
+                #response = local_search(q)
                 print(f"\nTRẢ LỜI:\n{response}")
 
         elif choice == "5":
@@ -98,6 +102,37 @@ def main():
                 print(f"\nTRẢ LỜI:\n{response}")
 
         elif choice == "6":
+            q = input("\nNhập câu hỏi chi tiết: ")
+
+            ground_truth = input("Nhập câu trả lời mẫu (Enter để bỏ qua): ").strip()
+            if not ground_truth:
+                ground_truth = None
+            #ground_truth = None
+
+            if q.strip():
+                print("\nBot đang suy nghĩ (Local Strategy)...")
+
+                # Gọi hàm search
+                #response = router_search(q)
+                response = local_search_semantic(q)
+
+                print(f"\nTRẢ LỜI:\n{response}")
+
+                # Eval
+                do_eval = input("\n> Chạy đánh giá Ragas cho câu trả lời này? (y/n): ").strip().lower()
+                if do_eval == 'y':
+                    # 1. Load context thực tế đã dùng
+                    try:
+                        with open("log/query/final_context_local.json", "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                            context_used = data.get("llm_context", [])
+                    except:
+                        context_used = ["Không tìm thấy file log context"]
+
+                    # 2. Chạy Ragas
+                    run_eval_pipeline(q, response, context_used, ground_truth)
+
+        elif choice == "7":
             print("Thoát!")
             sys.exit()
 

@@ -1,12 +1,20 @@
-SCORE: 0.8195004463195801
-EDGE ROUTER 01
-{'type': 'DEVICE', 'communityId': '3', 'desc': "Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**"}
+SCORE: 0.8162579536437988
+EDGE_ROUTER_01
+{'type': 'DEVICE', 'communityId': '4', 'desc': "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"}
 --------------------------------------------------
-SCORE: 0.8157620429992676
-10.200.2.2
-{'type': 'IP_ADDRESS', 'desc': 'Next-hop IP address 10.200.2.2 for route to 172.16.0.0/16 on Edge Router 02.)**'}
+SCORE: 0.8119697570800781
+EDGE_ROUTER_02
+{'type': 'DEVICE', 'communityId': '4', 'desc': "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"}
 --------------------------------------------------
-SCORE: 0.8139476776123047
-EDGE ROUTER 02
-{'type': 'DEVICE', 'communityId': '3', 'desc': "Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**"}
+SCORE: 0.8027739524841309
+EDGE_ROUTER_02_WAN0_INTERNET
+{'type': 'INTERFACE', 'communityId': '4', 'desc': "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"}
+--------------------------------------------------
+SCORE: 0.80255126953125
+EDGE_ROUTER_01_WAN0_INTERNET
+{'type': 'INTERFACE', 'communityId': '4', 'desc': "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"}
+--------------------------------------------------
+SCORE: 0.8025307655334473
+EDGE_ROUTER_02_ETHERNETS
+{'type': 'INTERFACE', 'communityId': '4', 'desc': "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"}
 --------------------------------------------------

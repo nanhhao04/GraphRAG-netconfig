@@ -1,0 +1,1517 @@
+
+==================== Traversal for: EDGE_ROUTER_01 (Score: 0.8154) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_1_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.1.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02 (Score: 0.8114) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_WAN0_INTERNET (Score: 0.8030) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_01_WAN0_INTERNET (Score: 0.8028) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_ETHERNETS (Score: 0.8012) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  }
+]
+------------------------------------------------------------
+EDGE_ROUTER_01
+
+==================== Traversal for: EDGE_ROUTER_01 (Score: 0.8131) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_1_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.1.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02 (Score: 0.8085) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_WAN0_INTERNET (Score: 0.7996) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_01_WAN0_INTERNET (Score: 0.7995) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_ETHERNETS (Score: 0.7981) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  }
+]
+------------------------------------------------------------
+EDGE_ROUTER_01
+
+==================== Traversal for: EDGE_ROUTER_01 (Score: 0.8163) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_1_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.1.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02 (Score: 0.8120) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_ADDRESS",
+    "src_desc": "Destination Network 172.16.0.0/16.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_WAN0_INTERNET (Score: 0.8028) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_01_WAN0_INTERNET (Score: 0.8026) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.10/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_01. gateway 203.0.113.1. assigned IPs [203.0.113.10/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_ETHERNETS",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine1' on EDGE_ROUTER_01. assigned IPs [10.200.1.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_01_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_01. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Primary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: EDGE_ROUTER_02_ETHERNETS (Score: 0.8025) ====================
+[
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_ETHERNETS",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'ethernets' on EDGE_ROUTER_02. Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "203_0_113_11_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 203.0.113.11/24."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "10_200_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "IP Subnet 10.200.2.1/30."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "src_type": "INTERFACE",
+    "src_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "Destination Network 172.16.0.0/16."
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'wan0_internet' on EDGE_ROUTER_02. gateway 203.0.113.1. assigned IPs [203.0.113.11/24]"
+  },
+  {
+    "src_id": "EDGE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Secondary WAN Gateway. Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": null,
+    "tgt_id": "EDGE_ROUTER_02_LAN0_TO_SPINE2",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "INTERFACE 'lan0_to_spine2' on EDGE_ROUTER_02. assigned IPs [10.200.2.1/30]"
+  }
+]
+------------------------------------------------------------

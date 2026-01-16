@@ -1,7 +1,7 @@
 # Graph Rag
 ## Cài đặt các thư viện cần thiết
 ```bash
-pip install langchain langchain-community langchain-core langchain-google-genai neo4j networkx
+pip install langchain langchain-community langchain-core langchain-google-genai neo4j networkx ragas
 ```
 ```bash
 python main.py

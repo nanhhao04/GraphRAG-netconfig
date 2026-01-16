@@ -1,181 +1,175 @@
-("entity"|SPINE ROUTER 01|DEVICE|High Performance L3 Core Router, Node 1. Configuration includes: 'ethernets' with 'eth_to_leaf3' (MTU 9000, IP 10.0.1.1/30), 'eth_to_leaf4' (MTU 9000, IP 10.0.2.1/30), 'eth_to_leaf5' (MTU 9000, IP 10.0.3.1/30), and 'eth_to_edge9' (IP 10.200.1.2/30, gateway 10.200.1.1). Also defines 'routes': to 172.16.20.0/24 via 10.0.1.2 (metric 100), to 172.16.20.0/24 via 10.0.2.2 (metric 100), and to 172.16.30.0/24 via 10.0.3.2 (metric 100).)**
-("entity"|ETH_TO_LEAF3|INTERFACE|Physical interface on Spine Router 01. Configured with MTU 9000 and assigned IP address 10.0.1.1/30.)**
-("entity"|10.0.1.1/30|IP_ADDRESS|IP Subnet 10.0.1.1/30 assigned to interface eth_to_leaf3 on Spine Router 01.)**
-("entity"|ETH_TO_LEAF4|INTERFACE|Physical interface on Spine Router 01. Configured with MTU 9000 and assigned IP address 10.0.2.1/30.)**
-("entity"|10.0.2.1/30|IP_ADDRESS|IP Subnet 10.0.2.1/30 assigned to interface eth_to_leaf4 on Spine Router 01.)**
-("entity"|ETH_TO_LEAF5|INTERFACE|Physical interface on Spine Router 01. Configured with MTU 9000 and assigned IP address 10.0.3.1/30.)**
-("entity"|10.0.3.1/30|IP_ADDRESS|IP Subnet 10.0.3.1/30 assigned to interface eth_to_leaf5 on Spine Router 01.)**
-("entity"|ETH_TO_EDGE9|INTERFACE|Physical interface on Spine Router 01. Assigned IP address 10.200.1.2/30 and uses 10.200.1.1 as gateway4.)**
-("entity"|10.200.1.2/30|IP_ADDRESS|IP Subnet 10.200.1.2/30 assigned to interface eth_to_edge9 on Spine Router 01.)**
-("entity"|10.200.1.1|IP_ADDRESS|Gateway IP address 10.200.1.1 for interface eth_to_edge9 on Spine Router 01, and next-hop for default route on Compute Leaf 01.)**
-("entity"|172.16.20.0/24|IP_ADDRESS|Destination network subnet 172.16.20.0/24 for static routes on Spine Router 01 and VLAN interface bond0.30 on High-Performance Storage Server.)**
-("entity"|10.0.1.2|IP_ADDRESS|Next-hop IP address 10.0.1.2 for route to 172.16.20.0/24 on Spine Router 01.)**
-("entity"|10.0.2.2|IP_ADDRESS|Next-hop IP address 10.0.2.2 for route to 172.16.20.0/24 on Spine Router 01.)**
-("entity"|172.16.30.0/24|IP_ADDRESS|Destination network subnet 172.16.30.0/24 for static route on Spine Router 01.)**
-("entity"|10.0.3.2|IP_ADDRESS|Next-hop IP address 10.0.3.2 for route to 172.16.30.0/24 on Spine Router 01.)**
-("entity"|SPINE ROUTER 02|DEVICE|Redundant L3 Core Router, Node 2. Configuration includes: 'ethernets' with 'eth_to_leaf3' (MTU 9000, IP 10.0.11.1/30), 'eth_to_leaf6' (MTU 9000, IP 10.0.13.1/30), and 'eth_to_edge10' (IP 10.200.2.2/30, gateway 10.200.2.1).)**
-("entity"|ETH_TO_LEAF3|INTERFACE|Physical interface on Spine Router 02. Configured with MTU 9000 and assigned IP address 10.0.11.1/30.)**
-("entity"|10.0.11.1/30|IP_ADDRESS|IP Subnet 10.0.11.1/30 assigned to interface eth_to_leaf3 on Spine Router 02.)**
-("entity"|ETH_TO_LEAF6|INTERFACE|Physical interface on Spine Router 02. Configured with MTU 9000 and assigned IP address 10.0.13.1/30.)**
-("entity"|10.0.13.1/30|IP_ADDRESS|IP Subnet 10.0.13.1/30 assigned to interface eth_to_leaf6 on Spine Router 02.)**
-("entity"|ETH_TO_EDGE10|INTERFACE|Physical interface on Spine Router 02. Assigned IP address 10.200.2.2/30 and uses 10.200.2.1 as gateway4.)**
-("entity"|10.200.2.2/30|IP_ADDRESS|IP Subnet 10.200.2.2/30 assigned to interface eth_to_edge10 on Spine Router 02.)**
-("entity"|10.200.2.1|IP_ADDRESS|Gateway IP address 10.200.2.1 for interface eth_to_edge10 on Spine Router 02.)**
-("entity"|COMPUTE LEAF 01|DEVICE|Top-of-Rack Switch for Compute Cluster, Node 3. Configuration includes: 'ethernets' with 'eth_uplink_spine1' (MTU 9000, IP 10.0.1.2/30), 'eth_uplink_spine2' (MTU 9000, IP 10.0.11.2/30), and 'eth_downlink_srv8' (DHCP disabled). Defines 'bonds' with 'bond_tor_compute' (mode 802.3ad LACP, fast LACP rate, MII monitor interval 100ms, member 'eth_downlink_srv8'). Defines 'vlans' with 'vlan10_mgmt' (ID 10, linked to 'bond_tor_compute', IP 192.168.1.253/24) and 'vlan20_vm' (ID 20, linked to 'bond_tor_compute', IP 172.16.20.253/24). Also defines 'routes': default route (0.0.0.0/0) via 10.0.1.1 (metric 100) and default route (0.0.0.0/0) via 10.0.11.1 (metric 100).)**
-("entity"|ETH_UPLINK_SPINE1|INTERFACE|Physical uplink interface on Compute Leaf 01. Configured with MTU 9000 and assigned IP address 10.0.1.2/30.)**
-("entity"|10.0.1.2/30|IP_ADDRESS|IP Subnet 10.0.1.2/30 assigned to interface eth_uplink_spine1 on Compute Leaf 01.)**
-("entity"|ETH_UPLINK_SPINE2|INTERFACE|Physical uplink interface on Compute Leaf 01. Configured with MTU 9000 and assigned IP address 10.0.11.2/30.)**
-("entity"|10.0.11.2/30|IP_ADDRESS|IP Subnet 10.0.11.2/30 assigned to interface eth_uplink_spine2 on Compute Leaf 01.)**
-("entity"|ETH_DOWNLINK_SRV8|INTERFACE|Physical downlink interface on Compute Leaf 01. DHCPv4 is disabled. Member of bond_tor_compute.)**
-("entity"|BOND_TOR_COMPUTE|INTERFACE|LACP Bond Interface on Compute Leaf 01. Parameters: mode 802.3ad (LACP), lacp-rate fast, mii-monitor-interval 100. Aggregates physical interface 'eth_downlink_srv8'.)**
-("entity"|VLAN10_MGMT|INTERFACE|VLAN Interface with ID 10 on Compute Leaf 01. Linked to parent 'bond_tor_compute'. Assigned IP 192.168.1.253/24.)**
-("entity"|192.168.1.253/24|IP_ADDRESS|IP Subnet 192.168.1.253/24 assigned to VLAN interface vlan10_mgmt on Compute Leaf 01.)**
-("entity"|VLAN20_VM|INTERFACE|VLAN Interface with ID 20 on Compute Leaf 01. Linked to parent 'bond_tor_compute'. Assigned IP 172.16.20.253/24.)**
-("entity"|172.16.20.253/24|IP_ADDRESS|IP Subnet 172.16.20.253/24 assigned to VLAN interface vlan20_vm on Compute Leaf 01.)**
-("entity"|0.0.0.0/0|IP_ADDRESS|Default route destination network 0.0.0.0/0 for Compute Leaf 01.)**
-("entity"|10.0.1.1|IP_ADDRESS|Next-hop IP address 10.0.1.1 for default route on Compute Leaf 01.)**
-("entity"|10.0.11.1|IP_ADDRESS|Next-hop IP address 10.0.11.1 for default route on Compute Leaf 01.)**
-("entity"|COMPUTE LEAF 02|DEVICE|Redundant Top-of-Rack Switch for Compute Cluster, Node 4. Configuration includes: 'ethernets' with 'eth_uplink_spine1' (MTU 9000, IP 10.0.2.2/30) and 'eth_downlink_srv8' (DHCP disabled). Defines 'bonds' with 'bond_tor_compute' (mode 802.3ad, member 'eth_downlink_srv8'). Defines 'vlans' with 'vlan20_vm' (ID 20, linked to 'bond_tor_compute', IP 172.16.20.254/24).)**
-("entity"|ETH_UPLINK_SPINE1|INTERFACE|Physical uplink interface on Compute Leaf 02. Configured with MTU 9000 and assigned IP address 10.0.2.2/30.)**
-("entity"|10.0.2.2/30|IP_ADDRESS|IP Subnet 10.0.2.2/30 assigned to interface eth_uplink_spine1 on Compute Leaf 02.)**
-("entity"|ETH_DOWNLINK_SRV8|INTERFACE|Physical downlink interface on Compute Leaf 02. DHCPv4 is disabled. Member of bond_tor_compute.)**
-("entity"|BOND_TOR_COMPUTE|INTERFACE|LACP Bond Interface on Compute Leaf 02. Parameters: mode 802.3ad. Aggregates physical interface 'eth_downlink_srv8'.)**
-("entity"|VLAN20_VM|INTERFACE|VLAN Interface with ID 20 on Compute Leaf 02. Linked to parent 'bond_tor_compute'. Assigned IP 172.16.20.254/24.)**
-("entity"|172.16.20.254/24|IP_ADDRESS|IP Subnet 172.16.20.254/24 assigned to VLAN interface vlan20_vm on Compute Leaf 02.)**
-("entity"|STORAGE LEAF 01|DEVICE|Top-of-Rack Switch for Storage Cluster, Node 5. Configuration includes: 'ethernets' with 'eth_uplink_spine1' (MTU 9000, IP 10.0.3.2/30) and 'eth_downlink_srv7' (MTU 9000, DHCP disabled). Defines 'bonds' with 'bond_tor_storage' (MTU 9000, mode 802.3ad, member 'eth_downlink_srv7'). Defines 'vlans' with 'vlan30_san' (ID 30, linked to 'bond_tor_storage', MTU 9000, IP 172.16.30.253/24).)**
-("entity"|ETH_UPLINK_SPINE1|INTERFACE|Physical uplink interface on Storage Leaf 01. Configured with MTU 9000 and assigned IP address 10.0.3.2/30.)**
-("entity"|10.0.3.2/30|IP_ADDRESS|IP Subnet 10.0.3.2/30 assigned to interface eth_uplink_spine1 on Storage Leaf 01.)**
-("entity"|ETH_DOWNLINK_SRV7|INTERFACE|Physical downlink interface on Storage Leaf 01. Configured with MTU 9000. DHCPv4 is disabled. Member of bond_tor_storage.)**
-("entity"|BOND_TOR_STORAGE|INTERFACE|LACP Bond Interface on Storage Leaf 01. Configured with MTU 9000. Parameters: mode 802.3ad. Aggregates physical interface 'eth_downlink_srv7'.)**
-("entity"|VLAN30_SAN|INTERFACE|VLAN Interface with ID 30 on Storage Leaf 01. Linked to parent 'bond_tor_storage'. Configured with MTU 9000. Assigned IP 172.16.30.253/24.)**
-("entity"|172.16.30.253/24|IP_ADDRESS|IP Subnet 172.16.30.253/24 assigned to VLAN interface vlan30_san on Storage Leaf 01.)**
-("entity"|STORAGE LEAF 02|DEVICE|Redundant Top-of-Rack Switch for Storage Cluster, Node 6. Configuration includes: 'ethernets' with 'eth_uplink_spine2' (MTU 9000, IP 10.0.13.2/30) and 'eth_downlink_srv7' (MTU 9000, DHCP disabled). Defines 'bonds' with 'bond_tor_storage' (MTU 9000, mode 802.3ad, member 'eth_downlink_srv7'). Defines 'vlans' with 'vlan30_san' (ID 30, linked to 'bond_tor_storage', MTU 9000, IP 172.16.30.254/24).)**
-("entity"|ETH_UPLINK_SPINE2|INTERFACE|Physical uplink interface on Storage Leaf 02. Configured with MTU 9000 and assigned IP address 10.0.13.2/30.)**
-("entity"|10.0.13.2/30|IP_ADDRESS|IP Subnet 10.0.13.2/30 assigned to interface eth_uplink_spine2 on Storage Leaf 02.)**
-("entity"|ETH_DOWNLINK_SRV7|INTERFACE|Physical downlink interface on Storage Leaf 02. Configured with MTU 9000. DHCPv4 is disabled. Member of bond_tor_storage.)**
-("entity"|BOND_TOR_STORAGE|INTERFACE|LACP Bond Interface on Storage Leaf 02. Configured with MTU 9000. Parameters: mode 802.3ad. Aggregates physical interface 'eth_downlink_srv7'.)**
-("entity"|VLAN30_SAN|INTERFACE|VLAN Interface with ID 30 on Storage Leaf 02. Linked to parent 'bond_tor_storage'. Configured with MTU 9000. Assigned IP 172.16.30.254/24.)**
-("entity"|172.16.30.254/24|IP_ADDRESS|IP Subnet 172.16.30.254/24 assigned to VLAN interface vlan30_san on Storage Leaf 02.)**
-("entity"|HIGH-PERFORMANCE STORAGE SERVER|DEVICE|High-Performance Storage Server, Node 7. Configuration includes: 'ethernets' with 'eno1' (MTU 9000, DHCP disabled) and 'eno2' (MTU 9000, DHCP disabled). Defines 'bonds' with 'bond0_storage' (MTU 9000, mode 802.3ad LACP, transmit-hash-policy layer3+4, members 'eno1', 'eno2'). Defines 'vlans' with 'bond0.30' (ID 30, linked to 'bond0_storage', MTU 9000, IP 172.16.30.10/24, with a route to 172.16.30.0/24 via 172.16.30.253).)**
-("entity"|ENO1|INTERFACE|Physical interface on High-Performance Storage Server. Configured with MTU 9000. DHCPv4 is disabled. Member of bond0_storage.)**
-("entity"|ENO2|INTERFACE|Physical interface on High-Performance Storage Server. Configured with MTU 9000. DHCPv4 is disabled. Member of bond0_storage.)**
-("entity"|BOND0_STORAGE|INTERFACE|LACP Bond Interface on High-Performance Storage Server. Configured with MTU 9000. Parameters: mode 802.3ad (LACP active-active), transmit-hash-policy layer3+4. Aggregates physical interfaces 'eno1' and 'eno2'.)**
-("entity"|BOND0.30|INTERFACE|VLAN Interface with ID 30 on High-Performance Storage Server. Linked to parent 'bond0_storage'. Configured with MTU 9000. Assigned IP 172.16.30.10/24. Includes a route to 172.16.30.0/24 via 172.16.30.253.)**
-("entity"|172.16.30.10/24|IP_ADDRESS|IP Subnet 172.16.30.10/24 assigned to VLAN interface bond0.30 on High-Performance Storage Server.)**
-("entity"|172.16.30.253|IP_ADDRESS|Next-hop IP address 172.16.30.253 for route to 172.16.30.0/24 on VLAN interface bond0.30 on High-Performance Storage Server.)**
-("entity"|COMPUTE HYPERVISOR|DEVICE|Compute Hypervisor, Node 8. Configuration includes: 'ethernets' with 'eth0' (DHCP disabled) and 'eth1' (DHCP disabled). Defines 'bonds' with 'bond0_compute' (mode 802.3ad, members 'eth0', 'eth1'). Defines 'vlans' with 'bond0.10' (ID 10, linked to 'bond0_compute', IP 192.168.1.100/24, gateway 192.168.1.253) and 'bond0.20' (ID 20, linked to 'bond0_compute'). Defines 'bridges' with 'br_vm_data' (member 'bond0.20', STP disabled, forward-delay 0).)**
-("entity"|ETH0|INTERFACE|Physical interface on Compute Hypervisor. DHCPv4 is disabled. Member of bond0_compute.)**
-("entity"|ETH1|INTERFACE|Physical interface on Compute Hypervisor. DHCPv4 is disabled. Member of bond0_compute.)**
-("entity"|BOND0_COMPUTE|INTERFACE|LACP Bond Interface on Compute Hypervisor. Parameters: mode 802.3ad. Aggregates physical interfaces 'eth0' and 'eth1'.)**
-("entity"|BOND0.10|INTERFACE|VLAN Interface with ID 10 on Compute Hypervisor. Linked to parent 'bond0_compute'. Assigned IP 192.168.1.100/24 and uses 192.168.1.253 as gateway4.)**
-("entity"|192.168.1.100/24|IP_ADDRESS|IP Subnet 192.168.1.100/24 assigned to VLAN interface bond0.10 on Compute Hypervisor.)**
-("entity"|192.168.1.253|IP_ADDRESS|Gateway IP address 192.168.1.253 for VLAN interface bond0.10 on Compute Hypervisor.)**
-("entity"|BOND0.20|INTERFACE|VLAN Interface with ID 20 on Compute Hypervisor. Linked to parent 'bond0_compute'. Member of bridge br_vm_data.)**
-("entity"|BR_VM_DATA|INTERFACE|Bridge interface on Compute Hypervisor. Parameters: STP disabled, forward-delay 0. Bridges member interface 'bond0.20'.)**
-("entity"|EDGE ROUTER 01|DEVICE|Primary WAN Gateway, Node 9. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.10/24, gateway 203.0.113.1) and 'lan0_to_spine1' (IP 10.200.1.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.1.2.)**
-("entity"|WAN0_INTERNET|INTERFACE|Physical WAN interface on Edge Router 01. Assigned IP address 203.0.113.10/24 and uses 203.0.113.1 as gateway4.)**
-("entity"|203.0.113.10/24|IP_ADDRESS|IP Subnet 203.0.113.10/24 assigned to interface wan0_internet on Edge Router 01.)**
-("entity"|203.0.113.1|IP_ADDRESS|Gateway IP address 203.0.113.1 for interface wan0_internet on Edge Router 01 and Edge Router 02.)**
-("entity"|LAN0_TO_SPINE1|INTERFACE|Physical LAN interface on Edge Router 01. Assigned IP address 10.200.1.1/30.)**
-("entity"|10.200.1.1/30|IP_ADDRESS|IP Subnet 10.200.1.1/30 assigned to interface lan0_to_spine1 on Edge Router 01.)**
-("entity"|172.16.0.0/16|IP_ADDRESS|Destination network subnet 172.16.0.0/16 for static routes on Edge Router 01 and Edge Router 02.)**
-("entity"|10.200.1.2|IP_ADDRESS|Next-hop IP address 10.200.1.2 for route to 172.16.0.0/16 on Edge Router 01.)**
-("entity"|EDGE ROUTER 02|DEVICE|Secondary WAN Gateway, Node 10. Configuration includes: 'ethernets' with 'wan0_internet' (IP 203.0.113.11/24, gateway 203.0.113.1) and 'lan0_to_spine2' (IP 10.200.2.1/30). Also defines 'routes': to 172.16.0.0/16 via 10.200.2.2.)**
-("entity"|WAN0_INTERNET|INTERFACE|Physical WAN interface on Edge Router 02. Assigned IP address 203.0.113.11/24 and uses 203.0.113.1 as gateway4.)**
-("entity"|203.0.113.11/24|IP_ADDRESS|IP Subnet 203.0.113.11/24 assigned to interface wan0_internet on Edge Router 02.)**
-("entity"|LAN0_TO_SPINE2|INTERFACE|Physical LAN interface on Edge Router 02. Assigned IP address 10.200.2.1/30.)**
-("entity"|10.200.2.1/30|IP_ADDRESS|IP Subnet 10.200.2.1/30 assigned to interface lan0_to_spine2 on Edge Router 02.)**
-("entity"|10.200.2.2|IP_ADDRESS|Next-hop IP address 10.200.2.2 for route to 172.16.0.0/16 on Edge Router 02.)**
-("relationship"|SPINE ROUTER 01|ETH_TO_LEAF3|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_LEAF3|10.0.1.1/30|HAS_IP|10)**
-("relationship"|SPINE ROUTER 01|ETH_TO_LEAF4|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_LEAF4|10.0.2.1/30|HAS_IP|10)**
-("relationship"|SPINE ROUTER 01|ETH_TO_LEAF5|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_LEAF5|10.0.3.1/30|HAS_IP|10)**
-("relationship"|SPINE ROUTER 01|ETH_TO_EDGE9|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_EDGE9|10.200.1.2/30|HAS_IP|10)**
-("relationship"|ETH_TO_EDGE9|10.200.1.1|USES_GATEWAY|6)**
-("relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO via 10.0.1.2|6)**
-("relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO via 10.0.2.2|6)**
-("relationship"|SPINE ROUTER 01|172.16.30.0/24|ROUTES_TO via 10.0.3.2|6)**
-("relationship"|SPINE ROUTER 02|ETH_TO_LEAF3|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_LEAF3|10.0.11.1/30|HAS_IP|10)**
-("relationship"|SPINE ROUTER 02|ETH_TO_LEAF6|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_LEAF6|10.0.13.1/30|HAS_IP|10)**
-("relationship"|SPINE ROUTER 02|ETH_TO_EDGE10|HAS_INTERFACE|10)**
-("relationship"|ETH_TO_EDGE10|10.200.2.2/30|HAS_IP|10)**
-("relationship"|ETH_TO_EDGE10|10.200.2.1|USES_GATEWAY|6)**
-("relationship"|COMPUTE LEAF 01|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)**
-("relationship"|ETH_UPLINK_SPINE1|10.0.1.2/30|HAS_IP|10)**
-("relationship"|COMPUTE LEAF 01|ETH_UPLINK_SPINE2|HAS_INTERFACE|10)**
-("relationship"|ETH_UPLINK_SPINE2|10.0.11.2/30|HAS_IP|10)**
-("relationship"|COMPUTE LEAF 01|ETH_DOWNLINK_SRV8|HAS_INTERFACE|10)**
-("relationship"|COMPUTE LEAF 01|BOND_TOR_COMPUTE|HAS_INTERFACE|10)**
-("relationship"|BOND_TOR_COMPUTE|ETH_DOWNLINK_SRV8|AGGREGATES member port|9)**
-("relationship"|COMPUTE LEAF 01|VLAN10_MGMT|HAS_INTERFACE|10)**
-("relationship"|VLAN10_MGMT|BOND_TOR_COMPUTE|TAGGED_ON parent link|8)**
-("relationship"|VLAN10_MGMT|192.168.1.253/24|HAS_IP|10)**
-("relationship"|COMPUTE LEAF 01|VLAN20_VM|HAS_INTERFACE|10)**
-("relationship"|VLAN20_VM|BOND_TOR_COMPUTE|TAGGED_ON parent link|8)**
-("relationship"|VLAN20_VM|172.16.20.253/24|HAS_IP|10)**
-("relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO via 10.0.1.1|6)**
-("relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO via 10.0.11.1|6)**
-("relationship"|COMPUTE LEAF 02|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)**
-("relationship"|ETH_UPLINK_SPINE1|10.0.2.2/30|HAS_IP|10)**
-("relationship"|COMPUTE LEAF 02|ETH_DOWNLINK_SRV8|HAS_INTERFACE|10)**
-("relationship"|COMPUTE LEAF 02|BOND_TOR_COMPUTE|HAS_INTERFACE|10)**
-("relationship"|BOND_TOR_COMPUTE|ETH_DOWNLINK_SRV8|AGGREGATES member port|9)**
-("relationship"|COMPUTE LEAF 02|VLAN20_VM|HAS_INTERFACE|10)**
-("relationship"|VLAN20_VM|BOND_TOR_COMPUTE|TAGGED_ON parent link|8)**
-("relationship"|VLAN20_VM|172.16.20.254/24|HAS_IP|10)**
-("relationship"|STORAGE LEAF 01|ETH_UPLINK_SPINE1|HAS_INTERFACE|10)**
-("relationship"|ETH_UPLINK_SPINE1|10.0.3.2/30|HAS_IP|10)**
-("relationship"|STORAGE LEAF 01|ETH_DOWNLINK_SRV7|HAS_INTERFACE|10)**
-("relationship"|STORAGE LEAF 01|BOND_TOR_STORAGE|HAS_INTERFACE|10)**
-("relationship"|BOND_TOR_STORAGE|ETH_DOWNLINK_SRV7|AGGREGATES member port|9)**
-("relationship"|STORAGE LEAF 01|VLAN30_SAN|HAS_INTERFACE|10)**
-("relationship"|VLAN30_SAN|BOND_TOR_STORAGE|TAGGED_ON parent link|8)**
-("relationship"|VLAN30_SAN|172.16.30.253/24|HAS_IP|10)**
-("relationship"|STORAGE LEAF 02|ETH_UPLINK_SPINE2|HAS_INTERFACE|10)**
-("relationship"|ETH_UPLINK_SPINE2|10.0.13.2/30|HAS_IP|10)**
-("relationship"|STORAGE LEAF 02|ETH_DOWNLINK_SRV7|HAS_INTERFACE|10)**
-("relationship"|STORAGE LEAF 02|BOND_TOR_STORAGE|HAS_INTERFACE|10)**
-("relationship"|BOND_TOR_STORAGE|ETH_DOWNLINK_SRV7|AGGREGATES member port|9)**
-("relationship"|STORAGE LEAF 02|VLAN30_SAN|HAS_INTERFACE|10)**
-("relationship"|VLAN30_SAN|BOND_TOR_STORAGE|TAGGED_ON parent link|8)**
-("relationship"|VLAN30_SAN|172.16.30.254/24|HAS_IP|10)**
-("relationship"|HIGH-PERFORMANCE STORAGE SERVER|ENO1|HAS_INTERFACE|10)**
-("relationship"|HIGH-PERFORMANCE STORAGE SERVER|ENO2|HAS_INTERFACE|10)**
-("relationship"|HIGH-PERFORMANCE STORAGE SERVER|BOND0_STORAGE|HAS_INTERFACE|10)**
-("relationship"|BOND0_STORAGE|ENO1|AGGREGATES member port|9)**
-("relationship"|BOND0_STORAGE|ENO2|AGGREGATES member port|9)**
-("relationship"|HIGH-PERFORMANCE STORAGE SERVER|BOND0.30|HAS_INTERFACE|10)**
-("relationship"|BOND0.30|BOND0_STORAGE|TAGGED_ON parent link|8)**
-("relationship"|BOND0.30|172.16.30.10/24|HAS_IP|10)**
-("relationship"|BOND0.30|172.16.30.0/24|ROUTES_TO via 172.16.30.253|6)**
-("relationship"|COMPUTE HYPERVISOR|ETH0|HAS_INTERFACE|10)**
-("relationship"|COMPUTE HYPERVISOR|ETH1|HAS_INTERFACE|10)**
-("relationship"|COMPUTE HYPERVISOR|BOND0_COMPUTE|HAS_INTERFACE|10)**
-("relationship"|BOND0_COMPUTE|ETH0|AGGREGATES member port|9)**
-("relationship"|BOND0_COMPUTE|ETH1|AGGREGATES member port|9)**
-("relationship"|COMPUTE HYPERVISOR|BOND0.10|HAS_INTERFACE|10)**
-("relationship"|BOND0.10|BOND0_COMPUTE|TAGGED_ON parent link|8)**
-("relationship"|BOND0.10|192.168.1.100/24|HAS_IP|10)**
-("relationship"|BOND0.10|192.168.1.253|USES_GATEWAY|6)**
-("relationship"|COMPUTE HYPERVISOR|BOND0.20|HAS_INTERFACE|10)**
-("relationship"|BOND0.20|BOND0_COMPUTE|TAGGED_ON parent link|8)**
-("relationship"|COMPUTE HYPERVISOR|BR_VM_DATA|HAS_INTERFACE|10)**
-("relationship"|BR_VM_DATA|BOND0.20|BRIDGES member port|9)**
-("relationship"|EDGE ROUTER 01|WAN0_INTERNET|HAS_INTERFACE|10)**
-("relationship"|WAN0_INTERNET|203.0.113.10/24|HAS_IP|10)**
-("relationship"|WAN0_INTERNET|203.0.113.1|USES_GATEWAY|6)**
-("relationship"|EDGE ROUTER 01|LAN0_TO_SPINE1|HAS_INTERFACE|10)**
-("relationship"|LAN0_TO_SPINE1|10.200.1.1/30|HAS_IP|10)**
-("relationship"|EDGE ROUTER 01|172.16.0.0/16|ROUTES_TO via 10.200.1.2|6)**
-("relationship"|EDGE ROUTER 02|WAN0_INTERNET|HAS_INTERFACE|10)**
-("relationship"|WAN0_INTERNET|203.0.113.11/24|HAS_IP|10)**
-("relationship"|WAN0_INTERNET|203.0.113.1|USES_GATEWAY|6)**
-("relationship"|EDGE ROUTER 02|LAN0_TO_SPINE2|HAS_INTERFACE|10)**
-("relationship"|LAN0_TO_SPINE2|10.200.2.1/30|HAS_IP|10)**
-("relationship"|EDGE ROUTER 02|172.16.0.0/16|ROUTES_TO via 10.200.2.2|6)
+"entity"|SPINE ROUTER 01|DEVICE|High Performance L3 Core. Node 1. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_to_leaf3', 'eth_to_leaf4', 'eth_to_leaf5', 'eth_to_edge9'. It defines static routes.
+"entity"|SPINE ROUTER 01_ETH_TO_LEAF3|INTERFACE|Physical interface 'eth_to_leaf3' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.1.1/30.
+"entity"|10.0.1.1/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|SPINE ROUTER 01_ETH_TO_LEAF4|INTERFACE|Physical interface 'eth_to_leaf4' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.2.1/30.
+"entity"|10.0.2.1/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|SPINE ROUTER 01_ETH_TO_LEAF5|INTERFACE|Physical interface 'eth_to_leaf5' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.3.1/30.
+"entity"|10.0.3.1/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|SPINE ROUTER 01_ETH_TO_EDGE9|INTERFACE|Physical interface 'eth_to_edge9' on SPINE ROUTER 01. Assigned IP address 10.200.1.2/30. Uses 10.200.1.1 as gateway4.
+"entity"|10.200.1.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|10.200.1.1|IP_ADDRESS|IPv4 Gateway address.
+"entity"|172.16.20.0/24|IP_ADDRESS|Destination Network Subnet.
+"entity"|10.0.1.2|IP_ADDRESS|Next-hop IP address for routing.
+"entity"|10.0.2.2|IP_ADDRESS|Next-hop IP address for routing.
+"entity"|172.16.30.0/24|IP_ADDRESS|Destination Network Subnet.
+"entity"|10.0.3.2|IP_ADDRESS|Next-hop IP address for routing.
+"entity"|SPINE ROUTER 02|DEVICE|Redundant L3 Core. Node 2. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_to_leaf3', 'eth_to_leaf6', 'eth_to_edge10'.
+"entity"|SPINE ROUTER 02_ETH_TO_LEAF3|INTERFACE|Physical interface 'eth_to_leaf3' on SPINE ROUTER 02. Configured with MTU 9000. Assigned IP address 10.0.11.1/30.
+"entity"|10.0.11.1/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|SPINE ROUTER 02_ETH_TO_LEAF6|INTERFACE|Physical interface 'eth_to_leaf6' on SPINE ROUTER 02. Configured with MTU 9000. Assigned IP address 10.0.13.1/30.
+"entity"|10.0.13.1/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|SPINE ROUTER 02_ETH_TO_EDGE10|INTERFACE|Physical interface 'eth_to_edge10' on SPINE ROUTER 02. Assigned IP address 10.200.2.2/30. Uses 10.200.2.1 as gateway4.
+"entity"|10.200.2.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|10.200.2.1|IP_ADDRESS|IPv4 Gateway address.
+"entity"|COMPUTE LEAF 01|DEVICE|ToR cho tủ Server Tính toán. Node 3. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_uplink_spine2', 'eth_downlink_srv8'. It defines bond interfaces 'bond_tor_compute'. It defines VLAN interfaces 'vlan10_mgmt', 'vlan20_vm'. It defines static routes.
+"entity"|COMPUTE LEAF 01_ETH_UPLINK_SPINE1|INTERFACE|Physical interface 'eth_uplink_spine1' on COMPUTE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.1.2/30.
+"entity"|10.0.1.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE LEAF 01_ETH_UPLINK_SPINE2|INTERFACE|Physical interface 'eth_uplink_spine2' on COMPUTE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.11.2/30.
+"entity"|10.0.11.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE LEAF 01_ETH_DOWNLINK_SRV8|INTERFACE|Physical interface 'eth_downlink_srv8' on COMPUTE LEAF 01. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_compute'.
+"entity"|COMPUTE LEAF 01_BOND_TOR_COMPUTE|INTERFACE|Bond interface 'bond_tor_compute' on COMPUTE LEAF 01. Aggregates interface 'eth_downlink_srv8'. Configured with mode 802.3ad, lacp rate fast, mii monitor interval 100.
+"entity"|COMPUTE LEAF 01_VLAN10_MGMT|INTERFACE|VLAN interface 'vlan10_mgmt' on COMPUTE LEAF 01. VLAN ID is 10. Linked to 'bond_tor_compute'. Assigned IP address 192.168.1.253/24.
+"entity"|192.168.1.253/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE LEAF 01_VLAN20_VM|INTERFACE|VLAN interface 'vlan20_vm' on COMPUTE LEAF 01. VLAN ID is 20. Linked to 'bond_tor_compute'. Assigned IP address 172.16.20.253/24.
+"entity"|172.16.20.253/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|0.0.0.0/0|IP_ADDRESS|Destination Network Subnet.
+"entity"|COMPUTE LEAF 02|DEVICE|ToR Dự phòng cho tủ Compute. Node 4. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_downlink_srv8'. It defines bond interfaces 'bond_tor_compute'. It defines VLAN interfaces 'vlan20_vm'.
+"entity"|COMPUTE LEAF 02_ETH_UPLINK_SPINE1|INTERFACE|Physical interface 'eth_uplink_spine1' on COMPUTE LEAF 02. Configured with MTU 9000. Assigned IP address 10.0.2.2/30.
+"entity"|10.0.2.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE LEAF 02_ETH_DOWNLINK_SRV8|INTERFACE|Physical interface 'eth_downlink_srv8' on COMPUTE LEAF 02. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_compute'.
+"entity"|COMPUTE LEAF 02_BOND_TOR_COMPUTE|INTERFACE|Bond interface 'bond_tor_compute' on COMPUTE LEAF 02. Aggregates interface 'eth_downlink_srv8'. Configured with mode 802.3ad.
+"entity"|COMPUTE LEAF 02_VLAN20_VM|INTERFACE|VLAN interface 'vlan20_vm' on COMPUTE LEAF 02. VLAN ID is 20. Linked to 'bond_tor_compute'. Assigned IP address 172.16.20.254/24.
+"entity"|172.16.20.254/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|STORAGE LEAF 01|DEVICE|ToR cho tủ Storage - Tối ưu Jumbo Frame. Node 5. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_downlink_srv7'. It defines bond interfaces 'bond_tor_storage'. It defines VLAN interfaces 'vlan30_san'.
+"entity"|STORAGE LEAF 01_ETH_UPLINK_SPINE1|INTERFACE|Physical interface 'eth_uplink_spine1' on STORAGE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.3.2/30.
+"entity"|10.0.3.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|STORAGE LEAF 01_ETH_DOWNLINK_SRV7|INTERFACE|Physical interface 'eth_downlink_srv7' on STORAGE LEAF 01. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_storage'.
+"entity"|STORAGE LEAF 01_BOND_TOR_STORAGE|INTERFACE|Bond interface 'bond_tor_storage' on STORAGE LEAF 01. Aggregates interface 'eth_downlink_srv7'. Configured with MTU 9000. Configured with mode 802.3ad.
+"entity"|STORAGE LEAF 01_VLAN30_SAN|INTERFACE|VLAN interface 'vlan30_san' on STORAGE LEAF 01. VLAN ID is 30. Linked to 'bond_tor_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.253/24.
+"entity"|172.16.30.253/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|STORAGE LEAF 02|DEVICE|ToR Dự phòng cho tủ Storage. Node 6. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine2', 'eth_downlink_srv7'. It defines bond interfaces 'bond_tor_storage'. It defines VLAN interfaces 'vlan30_san'.
+"entity"|STORAGE LEAF 02_ETH_UPLINK_SPINE2|INTERFACE|Physical interface 'eth_uplink_spine2' on STORAGE LEAF 02. Configured with MTU 9000. Assigned IP address 10.0.13.2/30.
+"entity"|10.0.13.2/30|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|STORAGE LEAF 02_ETH_DOWNLINK_SRV7|INTERFACE|Physical interface 'eth_downlink_srv7' on STORAGE LEAF 02. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_storage'.
+"entity"|STORAGE LEAF 02_BOND_TOR_STORAGE|INTERFACE|Bond interface 'bond_tor_storage' on STORAGE LEAF 02. Aggregates interface 'eth_downlink_srv7'. Configured with MTU 9000. Configured with mode 802.3ad.
+"entity"|STORAGE LEAF 02_VLAN30_SAN|INTERFACE|VLAN interface 'vlan30_san' on STORAGE LEAF 02. VLAN ID is 30. Linked to 'bond_tor_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.254/24.
+"entity"|172.16.30.254/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|HIGH-PERFORMANCE STORAGE SERVER|DEVICE|NAS/SAN Target. Node 7. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eno1', 'eno2'. It defines bond interfaces 'bond0_storage'. It defines VLAN interfaces 'bond0.30'.
+"entity"|HIGH-PERFORMANCE STORAGE SERVER_ENO1|INTERFACE|Physical interface 'eno1' on HIGH-PERFORMANCE STORAGE SERVER. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond0_storage'.
+"entity"|HIGH-PERFORMANCE STORAGE SERVER_ENO2|INTERFACE|Physical interface 'eno2' on HIGH-PERFORMANCE STORAGE SERVER. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond0_storage'.
+"entity"|HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE|INTERFACE|Bond interface 'bond0_storage' on HIGH-PERFORMANCE STORAGE SERVER. Aggregates interfaces 'eno1' and 'eno2'. Configured with MTU 9000. Configured with mode 802.3ad, transmit hash policy layer3+4.
+"entity"|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|INTERFACE|VLAN interface 'bond0.30' on HIGH-PERFORMANCE STORAGE SERVER. VLAN ID is 30. Linked to 'bond0_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.10/24. Includes static route for 172.16.30.0/24 via 172.16.30.253.
+"entity"|172.16.30.10/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE HYPERVISOR|DEVICE|Chạy máy ảo/Container. Node 8. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth0', 'eth1'. It defines bond interfaces 'bond0_compute'. It defines VLAN interfaces 'bond0.10', 'bond0.20'. It defines bridge interfaces 'br_vm_data'.
+"entity"|COMPUTE HYPERVISOR_ETH0|INTERFACE|Physical interface 'eth0' on COMPUTE HYPERVISOR. DHCPv4 is disabled. This interface is a member of bond 'bond0_compute'.
+"entity"|COMPUTE HYPERVISOR_ETH1|INTERFACE|Physical interface 'eth1' on COMPUTE HYPERVISOR. DHCPv4 is disabled. This interface is a member of bond 'bond0_compute'.
+"entity"|COMPUTE HYPERVISOR_BOND0_COMPUTE|INTERFACE|Bond interface 'bond0_compute' on COMPUTE HYPERVISOR. Aggregates interfaces 'eth0' and 'eth1'. Configured with mode 802.3ad.
+"entity"|COMPUTE HYPERVISOR_BOND0.10|INTERFACE|VLAN interface 'bond0.10' on COMPUTE HYPERVISOR. VLAN ID is 10. Linked to 'bond0_compute'. Assigned IP address 192.168.1.100/24. Uses 192.168.1.253 as gateway4.
+"entity"|192.168.1.100/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|COMPUTE HYPERVISOR_BOND0.20|INTERFACE|VLAN interface 'bond0.20' on COMPUTE HYPERVISOR. VLAN ID is 20. Linked to 'bond0_compute'. This interface is a member of bridge 'br_vm_data'.
+"entity"|COMPUTE HYPERVISOR_BR_VM_DATA|INTERFACE|Bridge interface 'br_vm_data' on COMPUTE HYPERVISOR. Includes interface 'bond0.20'. Configured with stp disabled, forward delay 0.
+"entity"|EDGE ROUTER 01|DEVICE|Primary WAN Gateway. Node 9. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'wan0_internet', 'lan0_to_spine1'. It defines static routes.
+"entity"|EDGE ROUTER 01_WAN0_INTERNET|INTERFACE|Physical interface 'wan0_internet' on EDGE ROUTER 01. Assigned IP address 203.0.113.10/24. Uses 203.0.113.1 as gateway4.
+"entity"|203.0.113.10/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|203.0.113.1|IP_ADDRESS|IPv4 Gateway address.
+"entity"|EDGE ROUTER 01_LAN0_TO_SPINE1|INTERFACE|Physical interface 'lan0_to_spine1' on EDGE ROUTER 01. Assigned IP address 10.200.1.1/30.
+"entity"|172.16.0.0/16|IP_ADDRESS|Destination Network Subnet.
+"entity"|EDGE ROUTER 02|DEVICE|Secondary WAN Gateway. Node 10. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'wan0_internet', 'lan0_to_spine2'. It defines static routes.
+"entity"|EDGE ROUTER 02_WAN0_INTERNET|INTERFACE|Physical interface 'wan0_internet' on EDGE ROUTER 02. Assigned IP address 203.0.113.11/24. Uses 203.0.113.1 as gateway4.
+"entity"|203.0.113.11/24|IP_ADDRESS|IP Subnet assigned to interface.
+"entity"|EDGE ROUTER 02_LAN0_TO_SPINE2|INTERFACE|Physical interface 'lan0_to_spine2' on EDGE ROUTER 02. Assigned IP address 10.200.2.1/30.
+"relationship"|SPINE ROUTER 01|SPINE ROUTER 01_ETH_TO_LEAF3|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 01_ETH_TO_LEAF3|10.0.1.1/30|HAS_IP|10
+"relationship"|SPINE ROUTER 01|SPINE ROUTER 01_ETH_TO_LEAF4|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 01_ETH_TO_LEAF4|10.0.2.1/30|HAS_IP|10
+"relationship"|SPINE ROUTER 01|SPINE ROUTER 01_ETH_TO_LEAF5|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 01_ETH_TO_LEAF5|10.0.3.1/30|HAS_IP|10
+"relationship"|SPINE ROUTER 01|SPINE ROUTER 01_ETH_TO_EDGE9|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 01_ETH_TO_EDGE9|10.200.1.2/30|HAS_IP|10
+"relationship"|SPINE ROUTER 01_ETH_TO_EDGE9|10.200.1.1|USES_GATEWAY|8
+"relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO via 10.0.1.2 with metric 100|6
+"relationship"|SPINE ROUTER 01|172.16.20.0/24|ROUTES_TO via 10.0.2.2 with metric 100|6
+"relationship"|SPINE ROUTER 01|172.16.30.0/24|ROUTES_TO via 10.0.3.2 with metric 100|6
+"relationship"|SPINE ROUTER 02|SPINE ROUTER 02_ETH_TO_LEAF3|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 02_ETH_TO_LEAF3|10.0.11.1/30|HAS_IP|10
+"relationship"|SPINE ROUTER 02|SPINE ROUTER 02_ETH_TO_LEAF6|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 02_ETH_TO_LEAF6|10.0.13.1/30|HAS_IP|10
+"relationship"|SPINE ROUTER 02|SPINE ROUTER 02_ETH_TO_EDGE10|HAS_INTERFACE|10
+"relationship"|SPINE ROUTER 02_ETH_TO_EDGE10|10.200.2.2/30|HAS_IP|10
+"relationship"|SPINE ROUTER 02_ETH_TO_EDGE10|10.200.2.1|USES_GATEWAY|8
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_ETH_UPLINK_SPINE1|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01_ETH_UPLINK_SPINE1|10.0.1.2/30|HAS_IP|10
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_ETH_UPLINK_SPINE2|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01_ETH_UPLINK_SPINE2|10.0.11.2/30|HAS_IP|10
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_ETH_DOWNLINK_SRV8|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_BOND_TOR_COMPUTE|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01_BOND_TOR_COMPUTE|COMPUTE LEAF 01_ETH_DOWNLINK_SRV8|AGGREGATES|10
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_VLAN10_MGMT|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01_VLAN10_MGMT|COMPUTE LEAF 01_BOND_TOR_COMPUTE|IS_CHILD_OF|10
+"relationship"|COMPUTE LEAF 01_VLAN10_MGMT|192.168.1.253/24|HAS_IP|10
+"relationship"|COMPUTE LEAF 01|COMPUTE LEAF 01_VLAN20_VM|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 01_VLAN20_VM|COMPUTE LEAF 01_BOND_TOR_COMPUTE|IS_CHILD_OF|10
+"relationship"|COMPUTE LEAF 01_VLAN20_VM|172.16.20.253/24|HAS_IP|10
+"relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO via 10.0.1.1 with metric 100|6
+"relationship"|COMPUTE LEAF 01|0.0.0.0/0|ROUTES_TO via 10.0.11.1 with metric 100|6
+"relationship"|COMPUTE LEAF 02|COMPUTE LEAF 02_ETH_UPLINK_SPINE1|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 02_ETH_UPLINK_SPINE1|10.0.2.2/30|HAS_IP|10
+"relationship"|COMPUTE LEAF 02|COMPUTE LEAF 02_ETH_DOWNLINK_SRV8|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 02|COMPUTE LEAF 02_BOND_TOR_COMPUTE|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 02_BOND_TOR_COMPUTE|COMPUTE LEAF 02_ETH_DOWNLINK_SRV8|AGGREGATES|10
+"relationship"|COMPUTE LEAF 02|COMPUTE LEAF 02_VLAN20_VM|HAS_INTERFACE|10
+"relationship"|COMPUTE LEAF 02_VLAN20_VM|COMPUTE LEAF 02_BOND_TOR_COMPUTE|IS_CHILD_OF|10
+"relationship"|COMPUTE LEAF 02_VLAN20_VM|172.16.20.254/24|HAS_IP|10
+"relationship"|STORAGE LEAF 01|STORAGE LEAF 01_ETH_UPLINK_SPINE1|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 01_ETH_UPLINK_SPINE1|10.0.3.2/30|HAS_IP|10
+"relationship"|STORAGE LEAF 01|STORAGE LEAF 01_ETH_DOWNLINK_SRV7|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 01|STORAGE LEAF 01_BOND_TOR_STORAGE|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 01_BOND_TOR_STORAGE|STORAGE LEAF 01_ETH_DOWNLINK_SRV7|AGGREGATES|10
+"relationship"|STORAGE LEAF 01|STORAGE LEAF 01_VLAN30_SAN|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 01_VLAN30_SAN|STORAGE LEAF 01_BOND_TOR_STORAGE|IS_CHILD_OF|10
+"relationship"|STORAGE LEAF 01_VLAN30_SAN|172.16.30.253/24|HAS_IP|10
+"relationship"|STORAGE LEAF 02|STORAGE LEAF 02_ETH_UPLINK_SPINE2|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 02_ETH_UPLINK_SPINE2|10.0.13.2/30|HAS_IP|10
+"relationship"|STORAGE LEAF 02|STORAGE LEAF 02_ETH_DOWNLINK_SRV7|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 02|STORAGE LEAF 02_BOND_TOR_STORAGE|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 02_BOND_TOR_STORAGE|STORAGE LEAF 02_ETH_DOWNLINK_SRV7|AGGREGATES|10
+"relationship"|STORAGE LEAF 02|STORAGE LEAF 02_VLAN30_SAN|HAS_INTERFACE|10
+"relationship"|STORAGE LEAF 02_VLAN30_SAN|STORAGE LEAF 02_BOND_TOR_STORAGE|IS_CHILD_OF|10
+"relationship"|STORAGE LEAF 02_VLAN30_SAN|172.16.30.254/24|HAS_IP|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER|HIGH-PERFORMANCE STORAGE SERVER_ENO1|HAS_INTERFACE|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER|HIGH-PERFORMANCE STORAGE SERVER_ENO2|HAS_INTERFACE|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER|HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE|HAS_INTERFACE|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE|HIGH-PERFORMANCE STORAGE SERVER_ENO1|AGGREGATES|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE|HIGH-PERFORMANCE STORAGE SERVER_ENO2|AGGREGATES|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|HAS_INTERFACE|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE|IS_CHILD_OF|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|172.16.30.10/24|HAS_IP|10
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|172.16.30.0/24|ROUTES_TO via 172.16.30.253|6
+"relationship"|HIGH-PERFORMANCE STORAGE SERVER_BOND0.30|172.16.30.253|IP_ADDRESS|Next-hop IP address for routing.
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_ETH0|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_ETH1|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_BOND0_COMPUTE|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR_BOND0_COMPUTE|COMPUTE HYPERVISOR_ETH0|AGGREGATES|10
+"relationship"|COMPUTE HYPERVISOR_BOND0_COMPUTE|COMPUTE HYPERVISOR_ETH1|AGGREGATES|10
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_BOND0.10|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR_BOND0.10|COMPUTE HYPERVISOR_BOND0_COMPUTE|IS_CHILD_OF|10
+"relationship"|COMPUTE HYPERVISOR_BOND0.10|192.168.1.100/24|HAS_IP|10
+"relationship"|COMPUTE HYPERVISOR_BOND0.10|192.168.1.253|IP_ADDRESS|IPv4 Gateway address.
+"relationship"|COMPUTE HYPERVISOR_BOND0.10|192.168.1.253|USES_GATEWAY|8
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_BOND0.20|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR_BOND0.20|COMPUTE HYPERVISOR_BOND0_COMPUTE|IS_CHILD_OF|10
+"relationship"|COMPUTE HYPERVISOR|COMPUTE HYPERVISOR_BR_VM_DATA|HAS_INTERFACE|10
+"relationship"|COMPUTE HYPERVISOR_BR_VM_DATA|COMPUTE HYPERVISOR_BOND0.20|HAS_MEMBER|10
+"relationship"|EDGE ROUTER 01|EDGE ROUTER 01_WAN0_INTERNET|HAS_INTERFACE|10
+"relationship"|EDGE ROUTER 01_WAN0_INTERNET|203.0.113.10/24|HAS_IP|10
+"relationship"|EDGE ROUTER 01_WAN0_INTERNET|203.0.113.1|USES_GATEWAY|8
+"relationship"|EDGE ROUTER 01|EDGE ROUTER 01_LAN0_TO_SPINE1|HAS_INTERFACE|10
+"relationship"|EDGE ROUTER 01_LAN0_TO_SPINE1|10.200.1.1/30|HAS_IP|10
+"relationship"|EDGE ROUTER 01|172.16.0.0/16|ROUTES_TO via 10.200.1.2|6
+"relationship"|EDGE ROUTER 02|EDGE ROUTER 02_WAN0_INTERNET|HAS_INTERFACE|10
+"relationship"|EDGE ROUTER 02_WAN0_INTERNET|203.0.113.11/24|HAS_IP|10
+"relationship"|EDGE ROUTER 02_WAN0_INTERNET|203.0.113.1|USES_GATEWAY|8
+"relationship"|EDGE ROUTER 02|EDGE ROUTER 02_LAN0_TO_SPINE2|HAS_INTERFACE|10
+"relationship"|EDGE ROUTER 02_LAN0_TO_SPINE2|10.200.2.1/30|HAS_IP|10
+"relationship"|EDGE ROUTER 02|172.16.0.0/16|ROUTES_TO via 10.200.2.2|6
 <DONE>
