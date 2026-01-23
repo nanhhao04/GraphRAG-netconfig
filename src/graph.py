@@ -14,7 +14,7 @@ import os
 
 
 
-#  1. INGESTION PHASE
+#  1. INGESTION
 def run_ingestion(yaml_content):
     import time
     t1 = time.time()
@@ -144,11 +144,11 @@ def run_clustering_louvain():
 
     print(f"   -> Loaded Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges.")
 
-    # 3. Chạy Louvain (Dùng hàm có sẵn của NetworkX)
+    # 3. Chạy Louvain
     try:
         # Hàm này trả về list các set: [{node1, node2}, {node3, node4}...]
         # resolution=1.0 là mức độ tiêu chuẩn, tăng lên để cụm nhỏ hơn, giảm đi để cụm to hơn
-        communities = nx.community.louvain_communities(G, seed=123)
+        communities = nx.community.louvain_communities(G, resolution=0, seed=123)
 
         print(f"   -> Found {len(communities)} communities.")
         communities_list = [list(c) for c in communities]
@@ -280,28 +280,6 @@ def run_summarization():
 
 
 def create_indices():
-    print("Creating Vector Indices (Anchors: DEVICE & INTERFACE)...")
-
-    try:
-        print("   -> Tagging anchor nodes...")
-        connection.graph.query("""
-            MATCH (n:Entity)
-            WHERE n.type IN ['DEVICE', 'INTERFACE'] 
-            SET n:AnchorNode
-        """)
-        connection.graph.query("""
-            MATCH (n:AnchorNode)
-            WHERE NOT n.type IN ['DEVICE', 'INTERFACE']
-            REMOVE n:AnchorNode
-        """)
-    except Exception as e:
-        print(f"Tagging Error: {e}")
-
-    try:
-        connection.graph.query("DROP INDEX entity_index IF EXISTS")
-    except:
-        pass
-
     try:
         Neo4jVector.from_existing_graph(
             embedding=connection.embeddings,
@@ -309,11 +287,11 @@ def create_indices():
             username=connection.cfg["NEO4J_USERNAME"],
             password=connection.cfg["NEO4J_PASSWORD"],
             index_name="entity_index",
-            node_label="AnchorNode",
-            text_node_properties=["id", "desc", "type"],
+            node_label="Entity",
+            text_node_properties=["id", "desc", "type", "infor"],
             embedding_node_property="embedding"
         )
-        print("   -> Entity Index Created (Scoped to Devices & Interfaces).")
+        print("   -> Entity Index Created.")
     except Exception as e:
         print(f"Index Error: {e}")
 

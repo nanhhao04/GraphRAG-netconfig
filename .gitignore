@@ -2,3 +2,5 @@ config.yml
 
 __pycache__/
 *.pyc
+
+src/log/eval

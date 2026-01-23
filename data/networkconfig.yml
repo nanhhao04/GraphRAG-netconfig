@@ -54,9 +54,6 @@ network:
       gateway4: 10.200.2.1
 
 ---
-# --- LAYER 2: LEAFS (TOP-OF-RACK SWITCHES / GATEWAYS) ---
-# Nhiệm vụ: Kết nối server qua L2 (Bonding), kết nối lên Spine qua L3. Làm Gateway cho các VLAN.
-
 # NODE 3: COMPUTE LEAF 01 (ToR cho tủ Server Tính toán)
 # ------------------------------------------------------------------------------
 network:
@@ -184,8 +181,6 @@ network:
       addresses: ["172.16.30.254/24"] # Gateway Storage dự phòng
 
 ---
-# --- LAYER 3: SERVERS (WORKLOADS) ---
-# Nhiệm vụ: Chạy ứng dụng hoặc lưu trữ. Kết nối lên 2 Leaf bằng LACP Bond để dự phòng.
 
 # NODE 7: HIGH-PERFORMANCE STORAGE SERVER (NAS/SAN Target)
 # ------------------------------------------------------------------------------
@@ -265,8 +260,6 @@ network:
         forward-delay: 0
 
 ---
-# --- LAYER 4: EDGE (WAN GATEWAYS) ---
-# Nhiệm vụ: Kết nối ra Internet/WAN, bảo vệ hệ thống (Firewall - không thể hiện ở đây).
 
 # NODE 9: EDGE ROUTER 01 (Primary WAN Gateway)
 # ------------------------------------------------------------------------------

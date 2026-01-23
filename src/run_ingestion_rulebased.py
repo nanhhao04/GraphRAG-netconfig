@@ -2,11 +2,12 @@ import yaml
 import json
 import re
 import os
+import unicodedata
 import src.connection as connection
 
-# Các khóa cấu hình trung gian cần bỏ qua để làm phẳng Graph
-SKIP_KEYS = {'network', 'ethernets', 'bonds', 'vlans', 'bridges', 'version', 'renderer'}
 
+OUTPUT_JSON = "log/graph_output_test.json"
+SKIP_KEYS = {'network', 'ethernets', 'bonds', 'vlans', 'bridges', 'version', 'renderer'}
 KEY_MAP = {
     "mtu": "MTU size", "addresses": "assigned IPs",
     "gateway4": "gateway", "dhcp4": "DHCP status",
@@ -18,15 +19,57 @@ KEY_MAP = {
     "mii-monitor-interval": "monitor interval"
 }
 
+# Globals
+entities = []
+relationships = []
+node_ids = set()
 
-def clean_id(raw_id):
-    """Chuẩn hóa ID: UPPERCASE, gạch dưới"""
-    if not raw_id: return "UNKNOWN"
-    clean = str(raw_id).upper().strip()
-    clean = re.sub(r'[^\w\d]', '_', clean)
-    clean = re.sub(r'_+', '_', clean)
-    return clean.strip('_')
+def remove_accents(input_str):
+    if not input_str: return ""
+    nfkd_form = unicodedata.normalize('NFKD', str(input_str))
+    return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
 
+
+def clean_id(raw):
+    if not raw: return "UNKNOWN"
+
+    raw = remove_accents(str(raw)) # bỏ dấu tiếng việt
+    raw = raw.upper().strip()
+    raw = re.sub(r'[^\w\d]', '_', raw)
+    raw = re.sub(r'_+', '_', raw)
+    return raw.strip('_')
+
+
+def extract_device_names_from_raw(raw_text):
+    blocks = re.split(r'\n---\s*\n', raw_text)
+    names = []
+
+    for idx, block in enumerate(blocks):
+        name = None
+        for line in block.strip().splitlines():
+            line = line.strip()
+            if line.startswith("#"):
+                found_raw_name = None
+
+                m = re.search(r'DEVICE\s*:\s*(.+)', line, re.IGNORECASE)
+                if m:
+                    found_raw_name = m.group(1).strip()
+
+                else:
+                    content = line.lstrip("#").strip()
+                    if content and "CONFIG" not in content.upper():
+                        found_raw_name = content
+
+                if found_raw_name:
+                    name = re.sub(r'\s*\(.*?\)', '', found_raw_name).strip()
+                    break
+
+            if line and not line.startswith("#"):
+                break  # Dừng nếu gặp content không phải comment
+
+        names.append(name if name else f"DEVICE_{idx + 1}")
+
+    return names
 
 def format_list_items(key, value_list):
     if not value_list: return ""
@@ -57,10 +100,8 @@ def generate_semantic_desc(data):
         props_str = []
         for k, v in primitives.items():
             if k in ['renderer', 'version', 'optional']: continue
-            if k == 'dhcp4' and v is False: continue
             human_key = KEY_MAP.get(k, k)
             props_str.append(f"{human_key} {v}")
-
         if props_str: sentences.append(", ".join(props_str) + ".")
 
         for k, v in complex_data.items():
@@ -77,235 +118,172 @@ def generate_semantic_desc(data):
     return str(data)
 
 
-# ==========================================
-# TRÁI TIM CỦA GIẢI PHÁP: IDENTIFY DEVICE
-# ==========================================
-def identify_device_from_config(network_data):
-    """
-    Hàm này nhìn vào cấu hình (Interface, IP) để đoán chính xác tên thiết bị.
-    Dựa trên file networkconfig.yml bạn cung cấp.
-    """
-    eths = network_data.get('ethernets', {})
-    bonds = network_data.get('bonds', {})
-    vlans = network_data.get('vlans', {})
+def add_entity(raw_id, etype, info=None):
+    cid = clean_id(raw_id)
+    # Tạo mô tả (Desc) từ info
+    semantic_desc = generate_semantic_desc(info) if info else f"{etype} {cid}"
 
-    # 1. SPINE ROUTER 01 (Có eth_to_leaf3 và IP 10.0.1.1)
-    if 'eth_to_leaf3' in eths:
-        addrs = eths['eth_to_leaf3'].get('addresses', [])
-        if any('10.0.1.1' in ip for ip in addrs):
-            return "SPINE_ROUTER_01", "High Performance L3 Core"
+    # Tạo JSON info
+    try:
+        infor_str = json.dumps(info, ensure_ascii=False)
+    except:
+        infor_str = str(info)
 
-    # 2. SPINE ROUTER 02 (Có eth_to_leaf3 và IP 10.0.11.1 - Note: Interface trùng tên nhưng khác IP)
-    if 'eth_to_leaf3' in eths:
-        addrs = eths['eth_to_leaf3'].get('addresses', [])
-        if any('10.0.11.1' in ip for ip in addrs):
-            return "SPINE_ROUTER_02", "Redundant L3 Core"
+    if cid not in node_ids:
+        entities.append({
+            "name": cid,
+            "type": etype,
+            "desc": semantic_desc,
+            "infor": infor_str
+        })
+        node_ids.add(cid)
+    return cid
 
-    # 3. COMPUTE LEAF 01 (Có bond_tor_compute và IP Uplink 10.0.1.2)
-    if 'eth_uplink_spine1' in eths:
-        addrs = eths['eth_uplink_spine1'].get('addresses', [])
-        if any('10.0.1.2' in ip for ip in addrs):
-            return "COMPUTE_LEAF_01", "ToR Switch for Compute Cluster"
+def add_relation(src, tgt, rel_type):
+    s = clean_id(src)
+    t = clean_id(tgt)
+    if s != t:
+        relationships.append({
+            "source": s,
+            "target": t,
+            "rel_type": rel_type,
+            "strength": 10
+        })
 
-    # 4. COMPUTE LEAF 02 (Có IP Uplink 10.0.2.2)
-    if 'eth_uplink_spine1' in eths:
-        addrs = eths['eth_uplink_spine1'].get('addresses', [])
-        if any('10.0.2.2' in ip for ip in addrs):
-            return "COMPUTE_LEAF_02", "Backup ToR Switch for Compute"
+def walk(key, value, parent_id, root_device_id):
+    # DICT (Sections)
+    if isinstance(value, dict):
+        node_type = "SECTION"
+        k_lower = key.lower()
 
-    # 5. STORAGE LEAF 01 (Có IP Uplink 10.0.3.2)
-    if 'eth_uplink_spine1' in eths:
-        addrs = eths['eth_uplink_spine1'].get('addresses', [])
-        if any('10.0.3.2' in ip for ip in addrs):
-            return "STORAGE_LEAF_01", "ToR Switch for Storage"
+        # Xác định Type
+        if any(x in k_lower for x in ["eth", "eno", "wan", "lan"]):
+            node_type = "INTERFACE"
+        elif "bond" in k_lower:
+            node_type = "BOND"
+        elif "vlan" in k_lower:
+            node_type = "VLAN"
+        elif "bridge" in k_lower:
+            node_type = "BRIDGE"
 
-    # 6. STORAGE LEAF 02 (Có IP Uplink 10.0.13.2)
-    if 'eth_uplink_spine2' in eths:
-        addrs = eths['eth_uplink_spine2'].get('addresses', [])
-        if any('10.0.13.2' in ip for ip in addrs):
-            return "STORAGE_LEAF_02", "Backup ToR Switch for Storage"
+        # Nếu là key cấu trúc (ethernets...), chỉ duyệt con
+        if k_lower in SKIP_KEYS:
+            for ck, cv in value.items():
+                walk(ck, cv, parent_id, root_device_id)
+            return
 
-    # 7. HIGH-PERFORMANCE STORAGE SERVER (Có interface eno1)
-    if 'eno1' in eths:
-        return "HIGH_PERFORMANCE_STORAGE_SERVER", "NAS/SAN Target"
+        # Tạo Node
+        # ID = Root + Key (VD: DEVICE_1_ETH0)
+        current_node_id = f"{root_device_id}_{key}"
 
-    # 8. COMPUTE HYPERVISOR (Có interface eth0 và eth1 không IP)
-    if 'eth0' in eths and 'eth1' in eths and 'bond0_compute' in bonds:
-        return "COMPUTE_HYPERVISOR", "Virtualization Host"
+        # {key: value} vào info
+        nid = add_entity(current_node_id, node_type, info={key: value})
+        add_relation(parent_id, nid, "CONTAINS")
 
-    # 9. EDGE ROUTER 01 (Có wan0_internet IP .10)
-    if 'wan0_internet' in eths:
-        addrs = eths['wan0_internet'].get('addresses', [])
-        if any('203.0.113.10' in ip for ip in addrs):
-            return "EDGE_ROUTER_01", "Primary WAN Gateway"
+        # Đệ quy xuống con
+        for ck, cv in value.items():
+            walk(ck, cv, nid, root_device_id)
 
-    # 10. EDGE ROUTER 02 (Có wan0_internet IP .11)
-    if 'wan0_internet' in eths:
-        addrs = eths['wan0_internet'].get('addresses', [])
-        if any('203.0.113.11' in ip for ip in addrs):
-            return "EDGE_ROUTER_02", "Secondary WAN Gateway"
+    # LIST (IPs, Routes)
+    elif isinstance(value, list):
+        for item in value:
+            # IP Address
+            if key == "addresses" and isinstance(item, str):
+                ip_id = add_entity(item, "IP_ADDRESS", info={"address": item})
+                add_relation(parent_id, ip_id, "HAS_IP")
 
-    return None, None
+            # Routes
+            elif key == "routes" and isinstance(item, dict):
+                dst = item.get("to")
+                via = item.get("via")
+
+                if dst:
+                    dst_id = add_entity(dst, "IP_NETWORK", info=item)
+                    add_relation(root_device_id, dst_id, "ROUTES_TO")  # Nối từ Root Device
+
+                if via:
+                    via_id = add_entity(via, "IP_ADDRESS", info={"gateway": via})
+                    add_relation(root_device_id, via_id, "NEXT_HOP")  # Nối từ Root Device
 
 
 def run_ingestion_test(yaml_content):
-    print("Running Ingestion (Fingerprint Identification Strategy)...")
+    print("[Ingestion Refined] Starting (Based on Reference Code)...")
 
-    entities = []
-    relationships = []
-    existing_node_ids = set()
+    # Reset globals
+    entities.clear()
+    relationships.clear()
+    node_ids.clear()
 
-    def add_node(node_id, type_node, raw_config_data, extra_desc=""):
-        cid = clean_id(node_id)
-        config_summary = generate_semantic_desc(raw_config_data)
-        full_desc = f"{extra_desc}. {config_summary}" if extra_desc else config_summary
-        full_desc = full_desc.replace("..", ".").strip()
-
-        if cid not in existing_node_ids:
-            entities.append({"name": cid, "type": type_node, "desc": full_desc})
-            existing_node_ids.add(cid)
-        return cid
-
-    def add_edge(source, target, rel_desc, strength=10):
-        src_cid = clean_id(source)
-        tgt_cid = clean_id(target)
-        if src_cid == tgt_cid: return
-        relationships.append({
-            "source": src_cid, "target": tgt_cid,
-            "rel_type": rel_desc, "strength": int(strength)
-        })
-
-    def process_recursive_structure(key, value, parent_id, root_device_id):
-        if isinstance(value, dict):
-            # Xác định loại node
-            node_type = "SECTION"
-            is_container = key.lower() in SKIP_KEYS
-
-            if any(x in key.lower() for x in ["eth", "eno", "wan", "lan"]):
-                node_type = "INTERFACE"
-            elif "bond" in key.lower():
-                node_type = "BOND"
-            elif "vlan" in key.lower():
-                node_type = "VLAN"
-            elif "bridge" in key.lower():
-                node_type = "BRIDGE"
-
-            # FLAT GRAPH: Nếu là container (vd: ethernets), bỏ qua node này
-            if is_container and node_type == "SECTION":
-                for k, v in value.items():
-                    process_recursive_structure(k, v, parent_id, root_device_id)
-                return
-
-            # TẠO TÊN INTERFACE CHUẨN: DEVICE_INTERFACE
-            # VD: SPINE_ROUTER_01_ETH_TO_LEAF3
-            unique_id = f"{root_device_id}_{key}"
-
-            real_id = add_node(unique_id, node_type, value, extra_desc=f"{node_type} '{key}' on {root_device_id}")
-
-            # Tạo quan hệ trực tiếp về Root Device
-            if root_device_id and real_id != root_device_id:
-                rel = "HAS_INTERFACE" if node_type in ["INTERFACE", "BOND", "VLAN", "BRIDGE"] else "CONTAINS"
-                add_edge(root_device_id, real_id, rel)
-
-            # Logic quan hệ cha-con (VD: Bond -> Member)
-            if parent_id and parent_id != root_device_id:
-                add_edge(parent_id, real_id, "CONTAINS")
-
-            for k, v in value.items():
-                if isinstance(v, (dict, list)):
-                    process_recursive_structure(k, v, real_id, root_device_id)
-
-        elif isinstance(value, list):
-            for idx, item in enumerate(value):
-                # Xử lý IP Address
-                if isinstance(item, str) and key == 'addresses':
-                    ip_id = clean_id(item)
-                    add_node(ip_id, "IP_ADDRESS", {}, extra_desc=f"IP Subnet {item}")
-                    add_edge(parent_id, ip_id, "HAS_IP")
-
-                # Xử lý Routes (Nối trực tiếp vào Device)
-                elif key == 'routes' and isinstance(item, dict):
-                    # Route destination
-                    dst = item.get('to')
-                    via = item.get('via')
-                    if dst:
-                        dst_id = clean_id(dst)
-                        add_node(dst_id, "IP_ADDRESS", {}, extra_desc=f"Destination Network {dst}")
-                        desc_route = f"ROUTES_TO via {via}" if via else "ROUTES_TO"
-                        # Nối từ Device -> Mạng đích
-                        add_edge(root_device_id, dst_id, desc_route, strength=6)
-
-                        # Nối Gateway (Next-hop) nếu có
-                        if via:
-                            via_id = clean_id(via)
-                            add_node(via_id, "IP_ADDRESS", {}, extra_desc=f"Next-hop Gateway {via}")
-                            # Có thể tạo cạnh phụ nếu muốn, ở đây ta nối vào mô tả Route
-
-    # --- MAIN EXECUTION ---
     try:
-        connection.graph.query("MATCH (n) DETACH DELETE n")
+        raw_text = str(yaml_content)
 
-        full_content = str(yaml_content)
-        yaml_docs = full_content.split('---')  # Tách theo block YAML chuẩn
+        # 1. Lấy tên từ comment (Logic tham chiếu)
+        device_names = extract_device_names_from_raw(raw_text)
+        print(f"   -> Detected Names: {device_names}")
 
-        count_device = 0
-        for doc in yaml_docs:
-            doc = doc.strip()
-            if not doc: continue
+        # 2. Parse YAML
+        docs = list(yaml.safe_load_all(raw_text))
 
-            try:
-                data = yaml.safe_load(doc)
-                if data and isinstance(data, dict) and 'network' in data:
-
-                    # 1. ĐỊNH DANH THIẾT BỊ BẰNG NỘI DUNG (CHÍNH XÁC 100%)
-                    dev_name, dev_role = identify_device_from_config(data['network'])
-
-                    if not dev_name:
-                        print("Skipping block: Cannot identify device from content.")
-                        continue
-
-                    print(f"-> Identified: {dev_name} ({dev_role})")
-                    count_device += 1
-
-                    # 2. Tạo Node Gốc (Device)
-                    root_id = add_node(dev_name, "DEVICE", data['network'], extra_desc=dev_role)
-
-                    # 3. Duyệt đệ quy (Flat Structure)
-                    process_recursive_structure('network', data['network'], root_id, root_id)
-
-            except Exception as e:
-                print(f"   -> Error parsing block: {e}")
+        device_idx = 0
+        for doc in docs:
+            if not doc or "network" not in doc:
                 continue
 
-        print(f"   -> Tổng số thiết bị đã xử lý: {count_device}/10")
+            # Lấy tên tương ứng
+            dev_name_raw = device_names[device_idx] if device_idx < len(device_names) else f"DEVICE_{device_idx + 1}"
+            device_idx += 1
+
+            # Tạo Root Node (Device)
+            root_id = add_entity(dev_name_raw, "DEVICE", info=doc["network"])
+            print(f"   -> Processing: {dev_name_raw} ==> ID: {root_id}")
+
+            # Bắt đầu duyệt đệ quy (Walk)
+            for k, v in doc["network"].items():
+                walk(k, v, root_id, root_id)
+
+        # 3. Save JSON Log
+        os.makedirs("log", exist_ok=True)
+        with open(OUTPUT_JSON, "w", encoding="utf-8") as f:
+            json.dump({
+                "entities": entities,
+                "relationships": relationships
+            }, f, indent=2, ensure_ascii=False)
+
+        print(f"   -> Extracted {len(entities)} Entities & {len(relationships)} Relationships.")
+        print(f"   -> Log saved: {OUTPUT_JSON}")
+
+        # 4. Write to Neo4j (Phần này phải giữ lại để hệ thống chạy được)
+        print("   -> Writing to Neo4j...")
+        connection.graph.query("MATCH (n) DETACH DELETE n")
+
+        if entities:
+            connection.graph.query("""
+                UNWIND $data AS row
+                MERGE (e:Entity {id: row.name})
+                SET e.type = row.type, 
+                    e.desc = row.desc,
+                    e.infor = row.infor
+            """, {"data": entities})
+
+        if relationships:
+            # Batch write edges
+            batch_size = 1000
+            for i in range(0, len(relationships), batch_size):
+                batch = relationships[i:i + batch_size]
+                connection.graph.query("""
+                    UNWIND $data AS row
+                    MATCH (a:Entity {id: row.source})
+                    MATCH (b:Entity {id: row.target})
+                    MERGE (a)-[r:CONNECTED_TO]->(b)
+                    SET r.rel_type = row.rel_type,
+                        r.strength = row.strength,
+                        r.desc = row.rel_type
+                """, {"data": batch})
+
+        print("   -> Ingestion Complete!")
 
     except Exception as e:
         print(f"Critical Error: {e}")
-        return
+        import traceback
+        traceback.print_exc()
 
-    # --- SAVE & LOAD ---
-    os.makedirs("log", exist_ok=True)
-    with open("log/graph_output_test.json", "w", encoding="utf-8") as f:
-        json.dump({"entities": entities, "relationships": relationships}, f, ensure_ascii=False, indent=2)
-
-    if entities:
-        print("   -> Writing to Neo4j...")
-        connection.graph.query("""
-            UNWIND $data AS row
-            MERGE (e:Entity {id: row.name})
-            SET e.type = row.type, e.desc = row.desc
-        """, {"data": entities})
-
-    if relationships:
-        batch_size = 1000
-        for i in range(0, len(relationships), batch_size):
-            batch = relationships[i:i + batch_size]
-            connection.graph.query("""
-                UNWIND $data AS row
-                MATCH (a:Entity {id: row.source})
-                MATCH (b:Entity {id: row.target})
-                MERGE (a)-[r:CONNECTED_TO]->(b)
-                SET r.rel_type = row.rel_type, r.strength = row.strength
-            """, {"data": batch})
-
-    print("Ingestion Complete.")

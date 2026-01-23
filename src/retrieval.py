@@ -108,15 +108,16 @@ def global_search(question):
     return final_answer
 
 
-
 def local_search(question):
-    print("LOCAL SEARCH MODE (Token-based Pruning Strategy)...")
+    print("LOCAL SEARCH MODE (Top-K Nodes + Top-K Relations Strategy)...")
     t1 = time.time()
 
-    MAX_CONTEXT_TOKENS = 4000
-    SEARCH_K = 3
-    GRAPH_LIMIT = 50
+    SEARCH_K = 5
+    TOP_RELATIONS = 10
+    HOP1_DECAY = 1.0
+    HOP2_DECAY = 0.5
 
+    # 1. VECTOR SEARCH
     try:
         vector_store = Neo4jVector.from_existing_index(
             embedding=connection.embeddings,
@@ -127,7 +128,7 @@ def local_search(question):
             text_node_property="id"
         )
         docs_with_score = vector_store.similarity_search_with_score(question, k=SEARCH_K)
-        with open("log/query/docs_with_score_local.txt", "w", encoding="utf-8") as f:
+        with open("log/query/anchor_local.txt", "w", encoding="utf-8") as f:
             for doc, score in docs_with_score:
                 f.write(f"SCORE: {score}\n")
                 f.write(doc.page_content + "\n")
@@ -140,113 +141,115 @@ def local_search(question):
     if not docs_with_score:
         return "Không tìm thấy thiết bị nào liên quan."
 
-    print(f"   -> Tìm thấy {len(docs_with_score)} Anchor Nodes tiềm năng.")
+    print(f" -> Tìm thấy {len(docs_with_score)} Anchor Nodes.")
 
-    candidates = [] # {'text': string, 'score': float}
+    # XỬ LÝ ANCHOR INFO & TRAVERSAL
+    anchor_infos = []
+    all_relationships = []
+    processed_rels = set()
 
     for doc, score in docs_with_score:
-        # Parse ID
-        #content_lines = doc.page_content.split("\n")
         dev_id = doc.page_content.strip()
         if dev_id == "UNKNOWN": continue
 
+        # a. Lưu thông tin Anchor
+        node_desc = doc.metadata.get('desc', 'No description')
+        node_type = doc.metadata.get('type', 'Entity')
+        anchor_text = f"Node: {dev_id} (Type: {node_type}). Info: {node_desc}"
+        anchor_infos.append(anchor_text)
+
+        # b. Traversal Query (2 Hops)
+        # Quét Hop 1 và Hop 2 và Loại 'IN_COMMUNITY'
+        # UNION để gộp 2 truy vấn + bỏ lặp
         traversal_query = """
-            MATCH (src:Entity {id: $id})-[r]-(tgt:Entity)
-            WHERE type(r) <> 'IN_COMMUNITY'
+            // Hop 1
+            MATCH (src:Entity {id: $id})-[r1]-(n1:Entity)
+            WHERE type(r1) <> 'IN_COMMUNITY'
             RETURN 
-                src.type as src_type, src.id as src_id, src.desc as src_desc,
-                type(r) as rel_type, r.desc as rel_desc,
-                tgt.type as tgt_type, tgt.id as tgt_id, tgt.desc as tgt_desc
-            LIMIT $limit
+                src.id as src, src.type as src_type,
+                type(r1) as rel, r1.desc as rel_desc,
+                n1.id as tgt, n1.type as tgt_type, n1.desc as tgt_desc,
+                1 as hops
+
+            UNION
+
+            // Hop 2
+            MATCH (src:Entity {id: $id})-[r1]-(n1:Entity)-[r2]-(n2:Entity)
+            WHERE type(r1) <> 'IN_COMMUNITY' AND type(r2) <> 'IN_COMMUNITY'
+            RETURN 
+                n1.id as src, n1.type as src_type,
+                type(r2) as rel, r2.desc as rel_desc,
+                n2.id as tgt, n2.type as tgt_type, n2.desc as tgt_desc,
+                2 as hops
         """
 
-        paths = connection.graph.query(traversal_query, {"id": dev_id, "limit": GRAPH_LIMIT})
+        paths = connection.graph.query(traversal_query, {"id": dev_id})
+        with open("log/query/query_traversal_local.txt", "a", encoding="utf-8") as f:
+            header = f"\n{'=' * 20} Traversal for: {dev_id} (Score: {score:.4f}) {'=' * 20}\n"
+            f.write(header)
 
         for p in paths:
-            '''
-            triple_text = f"({p['src']}) -[{p['rel']}]-> ({p['tgt']})"
-            # Hop 1 giữ nguyên điểm. Hop 2 (gián tiếp): giảm 50%.
-            decay = 1.0 if p['hops'] == 1 else 0.5
-            final_score = score * decay
-            '''
+            # (Sorted tuple để A-B và B-A là một)
+            rel_key = tuple(sorted([p['src'], p['tgt']])) + (p['rel'],)
 
-            src_info = f"[{p['src_type']}] {p['src_id']}"
-            if p.get('src_desc'):
-                src_info += f" ({p['src_desc']})"
-            tgt_info = f"[{p['tgt_type']}] {p['tgt_id']}"
-            if p.get('tgt_desc'):
-                tgt_info += f" ({p['tgt_desc']})"
-            rel_info = f"--[{p['rel_type']}"
-            if p.get('rel_desc'):
-                rel_info += f": {p['rel_desc']}"
-            rel_info += "]-->"
-            triple_text = f"{src_info} {rel_info} {tgt_info}"
-            final_score = score
+            if rel_key in processed_rels:
+                continue
+            processed_rels.add(rel_key)
 
-            candidates.append({
-                "text": triple_text,
-                "score": final_score
+            # Tính điểm cho Relationship này
+            decay = HOP1_DECAY if p['hops'] == 1 else HOP2_DECAY
+            rel_score = score * decay
+
+            rel_desc_str = f" ({p['rel_desc']})" if p['rel_desc'] else ""
+            tgt_desc_str = f" ({p['tgt_desc']})" if p['tgt_desc'] else ""
+
+            # Format: [Type] Source --[RELATION (desc)]--> [Type] Target (desc)
+            semantic_text = (
+                f"[{p['src_type']}] {p['src']} "
+                f"--[{p['rel']}{rel_desc_str}]--> "
+                f"[{p['tgt_type']}] {p['tgt']}{tgt_desc_str}"
+            )
+
+            all_relationships.append({
+                "text": semantic_text,
+                "score": rel_score,
+                "hops": p['hops']
             })
 
-            candidates.append({
-                "text": triple_text,
-                "score": final_score
-            })
+    # RANKING & PRUNING
+    all_relationships.sort(key=lambda x: x['score'], reverse=True)
 
-    #Loại bỏ trùng lặp
-    unique_candidates = {}
-    for c in candidates:
-        txt = c['text']
-        if txt not in unique_candidates or c['score'] > unique_candidates[txt]['score']:
-            unique_candidates[txt] = c
+    top_relations = all_relationships[:TOP_RELATIONS]
 
-    sorted_candidates = list(unique_candidates.values())
+    print(f"   -> Thu thập {len(all_relationships)} kết nối. Lọc lấy Top {len(top_relations)}.")
 
-    # Sắp xếp giảm dần theo điểm Score
-    sorted_candidates.sort(key=lambda x: x['score'], reverse=True)
+    # CONTEXT CONSTRUCTION
+    context_parts = []
+    context_parts.append("PRIMARY ANCHOR NODES (Top 5 Matches)")
+    context_parts.extend(anchor_infos)
 
-    print(f"   -> Tổng hợp được {len(sorted_candidates)} triples ứng viên. Bắt đầu cắt gọt theo Token...")
+    context_parts.append(f"\nTOP {len(top_relations)} RELEVANT CONNECTIONS")
+    for rel in top_relations:
+        context_parts.append(f"- {rel['text']}")
 
-    # Thêm Context Window cho đến khi đầy
-    final_context = []
-    current_tokens = 0
+    final_context_text = "\n".join(context_parts)  # last context local
 
-    for item in sorted_candidates:
-        item_tokens = count_tokens(item['text'])
-        if current_tokens + item_tokens > MAX_CONTEXT_TOKENS:
-            continue
+    try:
+        with open("log/query/final_context_local.json", "w", encoding="utf-8") as f:
+            json.dump({
+                "llm_context": context_parts
+            }, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print(f"Lỗi ghi log context: {e}")
 
-        final_context.append(item['text'])
-        current_tokens += item_tokens
-
-    log_data = {
-        "summary_stats": {
-            "total_candidates": len(sorted_candidates),
-            "final_context_count": len(final_context),
-            "total_tokens_used": current_tokens
-        },
-        "final_context_used_for_llm": final_context,
-        "all_candidates_sorted": sorted_candidates
-    }
-
-    with open("log/query/final_context_local.json", "w", encoding="utf-8") as f:
-        json.dump(log_data, f, ensure_ascii=False, indent=2)
-
-    print(f"   -> Context cuối cùng: {len(final_context)} triples ({current_tokens} tokens).")
-
-    if not final_context:
-        return "Không tìm thấy thông tin kết nối phù hợp."
-
-
-    context_text = "\n".join(final_context)
-
+# LLM GENERATION
     chain = PromptTemplate.from_template(LOCAL_SEARCH_SYSTEM_PROMPT) | connection.llm | StrOutputParser()
     t2 = time.time()
-    print(f"Thời gian local search: {t2 - t1} (s)")
+    print(f"Thời gian local search: {t2 - t1:.2f}s")
 
     return chain.invoke({
         "question": question,
-        "context_data": context_text
+        "context_data": final_context_text
     })
 
 
@@ -269,7 +272,7 @@ def local_search_semantic(question):
             text_node_property="id"
         )
         docs_with_score = vector_store.similarity_search_with_score(question, k=SEARCH_K)
-        with open("log/query/docs_with_score_local.txt", "w", encoding="utf-8") as f:
+        with open("log/query/anchor_local.txt", "w", encoding="utf-8") as f:
             for doc, score in docs_with_score:
                 f.write(f"SCORE: {score}\n")
                 f.write(doc.page_content + "\n")
@@ -442,145 +445,6 @@ def local_search_semantic(question):
         "context_data": final_context_str
     })
 
-
-
-def local_search_test2(question):
-    print("LOCAL SEARCH MODE (Graph → Device Summary Context)...")
-    t1 = time.time()
-
-    MAX_CONTEXT_TOKENS = 4000
-    SEARCH_K = 5  # Có thể tăng lên vì kết quả giờ chất lượng hơn
-    GRAPH_LIMIT = 50
-
-    try:
-        vector_store = Neo4jVector.from_existing_index(
-            embedding=connection.embeddings,
-            url=connection.cfg["NEO4J_URI"],
-            username=connection.cfg["NEO4J_USERNAME"],
-            password=connection.cfg["NEO4J_PASSWORD"],
-            index_name="entity_index",
-            text_node_property="id"
-        )
-        docs_with_score = vector_store.similarity_search_with_score(question, k=SEARCH_K)
-    except Exception as e:
-        return f"Lỗi Vector Index: {e}"
-
-    if not docs_with_score:
-        return "Không tìm thấy thiết bị nào liên quan."
-
-    print(f"   -> Tìm thấy {len(docs_with_score)} Anchor Nodes.")
-
-    device_data = defaultdict(lambda: {
-        "type": "DEVICE",
-        "desc": "",
-        "interfaces": defaultdict(dict),
-        "routes": []
-    })
-    interface_to_device_map = {}
-
-    # DANH SÁCH CÁC TYPE ĐƯỢC COI LÀ GIAO DIỆN MẠNG
-    INTERFACE_TYPES = ["INTERFACE", "BOND", "VLAN", "BRIDGE", "PORT", "ETHERNET", "SECTION"]
-
-    traversal_query = """
-        MATCH (src:Entity {id: $id})-[r]-(tgt:Entity)
-        WHERE type(r) <> 'IN_COMMUNITY'
-        RETURN 
-            src.type as src_type, src.id as src_id, src.desc as src_desc,
-            type(r) as rel_type, r.desc as rel_desc,
-            tgt.type as tgt_type, tgt.id as tgt_id, tgt.desc as tgt_desc
-        LIMIT $limit
-    """
-
-    for doc, score in docs_with_score:
-        dev_id = doc.page_content.strip()
-        if dev_id == "UNKNOWN": continue
-
-        results = connection.graph.query(traversal_query, {"id": dev_id, "limit": GRAPH_LIMIT})
-
-        for row in results:
-            s_type, s_id, s_desc = row['src_type'], row['src_id'], row['src_desc']
-            t_type, t_id, t_desc = row['tgt_type'], row['tgt_id'], row['tgt_desc']
-
-            # Kiểm tra xem type có thuộc nhóm Interface không (Fix quan trọng)
-            s_is_interface = any(x in str(s_type) for x in INTERFACE_TYPES)
-            t_is_interface = any(x in str(t_type) for x in INTERFACE_TYPES)
-
-            # CASE A: DEVICE <-> INTERFACE/BOND/VLAN
-            if s_type == 'DEVICE' and t_is_interface:
-                device_data[s_id]['desc'] = s_desc
-                device_data[s_id]['interfaces'][t_id]['desc'] = t_desc
-                interface_to_device_map[t_id] = s_id
-
-            elif t_type == 'DEVICE' and s_is_interface:
-                device_data[t_id]['desc'] = t_desc
-                device_data[t_id]['interfaces'][s_id]['desc'] = s_desc
-                interface_to_device_map[s_id] = t_id
-
-            # CASE B: INTERFACE <-> IP/VLAN (Map ngược về Device)
-            if s_is_interface and t_type == 'IP_ADDRESS':
-                if s_id in interface_to_device_map:
-                    root = interface_to_device_map[s_id]
-                    device_data[root]['interfaces'][s_id]['ip'] = t_id
-
-            elif t_is_interface and s_type == 'IP_ADDRESS':
-                if t_id in interface_to_device_map:
-                    root = interface_to_device_map[t_id]
-                    device_data[root]['interfaces'][t_id]['ip'] = s_id
-
-            # CASE C: DEVICE <-> ROUTE
-            if s_type == 'DEVICE' and t_type == 'ROUTE':
-                device_data[s_id]['routes'].append(f"{t_id} ({t_desc})")
-            elif t_type == 'DEVICE' and s_type == 'ROUTE':
-                device_data[t_id]['routes'].append(f"{s_id} ({s_desc})")
-
-    # --- RENDER CONTEXT ---
-    final_context = []
-    current_tokens = 0
-
-    for dev_id, info in device_data.items():
-        if not info['interfaces'] and not info['routes']: continue
-
-        lines = [f"### DEVICE: {dev_id}"]
-        if info['desc']: lines.append(f"   Description: {info['desc']}")
-
-        if info['interfaces']:
-            lines.append("   INTERFACES:")
-            for iface, data in info['interfaces'].items():
-                line = f"   - {iface}"
-                if data.get('ip'): line += f" | IP: {data['ip']}"
-                # Rút gọn desc để tiết kiệm token
-                if data.get('desc'):
-                    short = data['desc'].split('. ')[0]
-                    line += f" ({short})"
-                lines.append(line)
-
-        if info['routes']:
-            lines.append("   ROUTING TABLE:")
-            for r in info['routes']: lines.append(f"   - {r}")
-
-        block = "\n".join(lines)
-        if current_tokens + len(block) / 4 > MAX_CONTEXT_TOKENS: break
-        final_context.append(block)
-        current_tokens += len(block) / 4
-
-    if not final_context:
-        return "Không tìm thấy thông tin cấu hình chi tiết."
-
-    context_text = "\n\n".join(final_context)
-
-    # Debug log
-    with open("log/query/final_context_local.json", "w", encoding="utf-8") as f:
-        json.dump(final_context, f, ensure_ascii=False, indent=2)
-
-    chain = PromptTemplate.from_template(LOCAL_SEARCH_SYSTEM_PROMPT) | connection.llm | StrOutputParser()
-
-    t2 = time.time()
-    print(f"Thời gian local search: {t2 - t1:.2f}s")
-
-    return chain.invoke({
-        "question": question,
-        "context_data": context_text
-    })
 
 
 def router_search(question):

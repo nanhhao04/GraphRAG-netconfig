@@ -90,8 +90,8 @@ def main():
             q = input("\nNhập câu hỏi chi tiết (VD: Router A kết nối với ai? IP của Switch B?): ")
             if q.strip():
                 print("\nBot đang suy nghĩ (Local Strategy)...")
-                response = local_search_semantic(q)
-                #response = local_search(q)
+                #response = local_search_semantic(q)
+                response = local_search(q)
                 print(f"\nTRẢ LỜI:\n{response}")
 
         elif choice == "5":
@@ -101,36 +101,37 @@ def main():
                 response = router_search(q)
                 print(f"\nTRẢ LỜI:\n{response}")
 
+
         elif choice == "6":
-            q = input("\nNhập câu hỏi chi tiết: ")
+            q = input("\nNhập câu hỏi cần đánh giá: ").strip()
+            if not q: continue
+            print("Nếu có câu trả lời mẫu (Ground Truth), Ragas sẽ chấm thêm:")
+            print("Context Precision (Độ chính xác ngữ cảnh) Context Recall (Độ bao phủ ngữ cảnh)")
+            ground_truth_input = input("Nhập câu trả lời mẫu (Enter để bỏ qua): ").strip()
 
-            ground_truth = input("Nhập câu trả lời mẫu (Enter để bỏ qua): ").strip()
-            if not ground_truth:
-                ground_truth = None
-            #ground_truth = None
+            ground_truth = ground_truth_input if ground_truth_input else None
 
-            if q.strip():
-                print("\nBot đang suy nghĩ (Local Strategy)...")
+            print("\nBot đang suy nghĩ (Local Strategy)...")
+            response = local_search_semantic(q)
+            print(f"\nTRẢ LỜI:\n{response}")
 
-                # Gọi hàm search
-                #response = router_search(q)
-                response = local_search_semantic(q)
+            print("\n[Ragas] Đang chuẩn bị dữ liệu đánh giá...")
+            context_file_path = "log/query/final_context_local.json"
+            # context_file_path = "log/query/final_local_context.txt"  # Đổi tên file
+            try:
+                with open(context_file_path, "r", encoding="utf-8") as f:
+                    full_text = f.read()
 
-                print(f"\nTRẢ LỜI:\n{response}")
+                if full_text.strip():
+                    context_used = [full_text]
+                else:
+                    context_used = ["Context rỗng"]
 
-                # Eval
-                do_eval = input("\n> Chạy đánh giá Ragas cho câu trả lời này? (y/n): ").strip().lower()
-                if do_eval == 'y':
-                    # 1. Load context thực tế đã dùng
-                    try:
-                        with open("log/query/final_context_local.json", "r", encoding="utf-8") as f:
-                            data = json.load(f)
-                            context_used = data.get("llm_context", [])
-                    except:
-                        context_used = ["Không tìm thấy file log context"]
+            except Exception as e:
+                print(f"Lỗi đọc file TXT: {e}")
+                context_used = ["Không tìm thấy file log context"]
 
-                    # 2. Chạy Ragas
-                    run_eval_pipeline(q, response, context_used, ground_truth)
+            run_eval_pipeline(q, response, context_used, ground_truth)
 
         elif choice == "7":
             print("Thoát!")
