@@ -1,0 +1,79 @@
+[
+    {
+      "project_id": 123,
+      "repo_name": "web-application",
+      "repo_info": {
+        "description": "Full-stack web application with React frontend and Node.js backend",
+        "web_url": "https://gitlab.example.com/group/web-application",
+        "created_at": "2023-01-15T08:30:00Z",
+        "last_activity_at": "2024-01-14T16:45:00Z"
+      },
+      "content": {
+        "main": {
+          "src": [
+            "App.js",
+            "App.css",
+            "index.js",
+            "index.css",
+            "setupTests.js"
+          ],
+          "components": [
+            "Header.js",
+            "Footer.js",
+            "Sidebar.js",
+            "Dashboard.js",
+            "UserProfile.js"
+          ],
+          "pages": [
+            "Home.js",
+            "About.js",
+            "Contact.js",
+            "Login.js",
+            "Register.js"
+          ],
+          "services": [
+            "api.js",
+            "auth.js",
+            "storage.js"
+          ],
+          "tests": [
+            "App.test.js",
+            "Header.test.js",
+            "api.test.js"
+          ],
+          "public": [
+            "index.html",
+            "favicon.ico",
+            "manifest.json"
+          ]
+        },
+        "develop": {
+          "src": [
+            "App.js",
+            "App.css",
+            "index.js"
+          ],
+          "components": [
+            "Header.js",
+            "NewFeature.js"
+          ],
+          "experimental": [
+            "ai-assistant.js",
+            "voice-control.js"
+          ]
+        },
+        "feature/auth-redesign": {
+          "src": [
+            "App.js"
+          ],
+          "components": [
+            "LoginV2.js",
+            "RegisterV2.js"
+          ],
+          "styles": [
+            "auth.module.css"
+          ]
+        }
+      }
+    }
+  ]

@@ -9825,3 +9825,518 @@ EDGE_ROUTER_01
   }
 ]
 ------------------------------------------------------------
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+[
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF3",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF4",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF5",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "172_16_20_0_24",
+    "tgt_type": "IP_NETWORK",
+    "tgt_desc": "destination 172.16.20.0/24, next-hop 10.0.1.2, metric 100."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_1_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.1.2."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_2_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.2.2."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "172_16_30_0_24",
+    "tgt_type": "IP_NETWORK",
+    "tgt_desc": "destination 172.16.30.0/24, next-hop 10.0.3.2, metric 100."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_3_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.3.2."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF3",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_0_1_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.0.1.1/30."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF4",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_0_2_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.0.2.1/30."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF5",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_0_3_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.0.3.1/30."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_200_1_2_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.200.1.2/30."
+  },
+  {
+    "src_id": "172_16_30_0_24",
+    "src_type": "IP_NETWORK",
+    "src_desc": "destination 172.16.30.0/24, next-hop 10.0.3.2, metric 100.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "NODE_7_HIGH_PERFORMANCE_STORAGE_SERVER",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Section 'ethernets': [Section 'eno1': [MTU size 9000, DHCP status False.] Section 'eno2': [MTU size 9000, DHCP status False.]] Section 'bonds': [Section 'bond0_storage': [MTU size 9000. member interfaces [eno1, eno2] Section 'parameters': [mode 802.3ad, hash policy layer3+4.]]] Section 'vlans': [Section 'bond0.30': [VLAN ID 30, uplink bond bond0_storage, MTU size 9000. assigned IPs [172.16.30.10/24] Routes: route to 172.16.30.0/24 via 172.16.30.253]]"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+[
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF3",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]]"
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF6",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]]"
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]"
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF3",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_0_11_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.0.11.1/30."
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF6",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_0_13_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.0.13.1/30."
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_200_2_2_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.200.2.2/30."
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+[
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_200_1_2_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.200.1.2/30."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF3",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF4",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_1_SPINE_ROUTER_01_ETH_TO_LEAF5",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]]"
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "172_16_20_0_24",
+    "tgt_type": "IP_NETWORK",
+    "tgt_desc": "destination 172.16.20.0/24, next-hop 10.0.1.2, metric 100."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_1_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.1.2."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_2_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.2.2."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "172_16_30_0_24",
+    "tgt_type": "IP_NETWORK",
+    "tgt_desc": "destination 172.16.30.0/24, next-hop 10.0.3.2, metric 100."
+  },
+  {
+    "src_id": "NODE_1_SPINE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_0_3_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.0.3.2."
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+[
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_200_2_2_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.200.2.2/30."
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]"
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF3",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]]"
+  },
+  {
+    "src_id": "NODE_2_SPINE_ROUTER_02",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_2_SPINE_ROUTER_02_ETH_TO_LEAF6",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]]"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================
+[
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_9_EDGE_ROUTER_01_WAN0_INTERNET",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]]"
+  },
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "CONTAINS",
+    "tgt_id": "NODE_9_EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "tgt_type": "INTERFACE",
+    "tgt_desc": "Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]"
+  },
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "172_16_0_0_16",
+    "tgt_type": "IP_NETWORK",
+    "tgt_desc": "destination 172.16.0.0/16, next-hop 10.200.1.2."
+  },
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01",
+    "src_type": "DEVICE",
+    "src_desc": "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "NEXT_HOP",
+    "tgt_id": "10_200_1_2",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "gateway 10.200.1.2."
+  },
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01_WAN0_INTERNET",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "203_0_113_10_24",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 203.0.113.10/24."
+  },
+  {
+    "src_id": "NODE_9_EDGE_ROUTER_01_LAN0_TO_SPINE1",
+    "src_type": "INTERFACE",
+    "src_desc": "Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "HAS_IP",
+    "tgt_id": "10_200_1_1_30",
+    "tgt_type": "IP_ADDRESS",
+    "tgt_desc": "address 10.200.1.1/30."
+  },
+  {
+    "src_id": "172_16_0_0_16",
+    "src_type": "IP_NETWORK",
+    "src_desc": "destination 172.16.0.0/16, next-hop 10.200.1.2.",
+    "rel_type": "CONNECTED_TO",
+    "rel_desc": "ROUTES_TO",
+    "tgt_id": "NODE_10_EDGE_ROUTER_02",
+    "tgt_type": "DEVICE",
+    "tgt_desc": "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2"
+  }
+]
+------------------------------------------------------------
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8189) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8067) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8024) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.7977) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.7968) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8189) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8067) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8024) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.7977) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.7968) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8085) ====================
+
+==================== Traversal for: NODE_10_EDGE_ROUTER_02 (Score: 0.8056) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.7942) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01_WAN0_INTERNET (Score: 0.7927) ====================
+
+==================== Traversal for: NODE_10_EDGE_ROUTER_02_WAN0_INTERNET (Score: 0.7924) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01 (Score: 0.8272) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02 (Score: 0.8142) ====================
+
+==================== Traversal for: NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9 (Score: 0.8103) ====================
+
+==================== Traversal for: NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10 (Score: 0.8049) ====================
+
+==================== Traversal for: NODE_9_EDGE_ROUTER_01 (Score: 0.8042) ====================

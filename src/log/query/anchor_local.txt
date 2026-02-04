@@ -1,20 +1,20 @@
-SCORE: 0.803931713104248
-NODE_9_EDGE_ROUTER_01
-{'type': 'DEVICE', 'communityId': '3', 'desc': "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2", 'infor': '{"version": 2, "renderer": "networkd", "ethernets": {"wan0_internet": {"addresses": ["203.0.113.10/24"], "gateway4": "203.0.113.1"}, "lan0_to_spine1": {"addresses": ["10.200.1.1/30"]}}, "routes": [{"to": "172.16.0.0/16", "via": "10.200.1.2"}]}'}
---------------------------------------------------
-SCORE: 0.802131175994873
-NODE_10_EDGE_ROUTER_02
-{'type': 'DEVICE', 'communityId': '3', 'desc': "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]] Section 'lan0_to_spine2': [assigned IPs [10.200.2.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.2.2", 'infor': '{"version": 2, "renderer": "networkd", "ethernets": {"wan0_internet": {"addresses": ["203.0.113.11/24"], "gateway4": "203.0.113.1"}, "lan0_to_spine2": {"addresses": ["10.200.2.1/30"]}}, "routes": [{"to": "172.16.0.0/16", "via": "10.200.2.2"}]}'}
---------------------------------------------------
-SCORE: 0.7889347076416016
+SCORE: 0.8272137641906738
 NODE_1_SPINE_ROUTER_01
 {'type': 'DEVICE', 'communityId': '4', 'desc': "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.1.1/30]] Section 'eth_to_leaf4': [MTU size 9000. assigned IPs [10.0.2.1/30]] Section 'eth_to_leaf5': [MTU size 9000. assigned IPs [10.0.3.1/30]] Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]] Routes: route to 172.16.20.0/24 via 10.0.1.2 (metric 100); route to 172.16.20.0/24 via 10.0.2.2 (metric 100); route to 172.16.30.0/24 via 10.0.3.2 (metric 100)", 'infor': '{"version": 2, "renderer": "networkd", "ethernets": {"eth_to_leaf3": {"mtu": 9000, "addresses": ["10.0.1.1/30"]}, "eth_to_leaf4": {"mtu": 9000, "addresses": ["10.0.2.1/30"]}, "eth_to_leaf5": {"mtu": 9000, "addresses": ["10.0.3.1/30"]}, "eth_to_edge9": {"addresses": ["10.200.1.2/30"], "gateway4": "10.200.1.1"}}, "routes": [{"to": "172.16.20.0/24", "via": "10.0.1.2", "metric": 100}, {"to": "172.16.20.0/24", "via": "10.0.2.2", "metric": 100}, {"to": "172.16.30.0/24", "via": "10.0.3.2", "metric": 100}]}'}
 --------------------------------------------------
-SCORE: 0.7884182929992676
-NODE_9_EDGE_ROUTER_01_WAN0_INTERNET
-{'type': 'INTERFACE', 'communityId': '3', 'desc': "Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]]", 'infor': '{"wan0_internet": {"addresses": ["203.0.113.10/24"], "gateway4": "203.0.113.1"}}'}
+SCORE: 0.8142070770263672
+NODE_2_SPINE_ROUTER_02
+{'type': 'DEVICE', 'communityId': '5', 'desc': "Section 'ethernets': [Section 'eth_to_leaf3': [MTU size 9000. assigned IPs [10.0.11.1/30]] Section 'eth_to_leaf6': [MTU size 9000. assigned IPs [10.0.13.1/30]] Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]]", 'infor': '{"version": 2, "renderer": "networkd", "ethernets": {"eth_to_leaf3": {"mtu": 9000, "addresses": ["10.0.11.1/30"]}, "eth_to_leaf6": {"mtu": 9000, "addresses": ["10.0.13.1/30"]}, "eth_to_edge10": {"addresses": ["10.200.2.2/30"], "gateway4": "10.200.2.1"}}}'}
 --------------------------------------------------
-SCORE: 0.7882513999938965
-NODE_10_EDGE_ROUTER_02_WAN0_INTERNET
-{'type': 'INTERFACE', 'communityId': '3', 'desc': "Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.11/24]]", 'infor': '{"wan0_internet": {"addresses": ["203.0.113.11/24"], "gateway4": "203.0.113.1"}}'}
+SCORE: 0.8102607727050781
+NODE_1_SPINE_ROUTER_01_ETH_TO_EDGE9
+{'type': 'INTERFACE', 'communityId': '4', 'desc': "Section 'eth_to_edge9': [gateway 10.200.1.1. assigned IPs [10.200.1.2/30]]", 'infor': '{"eth_to_edge9": {"addresses": ["10.200.1.2/30"], "gateway4": "10.200.1.1"}}'}
+--------------------------------------------------
+SCORE: 0.8049263954162598
+NODE_2_SPINE_ROUTER_02_ETH_TO_EDGE10
+{'type': 'INTERFACE', 'communityId': '5', 'desc': "Section 'eth_to_edge10': [gateway 10.200.2.1. assigned IPs [10.200.2.2/30]]", 'infor': '{"eth_to_edge10": {"addresses": ["10.200.2.2/30"], "gateway4": "10.200.2.1"}}'}
+--------------------------------------------------
+SCORE: 0.8042154312133789
+NODE_9_EDGE_ROUTER_01
+{'type': 'DEVICE', 'communityId': '3', 'desc': "Section 'ethernets': [Section 'wan0_internet': [gateway 203.0.113.1. assigned IPs [203.0.113.10/24]] Section 'lan0_to_spine1': [assigned IPs [10.200.1.1/30]]] Routes: route to 172.16.0.0/16 via 10.200.1.2", 'infor': '{"version": 2, "renderer": "networkd", "ethernets": {"wan0_internet": {"addresses": ["203.0.113.10/24"], "gateway4": "203.0.113.1"}, "lan0_to_spine1": {"addresses": ["10.200.1.1/30"]}}, "routes": [{"to": "172.16.0.0/16", "via": "10.200.1.2"}]}'}
 --------------------------------------------------

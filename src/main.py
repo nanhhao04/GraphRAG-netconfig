@@ -112,12 +112,12 @@ def main():
             ground_truth = ground_truth_input if ground_truth_input else None
 
             print("\nBot đang suy nghĩ (Local Strategy)...")
-            response = local_search_semantic(q)
+            response = local_search(q)
             print(f"\nTRẢ LỜI:\n{response}")
 
             print("\n[Ragas] Đang chuẩn bị dữ liệu đánh giá...")
             context_file_path = "log/query/final_context_local.json"
-            # context_file_path = "log/query/final_local_context.txt"  # Đổi tên file
+
             try:
                 with open(context_file_path, "r", encoding="utf-8") as f:
                     full_text = f.read()
@@ -128,7 +128,7 @@ def main():
                     context_used = ["Context rỗng"]
 
             except Exception as e:
-                print(f"Lỗi đọc file TXT: {e}")
+                print(f"Lỗi đọc file context json: {e}")
                 context_used = ["Không tìm thấy file log context"]
 
             run_eval_pipeline(q, response, context_used, ground_truth)

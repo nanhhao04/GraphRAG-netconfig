@@ -232,7 +232,7 @@ def local_search(question):
     for rel in top_relations:
         context_parts.append(f"- {rel['text']}")
 
-    final_context_text = "\n".join(context_parts)  # last context local
+    final_context_text = "\n".join(context_parts)
 
     try:
         with open("log/query/final_context_local.json", "w", encoding="utf-8") as f:
