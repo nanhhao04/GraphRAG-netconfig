@@ -1,967 +1,590 @@
-[
-  {
-    "name": "SPINE ROUTER 01",
-    "type": "DEVICE",
-    "desc": "High Performance L3 Core. Node 1. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_to_leaf3', 'eth_to_leaf4', 'eth_to_leaf5', 'eth_to_edge9'. It defines static routes."
-  },
-  {
-    "name": "SPINE ROUTER 01_ETH_TO_LEAF3",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_leaf3' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.1.1/30."
-  },
-  {
-    "name": "10.0.1.1/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "SPINE ROUTER 01_ETH_TO_LEAF4",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_leaf4' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.2.1/30."
-  },
-  {
-    "name": "10.0.2.1/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "SPINE ROUTER 01_ETH_TO_LEAF5",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_leaf5' on SPINE ROUTER 01. Configured with MTU 9000. Assigned IP address 10.0.3.1/30."
-  },
-  {
-    "name": "10.0.3.1/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "SPINE ROUTER 01_ETH_TO_EDGE9",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_edge9' on SPINE ROUTER 01. Assigned IP address 10.200.1.2/30. Uses 10.200.1.1 as gateway4."
-  },
-  {
-    "name": "10.200.1.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "10.200.1.1",
-    "type": "IP_ADDRESS",
-    "desc": "IPv4 Gateway address."
-  },
-  {
-    "name": "172.16.20.0/24",
-    "type": "IP_ADDRESS",
-    "desc": "Destination Network Subnet."
-  },
-  {
-    "name": "10.0.1.2",
-    "type": "IP_ADDRESS",
-    "desc": "Next-hop IP address for routing."
-  },
-  {
-    "name": "10.0.2.2",
-    "type": "IP_ADDRESS",
-    "desc": "Next-hop IP address for routing."
-  },
-  {
-    "name": "172.16.30.0/24",
-    "type": "IP_ADDRESS",
-    "desc": "Destination Network Subnet."
-  },
-  {
-    "name": "10.0.3.2",
-    "type": "IP_ADDRESS",
-    "desc": "Next-hop IP address for routing."
-  },
-  {
-    "name": "SPINE ROUTER 02",
-    "type": "DEVICE",
-    "desc": "Redundant L3 Core. Node 2. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_to_leaf3', 'eth_to_leaf6', 'eth_to_edge10'."
-  },
-  {
-    "name": "SPINE ROUTER 02_ETH_TO_LEAF3",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_leaf3' on SPINE ROUTER 02. Configured with MTU 9000. Assigned IP address 10.0.11.1/30."
-  },
-  {
-    "name": "10.0.11.1/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "SPINE ROUTER 02_ETH_TO_LEAF6",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_leaf6' on SPINE ROUTER 02. Configured with MTU 9000. Assigned IP address 10.0.13.1/30."
-  },
-  {
-    "name": "10.0.13.1/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "SPINE ROUTER 02_ETH_TO_EDGE10",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_to_edge10' on SPINE ROUTER 02. Assigned IP address 10.200.2.2/30. Uses 10.200.2.1 as gateway4."
-  },
-  {
-    "name": "10.200.2.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "10.200.2.1",
-    "type": "IP_ADDRESS",
-    "desc": "IPv4 Gateway address."
-  },
-  {
-    "name": "COMPUTE LEAF 01",
-    "type": "DEVICE",
-    "desc": "ToR cho tủ Server Tính toán. Node 3. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_uplink_spine2', 'eth_downlink_srv8'. It defines bond interfaces 'bond_tor_compute'. It defines VLAN interfaces 'vlan10_mgmt', 'vlan20_vm'. It defines static routes."
-  },
-  {
-    "name": "COMPUTE LEAF 01_ETH_UPLINK_SPINE1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_uplink_spine1' on COMPUTE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.1.2/30."
-  },
-  {
-    "name": "10.0.1.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE LEAF 01_ETH_UPLINK_SPINE2",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_uplink_spine2' on COMPUTE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.11.2/30."
-  },
-  {
-    "name": "10.0.11.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE LEAF 01_ETH_DOWNLINK_SRV8",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_downlink_srv8' on COMPUTE LEAF 01. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_compute'."
-  },
-  {
-    "name": "COMPUTE LEAF 01_BOND_TOR_COMPUTE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond_tor_compute' on COMPUTE LEAF 01. Aggregates interface 'eth_downlink_srv8'. Configured with mode 802.3ad, lacp rate fast, mii monitor interval 100."
-  },
-  {
-    "name": "COMPUTE LEAF 01_VLAN10_MGMT",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'vlan10_mgmt' on COMPUTE LEAF 01. VLAN ID is 10. Linked to 'bond_tor_compute'. Assigned IP address 192.168.1.253/24."
-  },
-  {
-    "name": "192.168.1.253/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE LEAF 01_VLAN20_VM",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'vlan20_vm' on COMPUTE LEAF 01. VLAN ID is 20. Linked to 'bond_tor_compute'. Assigned IP address 172.16.20.253/24."
-  },
-  {
-    "name": "172.16.20.253/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "0.0.0.0/0",
-    "type": "IP_ADDRESS",
-    "desc": "Destination Network Subnet."
-  },
-  {
-    "name": "COMPUTE LEAF 02",
-    "type": "DEVICE",
-    "desc": "ToR Dự phòng cho tủ Compute. Node 4. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_downlink_srv8'. It defines bond interfaces 'bond_tor_compute'. It defines VLAN interfaces 'vlan20_vm'."
-  },
-  {
-    "name": "COMPUTE LEAF 02_ETH_UPLINK_SPINE1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_uplink_spine1' on COMPUTE LEAF 02. Configured with MTU 9000. Assigned IP address 10.0.2.2/30."
-  },
-  {
-    "name": "10.0.2.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE LEAF 02_ETH_DOWNLINK_SRV8",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_downlink_srv8' on COMPUTE LEAF 02. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_compute'."
-  },
-  {
-    "name": "COMPUTE LEAF 02_BOND_TOR_COMPUTE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond_tor_compute' on COMPUTE LEAF 02. Aggregates interface 'eth_downlink_srv8'. Configured with mode 802.3ad."
-  },
-  {
-    "name": "COMPUTE LEAF 02_VLAN20_VM",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'vlan20_vm' on COMPUTE LEAF 02. VLAN ID is 20. Linked to 'bond_tor_compute'. Assigned IP address 172.16.20.254/24."
-  },
-  {
-    "name": "172.16.20.254/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "STORAGE LEAF 01",
-    "type": "DEVICE",
-    "desc": "ToR cho tủ Storage - Tối ưu Jumbo Frame. Node 5. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine1', 'eth_downlink_srv7'. It defines bond interfaces 'bond_tor_storage'. It defines VLAN interfaces 'vlan30_san'."
-  },
-  {
-    "name": "STORAGE LEAF 01_ETH_UPLINK_SPINE1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_uplink_spine1' on STORAGE LEAF 01. Configured with MTU 9000. Assigned IP address 10.0.3.2/30."
-  },
-  {
-    "name": "10.0.3.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "STORAGE LEAF 01_ETH_DOWNLINK_SRV7",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_downlink_srv7' on STORAGE LEAF 01. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_storage'."
-  },
-  {
-    "name": "STORAGE LEAF 01_BOND_TOR_STORAGE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond_tor_storage' on STORAGE LEAF 01. Aggregates interface 'eth_downlink_srv7'. Configured with MTU 9000. Configured with mode 802.3ad."
-  },
-  {
-    "name": "STORAGE LEAF 01_VLAN30_SAN",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'vlan30_san' on STORAGE LEAF 01. VLAN ID is 30. Linked to 'bond_tor_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.253/24."
-  },
-  {
-    "name": "172.16.30.253/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "STORAGE LEAF 02",
-    "type": "DEVICE",
-    "desc": "ToR Dự phòng cho tủ Storage. Node 6. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth_uplink_spine2', 'eth_downlink_srv7'. It defines bond interfaces 'bond_tor_storage'. It defines VLAN interfaces 'vlan30_san'."
-  },
-  {
-    "name": "STORAGE LEAF 02_ETH_UPLINK_SPINE2",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_uplink_spine2' on STORAGE LEAF 02. Configured with MTU 9000. Assigned IP address 10.0.13.2/30."
-  },
-  {
-    "name": "10.0.13.2/30",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "STORAGE LEAF 02_ETH_DOWNLINK_SRV7",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth_downlink_srv7' on STORAGE LEAF 02. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond_tor_storage'."
-  },
-  {
-    "name": "STORAGE LEAF 02_BOND_TOR_STORAGE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond_tor_storage' on STORAGE LEAF 02. Aggregates interface 'eth_downlink_srv7'. Configured with MTU 9000. Configured with mode 802.3ad."
-  },
-  {
-    "name": "STORAGE LEAF 02_VLAN30_SAN",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'vlan30_san' on STORAGE LEAF 02. VLAN ID is 30. Linked to 'bond_tor_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.254/24."
-  },
-  {
-    "name": "172.16.30.254/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "HIGH-PERFORMANCE STORAGE SERVER",
-    "type": "DEVICE",
-    "desc": "NAS/SAN Target. Node 7. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eno1', 'eno2'. It defines bond interfaces 'bond0_storage'. It defines VLAN interfaces 'bond0.30'."
-  },
-  {
-    "name": "HIGH-PERFORMANCE STORAGE SERVER_ENO1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eno1' on HIGH-PERFORMANCE STORAGE SERVER. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond0_storage'."
-  },
-  {
-    "name": "HIGH-PERFORMANCE STORAGE SERVER_ENO2",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eno2' on HIGH-PERFORMANCE STORAGE SERVER. Configured with MTU 9000. DHCPv4 is disabled. This interface is a member of bond 'bond0_storage'."
-  },
-  {
-    "name": "HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond0_storage' on HIGH-PERFORMANCE STORAGE SERVER. Aggregates interfaces 'eno1' and 'eno2'. Configured with MTU 9000. Configured with mode 802.3ad, transmit hash policy layer3+4."
-  },
-  {
-    "name": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'bond0.30' on HIGH-PERFORMANCE STORAGE SERVER. VLAN ID is 30. Linked to 'bond0_storage'. Configured with MTU 9000. Assigned IP address 172.16.30.10/24. Includes static route for 172.16.30.0/24 via 172.16.30.253."
-  },
-  {
-    "name": "172.16.30.10/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR",
-    "type": "DEVICE",
-    "desc": "Chạy máy ảo/Container. Node 8. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'eth0', 'eth1'. It defines bond interfaces 'bond0_compute'. It defines VLAN interfaces 'bond0.10', 'bond0.20'. It defines bridge interfaces 'br_vm_data'."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_ETH0",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth0' on COMPUTE HYPERVISOR. DHCPv4 is disabled. This interface is a member of bond 'bond0_compute'."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_ETH1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'eth1' on COMPUTE HYPERVISOR. DHCPv4 is disabled. This interface is a member of bond 'bond0_compute'."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "type": "INTERFACE",
-    "desc": "Bond interface 'bond0_compute' on COMPUTE HYPERVISOR. Aggregates interfaces 'eth0' and 'eth1'. Configured with mode 802.3ad."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_BOND0.10",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'bond0.10' on COMPUTE HYPERVISOR. VLAN ID is 10. Linked to 'bond0_compute'. Assigned IP address 192.168.1.100/24. Uses 192.168.1.253 as gateway4."
-  },
-  {
-    "name": "192.168.1.100/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_BOND0.20",
-    "type": "INTERFACE",
-    "desc": "VLAN interface 'bond0.20' on COMPUTE HYPERVISOR. VLAN ID is 20. Linked to 'bond0_compute'. This interface is a member of bridge 'br_vm_data'."
-  },
-  {
-    "name": "COMPUTE HYPERVISOR_BR_VM_DATA",
-    "type": "INTERFACE",
-    "desc": "Bridge interface 'br_vm_data' on COMPUTE HYPERVISOR. Includes interface 'bond0.20'. Configured with stp disabled, forward delay 0."
-  },
-  {
-    "name": "EDGE ROUTER 01",
-    "type": "DEVICE",
-    "desc": "Primary WAN Gateway. Node 9. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'wan0_internet', 'lan0_to_spine1'. It defines static routes."
-  },
-  {
-    "name": "EDGE ROUTER 01_WAN0_INTERNET",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'wan0_internet' on EDGE ROUTER 01. Assigned IP address 203.0.113.10/24. Uses 203.0.113.1 as gateway4."
-  },
-  {
-    "name": "203.0.113.10/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "203.0.113.1",
-    "type": "IP_ADDRESS",
-    "desc": "IPv4 Gateway address."
-  },
-  {
-    "name": "EDGE ROUTER 01_LAN0_TO_SPINE1",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'lan0_to_spine1' on EDGE ROUTER 01. Assigned IP address 10.200.1.1/30."
-  },
-  {
-    "name": "172.16.0.0/16",
-    "type": "IP_ADDRESS",
-    "desc": "Destination Network Subnet."
-  },
-  {
-    "name": "EDGE ROUTER 02",
-    "type": "DEVICE",
-    "desc": "Secondary WAN Gateway. Node 10. Configuration includes network version 2 and renderer networkd. It defines ethernet interfaces 'wan0_internet', 'lan0_to_spine2'. It defines static routes."
-  },
-  {
-    "name": "EDGE ROUTER 02_WAN0_INTERNET",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'wan0_internet' on EDGE ROUTER 02. Assigned IP address 203.0.113.11/24. Uses 203.0.113.1 as gateway4."
-  },
-  {
-    "name": "203.0.113.11/24",
-    "type": "IP_ADDRESS",
-    "desc": "IP Subnet assigned to interface."
-  },
-  {
-    "name": "EDGE ROUTER 02_LAN0_TO_SPINE2",
-    "type": "INTERFACE",
-    "desc": "Physical interface 'lan0_to_spine2' on EDGE ROUTER 02. Assigned IP address 10.200.2.1/30."
-  }
-][
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "SPINE ROUTER 01_ETH_TO_LEAF3",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01_ETH_TO_LEAF3",
-    "target": "10.0.1.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "SPINE ROUTER 01_ETH_TO_LEAF4",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01_ETH_TO_LEAF4",
-    "target": "10.0.2.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "SPINE ROUTER 01_ETH_TO_LEAF5",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01_ETH_TO_LEAF5",
-    "target": "10.0.3.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "SPINE ROUTER 01_ETH_TO_EDGE9",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01_ETH_TO_EDGE9",
-    "target": "10.200.1.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 01_ETH_TO_EDGE9",
-    "target": "10.200.1.1",
-    "desc": "USES_GATEWAY",
-    "strength": "8"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "172.16.20.0/24",
-    "desc": "ROUTES_TO via 10.0.1.2 with metric 100",
-    "strength": "6"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "172.16.20.0/24",
-    "desc": "ROUTES_TO via 10.0.2.2 with metric 100",
-    "strength": "6"
-  },
-  {
-    "source": "SPINE ROUTER 01",
-    "target": "172.16.30.0/24",
-    "desc": "ROUTES_TO via 10.0.3.2 with metric 100",
-    "strength": "6"
-  },
-  {
-    "source": "SPINE ROUTER 02",
-    "target": "SPINE ROUTER 02_ETH_TO_LEAF3",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02_ETH_TO_LEAF3",
-    "target": "10.0.11.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02",
-    "target": "SPINE ROUTER 02_ETH_TO_LEAF6",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02_ETH_TO_LEAF6",
-    "target": "10.0.13.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02",
-    "target": "SPINE ROUTER 02_ETH_TO_EDGE10",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02_ETH_TO_EDGE10",
-    "target": "10.200.2.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "SPINE ROUTER 02_ETH_TO_EDGE10",
-    "target": "10.200.2.1",
-    "desc": "USES_GATEWAY",
-    "strength": "8"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_ETH_UPLINK_SPINE1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_ETH_UPLINK_SPINE1",
-    "target": "10.0.1.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_ETH_UPLINK_SPINE2",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_ETH_UPLINK_SPINE2",
-    "target": "10.0.11.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_ETH_DOWNLINK_SRV8",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_BOND_TOR_COMPUTE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_BOND_TOR_COMPUTE",
-    "target": "COMPUTE LEAF 01_ETH_DOWNLINK_SRV8",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_VLAN10_MGMT",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_VLAN10_MGMT",
-    "target": "COMPUTE LEAF 01_BOND_TOR_COMPUTE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_VLAN10_MGMT",
-    "target": "192.168.1.253/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "COMPUTE LEAF 01_VLAN20_VM",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_VLAN20_VM",
-    "target": "COMPUTE LEAF 01_BOND_TOR_COMPUTE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01_VLAN20_VM",
-    "target": "172.16.20.253/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "0.0.0.0/0",
-    "desc": "ROUTES_TO via 10.0.1.1 with metric 100",
-    "strength": "6"
-  },
-  {
-    "source": "COMPUTE LEAF 01",
-    "target": "0.0.0.0/0",
-    "desc": "ROUTES_TO via 10.0.11.1 with metric 100",
-    "strength": "6"
-  },
-  {
-    "source": "COMPUTE LEAF 02",
-    "target": "COMPUTE LEAF 02_ETH_UPLINK_SPINE1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02_ETH_UPLINK_SPINE1",
-    "target": "10.0.2.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02",
-    "target": "COMPUTE LEAF 02_ETH_DOWNLINK_SRV8",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02",
-    "target": "COMPUTE LEAF 02_BOND_TOR_COMPUTE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02_BOND_TOR_COMPUTE",
-    "target": "COMPUTE LEAF 02_ETH_DOWNLINK_SRV8",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02",
-    "target": "COMPUTE LEAF 02_VLAN20_VM",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02_VLAN20_VM",
-    "target": "COMPUTE LEAF 02_BOND_TOR_COMPUTE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE LEAF 02_VLAN20_VM",
-    "target": "172.16.20.254/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01",
-    "target": "STORAGE LEAF 01_ETH_UPLINK_SPINE1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01_ETH_UPLINK_SPINE1",
-    "target": "10.0.3.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01",
-    "target": "STORAGE LEAF 01_ETH_DOWNLINK_SRV7",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01",
-    "target": "STORAGE LEAF 01_BOND_TOR_STORAGE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01_BOND_TOR_STORAGE",
-    "target": "STORAGE LEAF 01_ETH_DOWNLINK_SRV7",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01",
-    "target": "STORAGE LEAF 01_VLAN30_SAN",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01_VLAN30_SAN",
-    "target": "STORAGE LEAF 01_BOND_TOR_STORAGE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 01_VLAN30_SAN",
-    "target": "172.16.30.253/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02",
-    "target": "STORAGE LEAF 02_ETH_UPLINK_SPINE2",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02_ETH_UPLINK_SPINE2",
-    "target": "10.0.13.2/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02",
-    "target": "STORAGE LEAF 02_ETH_DOWNLINK_SRV7",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02",
-    "target": "STORAGE LEAF 02_BOND_TOR_STORAGE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02_BOND_TOR_STORAGE",
-    "target": "STORAGE LEAF 02_ETH_DOWNLINK_SRV7",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02",
-    "target": "STORAGE LEAF 02_VLAN30_SAN",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02_VLAN30_SAN",
-    "target": "STORAGE LEAF 02_BOND_TOR_STORAGE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "STORAGE LEAF 02_VLAN30_SAN",
-    "target": "172.16.30.254/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_ENO1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_ENO2",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_ENO1",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_ENO2",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "target": "HIGH-PERFORMANCE STORAGE SERVER_BOND0_STORAGE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "target": "172.16.30.10/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "target": "172.16.30.0/24",
-    "desc": "ROUTES_TO via 172.16.30.253",
-    "strength": "6"
-  },
-  {
-    "source": "HIGH-PERFORMANCE STORAGE SERVER_BOND0.30",
-    "target": "172.16.30.253",
-    "desc": "IP_ADDRESS",
-    "strength": "Next-hop IP address for routing."
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_ETH0",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_ETH1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "target": "COMPUTE HYPERVISOR_ETH0",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "target": "COMPUTE HYPERVISOR_ETH1",
-    "desc": "AGGREGATES",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_BOND0.10",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0.10",
-    "target": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0.10",
-    "target": "192.168.1.100/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0.10",
-    "target": "192.168.1.253",
-    "desc": "IP_ADDRESS",
-    "strength": "IPv4 Gateway address."
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0.10",
-    "target": "192.168.1.253",
-    "desc": "USES_GATEWAY",
-    "strength": "8"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_BOND0.20",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BOND0.20",
-    "target": "COMPUTE HYPERVISOR_BOND0_COMPUTE",
-    "desc": "IS_CHILD_OF",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR",
-    "target": "COMPUTE HYPERVISOR_BR_VM_DATA",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "COMPUTE HYPERVISOR_BR_VM_DATA",
-    "target": "COMPUTE HYPERVISOR_BOND0.20",
-    "desc": "HAS_MEMBER",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 01",
-    "target": "EDGE ROUTER 01_WAN0_INTERNET",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 01_WAN0_INTERNET",
-    "target": "203.0.113.10/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 01_WAN0_INTERNET",
-    "target": "203.0.113.1",
-    "desc": "USES_GATEWAY",
-    "strength": "8"
-  },
-  {
-    "source": "EDGE ROUTER 01",
-    "target": "EDGE ROUTER 01_LAN0_TO_SPINE1",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 01_LAN0_TO_SPINE1",
-    "target": "10.200.1.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 01",
-    "target": "172.16.0.0/16",
-    "desc": "ROUTES_TO via 10.200.1.2",
-    "strength": "6"
-  },
-  {
-    "source": "EDGE ROUTER 02",
-    "target": "EDGE ROUTER 02_WAN0_INTERNET",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 02_WAN0_INTERNET",
-    "target": "203.0.113.11/24",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 02_WAN0_INTERNET",
-    "target": "203.0.113.1",
-    "desc": "USES_GATEWAY",
-    "strength": "8"
-  },
-  {
-    "source": "EDGE ROUTER 02",
-    "target": "EDGE ROUTER 02_LAN0_TO_SPINE2",
-    "desc": "HAS_INTERFACE",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 02_LAN0_TO_SPINE2",
-    "target": "10.200.2.1/30",
-    "desc": "HAS_IP",
-    "strength": "10"
-  },
-  {
-    "source": "EDGE ROUTER 02",
-    "target": "172.16.0.0/16",
-    "desc": "ROUTES_TO via 10.200.2.2",
-    "strength": "6"
-  }
-]
+{
+  "entities": [
+    {
+      "name": "GraphRAG",
+      "type": "PROJECT",
+      "desc": "Dự án GraphRAG tập trung vào việc xây dựng Knowledge Graph từ mã nguồn."
+    },
+    {
+      "name": "GraphRAG_main",
+      "type": "BRANCH",
+      "desc": "Nhánh chính của dự án GraphRAG."
+    },
+    {
+      "name": "GraphRAG_main_root_files",
+      "type": "CATEGORY",
+      "desc": "Chứa các tệp tin cấu hình và tài liệu gốc của dự án."
+    },
+    {
+      "name": "GraphRAG_main_data",
+      "type": "CATEGORY",
+      "desc": "Thư mục chứa các tệp dữ liệu và cấu hình."
+    },
+    {
+      "name": "GraphRAG_main_src",
+      "type": "CATEGORY",
+      "desc": "Thư mục chứa mã nguồn chính của dự án."
+    },
+    {
+      "name": "GraphRAG_main_src_eval",
+      "type": "CATEGORY",
+      "desc": "Thư mục src/eval chứa các script đánh giá hiệu suất."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt",
+      "type": "CATEGORY",
+      "desc": "Thư mục src/prompt chứa các module và tệp tin liên quan."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_index",
+      "type": "CATEGORY",
+      "desc": "Thư mục chứa các prompt template liên quan đến việc lập chỉ mục và xây dựng đồ thị."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query",
+      "type": "CATEGORY",
+      "desc": "Thư mục chứa các prompt template liên quan đến việc truy vấn đồ thị."
+    },
+    {
+      "name": "GraphRAG_main_src_test",
+      "type": "CATEGORY",
+      "desc": "Thư mục chứa các script kiểm thử."
+    },
+    {
+      "name": "GraphRAG_main_root_files_.gitignore",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình Git bỏ qua các tệp không cần thiết."
+    },
+    {
+      "name": "GraphRAG_main_root_files_config",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình YAML."
+    },
+    {
+      "name": "GraphRAG_main_root_files_extracted_sample_format",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình hoặc dữ liệu JSON."
+    },
+    {
+      "name": "GraphRAG_main_root_files_prompt_extract_summary",
+      "type": "FILE",
+      "desc": "Tệp tin văn bản."
+    },
+    {
+      "name": "GraphRAG_main_root_files_README",
+      "type": "FILE",
+      "desc": "Tệp tin README cung cấp thông tin tổng quan về dự án."
+    },
+    {
+      "name": "GraphRAG_main_root_files_sample_config",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình YAML."
+    },
+    {
+      "name": "GraphRAG_main_data_extracted_sample_format",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình hoặc dữ liệu JSON."
+    },
+    {
+      "name": "GraphRAG_main_data_full_repo_structure",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình hoặc dữ liệu JSON."
+    },
+    {
+      "name": "GraphRAG_main_data_networkconfig",
+      "type": "FILE",
+      "desc": "Tệp tin văn bản."
+    },
+    {
+      "name": "GraphRAG_main_data_networkconfig",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình YAML."
+    },
+    {
+      "name": "GraphRAG_main_data_sample_structed_repo",
+      "type": "FILE",
+      "desc": "Tệp tin cấu hình hoặc dữ liệu JSON."
+    },
+    {
+      "name": "GraphRAG_main_src_app",
+      "type": "FILE",
+      "desc": "File chính của ứng dụng, quản lý giao diện người dùng. Import các module nội bộ như connection, graph, retrieval."
+    },
+    {
+      "name": "GraphRAG_main_src_connection",
+      "type": "FILE",
+      "desc": "Quản lý kết nối đến cơ sở dữ liệu và các dịch vụ bên ngoài. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_eval_eval_ragas",
+      "type": "FILE",
+      "desc": "Chứa logic đánh giá hiệu suất. Import các module nội bộ như connection."
+    },
+    {
+      "name": "GraphRAG_main_src_graph",
+      "type": "FILE",
+      "desc": "Chứa logic xây dựng và quản lý đồ thị. Import các module nội bộ như connection, community_report_new, extract_graph, extract_graph_code_repo, community_report."
+    },
+    {
+      "name": "GraphRAG_main_src_main",
+      "type": "FILE",
+      "desc": "File thực thi chính để khởi chạy các tác vụ của dự án. Import các module nội bộ như connection, run_ingestion_rulebased, graph, retrieval, repo_struct, eval_ragas."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_index_community_report",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_index_community_report_new",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_index_extract_graph",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_index_extract_graph_code_repo",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query_global_search_map_system_prompt",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query_global_search_reduce_system_prompt",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query_local_search_system_prompt",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query_multihop_reasoning_local",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_prompt_query_router_search",
+      "type": "FILE",
+      "desc": "Chứa định nghĩa prompt template. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_retrieval",
+      "type": "FILE",
+      "desc": "Chứa logic truy xuất thông tin từ đồ thị. Import các module nội bộ như connection, global_search_map_system_prompt, global_search_reduce_system_prompt, local_search_system_prompt, router_search."
+    },
+    {
+      "name": "GraphRAG_main_src_run_ingestion_rulebased",
+      "type": "FILE",
+      "desc": "File trong dự án. Import các module nội bộ như connection."
+    },
+    {
+      "name": "GraphRAG_main_src_test_extract_relationship_tool",
+      "type": "FILE",
+      "desc": "Chứa các script kiểm thử. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_test_extract_repo_structure",
+      "type": "FILE",
+      "desc": "Chứa các script kiểm thử. Không có các import nội bộ."
+    },
+    {
+      "name": "GraphRAG_main_src_test_repo_struct",
+      "type": "FILE",
+      "desc": "Chứa các script kiểm thử. Import các module nội bộ như connection, community_report_new, extract_graph, extract_graph_code_repo, community_report."
+    }
+  ],
+  "relationships": [
+    {
+      "source": "GraphRAG",
+      "target": "GraphRAG_main",
+      "desc": "HAS_BRANCH",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main",
+      "target": "GraphRAG_main_root_files",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main",
+      "target": "GraphRAG_main_data",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main",
+      "target": "GraphRAG_main_src",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_eval",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_prompt",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt",
+      "target": "GraphRAG_main_src_prompt_index",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt",
+      "target": "GraphRAG_main_src_prompt_query",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_test",
+      "desc": "HAS_CATEGORY",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_.gitignore",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_config",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_extracted_sample_format",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_prompt_extract_summary",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_README",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_root_files",
+      "target": "GraphRAG_main_root_files_sample_config",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_data",
+      "target": "GraphRAG_main_data_extracted_sample_format",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_data",
+      "target": "GraphRAG_main_data_full_repo_structure",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_data",
+      "target": "GraphRAG_main_data_networkconfig",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_data",
+      "target": "GraphRAG_main_data_networkconfig",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_data",
+      "target": "GraphRAG_main_data_sample_structed_repo",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_app",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_eval",
+      "target": "GraphRAG_main_src_eval_eval_ragas",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_graph",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_main",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_index",
+      "target": "GraphRAG_main_src_prompt_index_community_report",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_index",
+      "target": "GraphRAG_main_src_prompt_index_community_report_new",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_index",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_index",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph_code_repo",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_query",
+      "target": "GraphRAG_main_src_prompt_query_global_search_map_system_prompt",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_query",
+      "target": "GraphRAG_main_src_prompt_query_global_search_reduce_system_prompt",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_query",
+      "target": "GraphRAG_main_src_prompt_query_local_search_system_prompt",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_query",
+      "target": "GraphRAG_main_src_prompt_query_multihop_reasoning_local",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_prompt_query",
+      "target": "GraphRAG_main_src_prompt_query_router_search",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_retrieval",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src",
+      "target": "GraphRAG_main_src_run_ingestion_rulebased",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_test",
+      "target": "GraphRAG_main_src_test_extract_relationship_tool",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_test",
+      "target": "GraphRAG_main_src_test_extract_repo_structure",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_test",
+      "target": "GraphRAG_main_src_test_repo_struct",
+      "desc": "CONTAINS_FILE",
+      "strength": 10
+    },
+    {
+      "source": "GraphRAG_main_src_app",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_app",
+      "target": "GraphRAG_main_src_graph",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_app",
+      "target": "GraphRAG_main_src_retrieval",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_graph",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_graph",
+      "target": "GraphRAG_main_src_prompt_index_community_report_new",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_graph",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_graph",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph_code_repo",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_graph",
+      "target": "GraphRAG_main_src_prompt_index_community_report",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_run_ingestion_rulebased",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_graph",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_retrieval",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_test_repo_struct",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_main",
+      "target": "GraphRAG_main_src_eval_eval_ragas",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_retrieval",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_retrieval",
+      "target": "GraphRAG_main_src_prompt_query_global_search_map_system_prompt",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_retrieval",
+      "target": "GraphRAG_main_src_prompt_query_global_search_reduce_system_prompt",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_retrieval",
+      "target": "GraphRAG_main_src_prompt_query_local_search_system_prompt",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_retrieval",
+      "target": "GraphRAG_main_src_prompt_query_router_search",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_run_ingestion_rulebased",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_eval_eval_ragas",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_test_repo_struct",
+      "target": "GraphRAG_main_src_connection",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_test_repo_struct",
+      "target": "GraphRAG_main_src_prompt_index_community_report_new",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_test_repo_struct",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph",
+      "desc": "CALLS",
+      "strength": 8
+    },
+    {
+      "source": "GraphRAG_main_src_test_repo_struct",
+      "target": "GraphRAG_main_src_prompt_index_extract_graph_code_repo",
+      "desc": "CALLS",
+      "strength": 8
+    }
+  ]
+}

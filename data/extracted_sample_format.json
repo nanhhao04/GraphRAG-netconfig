@@ -1,0 +1,50 @@
+[
+  {
+    "project_id": 1,
+    "repo_name": "GraphRAG",
+    "repo_info": {
+      "description": "Trích xuất cấu trúc từ thư mục: GraphRAG",
+      "path": "C:\\Users\\Admin\\PycharmProjects\\GraphRAG"
+    },
+    "content": {
+      "main": {
+        "root_files": [
+          ".gitignore",
+          "config.yml",
+          "extracted_sample_format.json",
+          "prompt_extract_summary.txt",
+          "README.md",
+          "sample_config.yml"
+        ],
+        "data": [
+          "extracted_sample_format.json",
+          "full_repo_structure.json",
+          "networkconfig.txt",
+          "networkconfig.yml",
+          "sample_structed_repo.json"
+        ],
+        "src": [
+          "app.py",
+          "connection.py",
+          "eval/eval_ragas.py",
+          "graph.py",
+          "main.py",
+          "prompt/index/community_report.py",
+          "prompt/index/community_report_new.py",
+          "prompt/index/extract_graph.py",
+          "prompt/index/extract_graph_code_repo.py",
+          "prompt/query/global_search_map_system_prompt.py",
+          "prompt/query/global_search_reduce_system_prompt.py",
+          "prompt/query/local_search_system_prompt.py",
+          "prompt/query/multihop_reasoning_local.py",
+          "prompt/query/router_search.py",
+          "retrieval.py",
+          "run_ingestion_rulebased.py",
+          "test/extract_relationship_tool.py",
+          "test/extract_repo_structure.py",
+          "test/repo_struct.py"
+        ]
+      }
+    }
+  }
+]

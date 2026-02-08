@@ -1,118 +1,18 @@
 [
   {
     "id": "0",
-    "title": "Storage Leaf Switch 1 (SAN VLAN 30)",
-    "summary": "This community describes NODE_5_STORAGE_LEAF_01, a storage-specific leaf switch. It features a 802.3ad LACP bond (bond_tor_storage) for redundancy and increased throughput, connecting to a storage server via eth_downlink_srv7. It also has an uplink (eth_uplink_spine1) to a spine router with IP 10.0.3.2/30. The switch is configured with VLAN 30 (vlan30_san) for SAN traffic, assigned the IP 172.16.30.253/24, and uses jumbo frames (MTU 9000) across all interfaces and bonds, which is typical for storage networks. DHCP is disabled on physical interfaces, indicating static IP configurations.",
-    "rating": 80,
-    "rating_explanation": "This device is a critical component in the storage network path, providing connectivity for SAN traffic. Its failure would directly impact storage access for connected servers. The use of bonding provides some redundancy, but it's a single point of failure for its specific uplink and downlink connections if not part of a larger MLAG/VPC setup (which isn't explicitly stated here, but implied by the existence of a second leaf in Community 1). Jumbo frames are correctly configured for storage.",
-    "findings": [
-      "Device NODE_5_STORAGE_LEAF_01 acts as a dedicated storage leaf switch.",
-      "Configured with 802.3ad LACP bond (bond_tor_storage) for redundancy and performance to a storage server.",
-      "Uplink to spine router via eth_uplink_spine1 (10.0.3.2/30).",
-      "Handles VLAN 30 (SAN) with IP 172.16.30.253/24.",
-      "Consistent use of MTU 9000 (jumbo frames) across all interfaces and bonds, optimized for storage traffic.",
-      "DHCP is disabled on physical interfaces, indicating static IP assignment."
-    ]
-  },
-  {
-    "id": "1",
-    "title": "Storage Leaf Switch 2 (SAN VLAN 30)",
-    "summary": "This community details NODE_6_STORAGE_LEAF_02, another storage-specific leaf switch, likely operating in conjunction with NODE_5_STORAGE_LEAF_01 (Community 0) for redundancy. It features an 802.3ad LACP bond (bond_tor_storage) for redundancy and throughput, connecting to a storage server via eth_downlink_srv7. It has an uplink (eth_uplink_spine2) to a different spine router with IP 10.0.13.2/30, suggesting a multi-spine architecture. Like its counterpart, it handles VLAN 30 (vlan30_san) for SAN traffic, assigned the IP 172.16.30.254/24, and consistently uses jumbo frames (MTU 9000). DHCP is disabled on physical interfaces.",
-    "rating": 80,
-    "rating_explanation": "Similar to Community 0, this device is a critical component in the storage network path. Its failure would impact storage access. The presence of a second leaf switch (Community 0) and connection to a different spine (spine2) indicates a resilient design, but each leaf remains critical for its direct connections. Jumbo frames are correctly configured.",
-    "findings": [
-      "Device NODE_6_STORAGE_LEAF_02 is a dedicated storage leaf switch, likely part of a redundant pair.",
-      "Configured with 802.3ad LACP bond (bond_tor_storage) for redundancy and performance to a storage server.",
-      "Uplink to a different spine router (spine2) via eth_uplink_spine2 (10.0.13.2/30).",
-      "Handles VLAN 30 (SAN) with IP 172.16.30.254/24, complementing NODE_5_STORAGE_LEAF_01.",
-      "Consistent use of MTU 9000 (jumbo frames) across all interfaces and bonds, optimized for storage traffic.",
-      "DHCP is disabled on physical interfaces, indicating static IP assignment."
-    ]
-  },
-  {
-    "id": "4",
-    "title": "High-Performance Storage & Spine Routing for SAN",
-    "summary": "This community encompasses two critical components: NODE_7_HIGH_PERFORMANCE_STORAGE_SERVER and NODE_1_SPINE_ROUTER_01. The storage server utilizes a robust network configuration with a 2-port 802.3ad LACP bond (bond0_storage) using layer3+4 hash policy for high availability and performance, connecting to the network via eno1 and eno2. It's configured for VLAN 30 (bond0.30) with IP 172.16.30.10/24, and routes traffic for the 172.16.30.0/24 network via 172.16.30.253 (which is NODE_5_STORAGE_LEAF_01). All interfaces and bonds on the server use MTU 9000. NODE_1_SPINE_ROUTER_01 acts as a central routing point, connecting to multiple leaf switches (leaf3, leaf4, leaf5) and an edge device. It has specific routes for storage networks, including 172.16.30.0/24 via 10.0.3.2 (the IP of NODE_5_STORAGE_LEAF_01). This spine router is crucial for inter-VLAN routing and connectivity to the storage network.",
+    "title": "GraphRAG Project Core Structure and Dependencies",
+    "summary": "This community represents the complete architectural blueprint and operational components of the 'GraphRAG' project, specifically focusing on its `main` branch. It encompasses the project definition, essential root files (configurations, documentation), data storage, and the entire source code base. The source code is meticulously organized into functional categories such as application logic (`app`), database/service connectivity (`connection`), graph construction and management (`graph`), information retrieval (`retrieval`), performance evaluation (`eval`), and a comprehensive set of prompt templates for both indexing and querying. The `main` file acts as the central orchestrator, integrating various modules to execute project tasks. Furthermore, dedicated test scripts are included, demonstrating a robust development and quality assurance framework.",
     "rating": 95,
-    "rating_explanation": "This community includes a high-performance storage server and a core spine router. The storage server is a critical data asset, and its connectivity is vital. The spine router is a central point of failure for multiple leaf networks, including the storage network. Any issue with the spine router would severely impact network-wide connectivity and access to storage. The configuration shows good practices like LACP bonding and jumbo frames for storage.",
+    "rating_explanation": "This community is assigned a very high rating because it encapsulates the entire core of the GraphRAG software project. It includes all critical components: project definition, main branch, configuration, data, source code, and execution entry points. Any compromise, malfunction, or significant change within this community would directly impact the project's functionality, stability, and overall operational integrity. The 'connection' module, being a central dependency for many core functionalities, further elevates the criticality of this cluster.",
     "findings": [
-      "NODE_7_HIGH_PERFORMANCE_STORAGE_SERVER uses a 2-port 802.3ad LACP bond with layer3+4 hash policy for high performance and redundancy.",
-      "Storage server is configured for VLAN 30 (SAN) with IP 172.16.30.10/24 and routes via 172.16.30.253 (NODE_5_STORAGE_LEAF_01).",
-      "Consistent MTU 9000 (jumbo frames) on the storage server, optimized for SAN traffic.",
-      "NODE_1_SPINE_ROUTER_01 is a central spine router, connecting to multiple leaf switches and an edge device.",
-      "Spine router provides routing for the 172.16.30.0/24 SAN network via NODE_5_STORAGE_LEAF_01 (10.0.3.2).",
-      "Multiple routes to 172.16.20.0/24 via different next-hops (10.0.1.2, 10.0.2.2) suggest redundant paths for other networks."
-    ]
-  },
-  {
-    "id": "2",
-    "title": "Compute Hypervisor with VLAN-Tagged VM Networks",
-    "summary": "This community describes NODE_8_COMPUTE_HYPERVISOR, a server dedicated to hosting virtual machines. It employs a 2-port 802.3ad LACP bond (bond0_compute) using eth0 and eth1 for network redundancy and aggregated bandwidth. The hypervisor is configured with two VLANs: VLAN 10 (bond0.10) for management or primary VM data, assigned IP 192.168.1.100/24 with a gateway at 192.168.1.253; and VLAN 20 (bond0.20) specifically for VM data, which is then bridged by br_vm_data. The bridge br_vm_data has STP disabled and a forward-delay of 0, which is common for hypervisor internal bridges managing VM traffic directly. DHCP is disabled on physical interfaces.",
-    "rating": 75,
-    "rating_explanation": "This hypervisor is a critical compute resource, hosting VMs. Its network configuration is robust with LACP bonding and VLAN segmentation. The bridge configuration without STP and zero forward-delay is appropriate for internal VM networking but relies on the upstream switch to handle loop prevention if multiple uplinks were active without LACP. Failure of this hypervisor would impact all hosted VMs.",
-    "findings": [
-      "NODE_8_COMPUTE_HYPERVISOR is a compute host for virtual machines.",
-      "Utilizes a 2-port 802.3ad LACP bond (bond0_compute) for network redundancy and performance.",
-      "Configured with VLAN 10 (192.168.1.100/24) for management/primary VM network.",
-      "Configured with VLAN 20 for VM data, which is then bridged by br_vm_data.",
-      "br_vm_data bridge has STP disabled and forward-delay 0, typical for hypervisor internal VM networking.",
-      "DHCP is disabled on physical interfaces, indicating static IP assignment."
-    ]
-  },
-  {
-    "id": "3",
-    "title": "Dual Edge Routers with Internet and Spine Connectivity",
-    "summary": "This community consists of two edge routers, NODE_9_EDGE_ROUTER_01 and NODE_10_EDGE_ROUTER_02. Both devices provide internet connectivity via dedicated WAN interfaces (203.0.113.x/24) sharing a common gateway (203.0.113.1). They also connect to the internal spine layer via separate LAN interfaces (10.200.1.1/30 and 10.200.2.1/30 respectively). Both routers are configured to route traffic destined for the 172.16.0.0/16 network towards their respective spine connections, indicating their role in directing internal traffic to the core network.",
-    "rating": 85,
-    "rating_explanation": "Edge routers are critical components as they are the gateway to the internet and the first point of entry/exit for external traffic. Their failure would lead to complete loss of external connectivity. The presence of two distinct edge routers provides some level of redundancy, but they share a common internet gateway, which could be a single point of failure if it's an external device. The internal routing to 172.16.0.0/16 also highlights their importance for internal network reachability.",
-    "findings": [
-      "Two distinct edge routers (NODE_9_EDGE_ROUTER_01, NODE_10_EDGE_ROUTER_02) provide external connectivity.",
-      "Both edge routers connect to the internet via the 203.0.113.0/24 network, sharing a common gateway 203.0.113.1.",
-      "Each edge router has a dedicated link to the spine layer (10.200.1.0/30 and 10.200.2.0/30).",
-      "Internal network 172.16.0.0/16 is routed via the spine connections, indicating these routers handle internal traffic forwarding.",
-      "The common internet gateway (203.0.113.1) could be a single point of failure for external connectivity, despite having two edge routers."
-    ]
-  },
-  {
-    "id": "5",
-    "title": "Spine Router with Leaf and Edge Connectivity",
-    "summary": "This community features NODE_2_SPINE_ROUTER_02, a core network device. It acts as a central hub, connecting to multiple leaf nodes (eth_to_leaf3, eth_to_leaf6) and an edge router (eth_to_edge10). The interfaces connecting to leaf nodes are configured with an MTU size of 9000, indicating support for jumbo frames, typical in data center spine layers for high-throughput internal traffic. The connection to 'edge10' (NODE_10_EDGE_ROUTER_02 from Community 3) confirms its role in the overall network hierarchy.",
-    "rating": 95,
-    "rating_explanation": "Spine routers are foundational to a leaf-spine architecture, providing high-speed, non-blocking connectivity between all leaf nodes and potentially to edge devices. A failure in a spine router can severely impact inter-leaf communication and overall network performance. The use of jumbo frames suggests it's handling significant data center traffic. Its connectivity to both leaf and edge layers makes it a critical central component.",
-    "findings": [
-      "NODE_2_SPINE_ROUTER_02 is a core spine router.",
-      "Connects to multiple leaf nodes (e.g., leaf3, leaf6) using 10.0.11.0/30 and 10.0.13.0/30 networks.",
-      "Uplinks to leaf nodes utilize MTU 9000, indicating jumbo frame support for data center traffic.",
-      "Connects to an edge router (NODE_10_EDGE_ROUTER_02) via 10.200.2.0/30, integrating the edge layer with the spine."
-    ]
-  },
-  {
-    "id": "6",
-    "title": "Dual-Homed Compute Leaf Router with LACP Bond and VLANs",
-    "summary": "This community describes NODE_3_COMPUTE_LEAF_01, a compute leaf router likely serving as a Top-of-Rack (ToR) switch. It features dual uplinks to the spine layer (spine1 and spine2) with MTU 9000, providing redundancy and high bandwidth. Downlink connectivity to servers or compute nodes is managed via an 802.3ad LACP bond (bond_tor_compute) for link aggregation and resilience. The router hosts two VLANs: VLAN 10 for management (192.168.1.253/24) and VLAN 20 for virtual machines (172.16.20.253/24), both operating over the bonded interface. Default routes are configured with equal cost (metric 100) to both spine uplinks, indicating ECMP for load balancing and redundancy for external traffic.",
-    "rating": 80,
-    "rating_explanation": "Compute leaf routers are critical for connecting servers and virtual machines to the network. Their failure would isolate a segment of compute resources. This specific leaf router demonstrates good design practices with dual uplinks to the spine for redundancy and ECMP, as well as LACP bonding for server connectivity. The use of VLANs for segmentation is also a standard practice. The high importance comes from its role as an access point for compute resources.",
-    "findings": [
-      "NODE_3_COMPUTE_LEAF_01 is a compute leaf router, likely a Top-of-Rack (ToR) device.",
-      "Dual uplinks to spine1 (10.0.1.0/30) and spine2 (10.0.11.0/30) provide redundancy and high bandwidth.",
-      "Uplinks use MTU 9000, supporting jumbo frames for efficient data transfer.",
-      "Downlink to compute resources uses an 802.3ad LACP bond (bond_tor_compute) for link aggregation and resilience.",
-      "Hosts VLAN 10 (management, 192.168.1.253/24) and VLAN 20 (VMs, 172.16.20.253/24) over the bonded interface.",
-      "ECMP routing is configured for default routes to both spine uplinks (metric 100), enhancing redundancy and load balancing."
-    ]
-  },
-  {
-    "id": "7",
-    "title": "Compute Leaf Router with Single Uplink and LACP Bond",
-    "summary": "This community describes NODE_4_COMPUTE_LEAF_02, another compute leaf router. It has a single uplink to spine1 (10.0.2.2/30) with MTU 9000. Downlink connectivity is provided via an 802.3ad LACP bond (bond_tor_compute) to servers or compute nodes. It hosts VLAN 20 for virtual machines (172.16.20.254/24) over the bonded interface. Compared to NODE_3, this leaf router appears to have a less redundant uplink configuration with only one explicit spine connection mentioned.",
-    "rating": 70,
-    "rating_explanation": "Compute leaf routers are essential for connecting compute resources. While this router provides LACP bonding for server connectivity and VLAN segmentation, the presence of only a single explicit uplink to the spine layer (compared to dual uplinks in Community 6) introduces a potential single point of failure for its upstream connectivity. A failure in this single uplink would isolate the connected compute resources from the rest of the network. This reduces its overall redundancy and importance compared to a dual-homed leaf.",
-    "findings": [
-      "NODE_4_COMPUTE_LEAF_02 is a compute leaf router.",
-      "Single uplink to spine1 (10.0.2.0/30) with MTU 9000.",
-      "Downlink to compute resources uses an 802.3ad LACP bond (bond_tor_compute).",
-      "Hosts VLAN 20 (VMs, 172.16.20.254/24) over the bonded interface.",
-      "Lack of a second explicit uplink to the spine layer suggests a potential single point of failure for upstream connectivity, reducing redundancy compared to other leaf nodes."
+      "The community comprehensively defines the GraphRAG project's structure, including its main branch, root files, data, and all source code components.",
+      "The `connection` module is a highly central and critical utility, imported by numerous core functional modules (e.g., `app`, `eval_ragas`, `graph`, `main`, `retrieval`), indicating its foundational role in managing external and internal service interactions.",
+      "The project exhibits a clear modular design with distinct categories for application logic, graph processing, data retrieval, evaluation, and prompt management, promoting maintainability and scalability.",
+      "Prompt templates are well-organized into `index` and `query` subcategories, suggesting a structured approach to prompt engineering for different operational phases.",
+      "The `main` file serves as the primary execution entry point, orchestrating the integration and execution of various project tasks and modules.",
+      "Test scripts are present and demonstrate dependencies on core modules, indicating a commitment to integration and functional testing within the project lifecycle.",
+      "Key configuration files (`config.yaml`, `networkconfig.yaml`) and data files (`extracted_sample_format.json`, `full_repo_structure.json`) are integral to this community, highlighting its operational readiness and reliance on structured data and settings."
     ]
   }
 ]

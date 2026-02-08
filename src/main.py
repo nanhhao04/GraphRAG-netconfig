@@ -4,12 +4,33 @@ from src.connection import init_connections
 from src.run_ingestion_rulebased import run_ingestion_test
 from src.graph import run_ingestion, run_clustering_louvain, run_ingestion
 from src.retrieval import global_search, local_search, router_search,  local_search_semantic
+from src.test.repo_struct import run_ingestion_for_repo_struct
 import yaml
 from src.eval.eval_ragas import run_eval_pipeline
 import json
 
-#DATA_FILE_PATH = os.path.join("data", "networkconfig.yml")
+CODE_DATA_FILE_PATH = os.path.join("../data/sample_structed_repo.json")
 DATA_FILE_PATH = os.path.join("../data/networkconfig.yml")
+IMPORT_ANALYSIS_DATA_FILE_PATH = os.path.join("../data/project_structure.json")
+STRUCTURED_DATA_FILE_PATH = os.path.join("../data/extracted_sample_format.json")
+
+def load_json_data(file_path):
+
+    if not os.path.exists(file_path):
+        print(f"Lỗi: Không tìm thấy file tại {file_path}")
+        return None
+
+    with open(file_path, 'r', encoding='utf-8-sig') as f:
+        try:
+            data = json.load(f)
+            return data
+        except json.JSONDecodeError as e:
+            f.seek(0)
+            content = f.read().strip()
+            if not content:
+                print("Lỗi: File JSON rỗng!")
+                return None
+            return json.loads(content)
 
 
 def load_yaml_data():
@@ -69,12 +90,16 @@ def main():
 
         if choice == "1":
             # Đọc dữ liệu từ file
-            yaml_content = load_yaml_data()
+            import_analysis_data = load_json_data(IMPORT_ANALYSIS_DATA_FILE_PATH)
+            repo_structure_data = load_json_data(STRUCTURED_DATA_FILE_PATH)
+            run_ingestion_for_repo_struct(repo_structure_data, import_analysis_data)
+            #yaml_content = load_yaml_data()
 
-            if yaml_content:
-                #run_ingestion(yaml_content)
 
-                run_ingestion_test(yaml_content)
+            #if yaml_content:
+                #run_ingestion_for_repo_struct(repo_structure_data,import_analysis_data)
+
+                #run_ingestion_test(yaml_content)
 
         elif choice == "2":
             run_clustering_louvain()
